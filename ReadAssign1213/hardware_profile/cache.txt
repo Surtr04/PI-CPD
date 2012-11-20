@@ -1,0 +1,21 @@
+#sysctl -A | grep cache
+
+hw.cachelinesize = 64
+hw.l1icachesize = 32768
+hw.l1dcachesize = 32768
+hw.l2cachesize = 6291456
+kern.flush_cache_on_write: 0
+kern.namecache_disabled: 0
+vfs.generic.nfs.client.access_cache_timeout: 60
+vfs.generic.nfs.server.reqcache_size: 64
+net.inet.ip.rtmaxcache: 128
+net.inet6.ip6.rtmaxcache: 128
+hw.cacheconfig: 2 1 2 0 0 0 0 0 0 0
+hw.cachesize: 4026531840 32768 6291456 0 0 0 0 0 0 0
+hw.cachelinesize: 64
+hw.l1icachesize: 32768
+hw.l1dcachesize: 32768
+hw.l2cachesize: 6291456
+machdep.cpu.cache.linesize: 64
+machdep.cpu.cache.L2_associativity: 24
+machdep.cpu.cache.size: 6144
