@@ -116,14 +116,16 @@ float** initUnitMatrix() {
 }
 
 
-int main (int argc, char** argv) {
+// int mainNoOpt (int argc, char** argv) {
 
-	char dump[1];
-	float** matrixA = initRandMatrix();
-	float** matrixB = initUnitMatrix();
-	float** matrixC = initMatrix();
-	gets(dump);
-	dotProduct(matrixB, matrixA, matrixC);	
-	showMatrix(matrixC);
 
-}
+// 	float** matrixA = initRandMatrix();
+// 	float** matrixB = initUnitMatrix();
+// 	float** matrixC = initMatrix();	
+// 	dotProduct(matrixA, matrixB, matrixC);	
+// 	showMatrix(matrixC);
+
+// 	return 0;
+
+// }
+
