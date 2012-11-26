@@ -68,6 +68,7 @@ int main (int argc, char** argv) {
 
 	size = atoi(argv[1]);
 	int op = atoi(argv[2]);
+	current_event = atoi(argv[3]);
 
 	if (!op) {
 
@@ -75,7 +76,7 @@ int main (int argc, char** argv) {
 
 		m->matrixA = initRandMatrix();
 		m->matrixB = initUnitMatrix();
-		m->matrixC = initMatrix();
+		m->matrixC = initMatrix();			
 	}
 	else {
 		m->matrixA = initRandMatrix();
