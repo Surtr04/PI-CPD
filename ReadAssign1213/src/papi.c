@@ -9,7 +9,7 @@
 #define NUM_EVENTS 12			
 int event_set;					
 int current_event;				
-long_long event_value;			
+long long event_value;			
 
 
 int papi_events[NUM_EVENTS] = {
