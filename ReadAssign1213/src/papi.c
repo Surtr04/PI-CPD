@@ -29,12 +29,6 @@ int papi_events[NUM_EVENTS] = {
 	PAPI_L2_DCM,
 };
 
-
-int main (int argc, char** argv) {
-
-
-}
-
 void run_papi() {
 
 	int papi_version = PAPI_library_init(PAPI_VER_CURRENT);
@@ -53,7 +47,7 @@ void run_papi() {
 	papi_safe(PAPI_add_event(event_set, papi_events[current_event]), ERR_PAPI_ADD_EVENT);
 	start_time = PAPI_get_virt_usec();
 	
-	//run code
+	dotProduct_papi();
 
 	end_time = PAPI_get_virt_usec();
 	fprintf(stdout, "%s\t", inf.symbol);
@@ -64,3 +58,37 @@ void run_papi() {
 
 
 }
+
+int main (int argc, char** argv) {
+	//matrix size - w/ op? - event_index
+	if(argc < 3){
+		fprintf(stderr,"wrong number of arguments");
+		exit(1);
+	}
+
+	size = atoi(argv[1]);
+	int op = atoi(argv[2]);
+
+	if (!op) {
+
+		m = (matrices*) (malloc(sizeof(matrices)));
+
+		m->matrixA = initRandMatrix();
+		m->matrixB = initUnitMatrix();
+		m->matrixC = initMatrix();
+	}
+	else {
+		m->matrixA = initRandMatrix();
+		m->matrixB = transposeMatrix(initUnitMatrix());
+		m->matrixC = initMatrix();
+	}
+
+
+	run_papi();
+
+	free(m);
+
+	return 0;
+
+}
+

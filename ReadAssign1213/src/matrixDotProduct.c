@@ -5,8 +5,8 @@ void showMatrix(float **matrix) {
 
 	int i,j;
 
-	for (i = 0; i < SIZE; i++) {
-		for (j = 0; j < SIZE; j++) {
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < size; j++) {
 			printf(" %f ",matrix[i][j]);
 		}
 		printf("\n");
@@ -19,8 +19,8 @@ float** transposeMatrix(float** matrix) {
 	int i,j;
 	float** result = initMatrix();
 
-	for (i = 0; i < SIZE; i++) {
-		for (j = 0; j < SIZE; j++){
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < size; j++){
 			result[i][j] = matrix[j][i];
 		}	
 	}
@@ -34,9 +34,9 @@ int dotProductTransposed (float** matrixA, float** matrixB, float** matrixC) {
 	float acc = 0;	
 	float** tMatrix = transposeMatrix(matrixB);
 
-	for (i = 0; i < SIZE; i++) {
-		for (j = 0; j < SIZE; j++) {
-			for(k = 0; k < SIZE; k++) {
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < size; j++) {
+			for(k = 0; k < size; k++) {
 				acc += matrixA[i][k] * tMatrix[j][k];				
 			}		
 			matrixC[i][j] = acc;	
@@ -55,9 +55,9 @@ int dotProduct (float** matrixA, float** matrixB, float** matrixC) {
 	int i,j,k;
 	float acc = 0;	
 
-	for (i = 0; i < SIZE; i++) {
-		for (j = 0; j < SIZE; j++) {
-			for(k = 0; k < SIZE; k++) {
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < size; j++) {
+			for(k = 0; k < size; k++) {
 				acc += matrixA[i][k] * matrixB[k][j];				
 			}		
 			matrixC[i][j] = acc;	
@@ -68,14 +68,33 @@ int dotProduct (float** matrixA, float** matrixB, float** matrixC) {
 	return 0;
 }
 
+int dotProduct_papi () {
+
+
+	int i,j,k;
+	float acc = 0;	
+
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < size; j++) {
+			for(k = 0; k < size; k++) {
+				acc += m->matrixA[i][k] * m->matrixB[k][j];				
+			}		
+			m->matrixC[i][j] = acc;	
+			acc = 0;
+		}
+	}		
+	
+	return 0;
+}
+
 float** initRandMatrix() {
 
 	int i,j;
-	float **matrix = (float**) malloc(SIZE * sizeof(float*));
+	float **matrix = (float**) malloc(size * sizeof(float*));
 
-	for (i = 0; i < SIZE; i++) {
-		matrix[i] = (float*) malloc(SIZE * sizeof(float));
-		for (j = 0; j < SIZE; j++) {			
+	for (i = 0; i < size; i++) {
+		matrix[i] = (float*) malloc(size * sizeof(float));
+		for (j = 0; j < size; j++) {			
 			matrix[i][j] = (rand() % 100) + 1;
 		}
 	}
@@ -88,10 +107,10 @@ float** initRandMatrix() {
 float** initMatrix() {
 
 	int i;
-	float **matrix = (float**) malloc(SIZE * sizeof(float*));
+	float **matrix = (float**) malloc(size * sizeof(float*));
 
-	for (i = 0; i < SIZE; i++) {
-		matrix[i] = (float*) malloc(SIZE * sizeof(float));							
+	for (i = 0; i < size; i++) {
+		matrix[i] = (float*) malloc(size * sizeof(float));							
 	}
 
 	return matrix;
@@ -102,11 +121,11 @@ float** initMatrix() {
 float** initUnitMatrix() {
 
 	int i,j;
-	float **matrix = (float**) malloc(SIZE * sizeof(float*));
+	float **matrix = (float**) malloc(size * sizeof(float*));
 
-	for (i = 0; i < SIZE; i++) {
-		matrix[i] = (float*) malloc(SIZE * sizeof(float));
-		for (j = 0; j < SIZE; j++) {			
+	for (i = 0; i < size; i++) {
+		matrix[i] = (float*) malloc(size * sizeof(float));
+		for (j = 0; j < size; j++) {			
 			matrix[i][j] = 1;
 		}
 	}

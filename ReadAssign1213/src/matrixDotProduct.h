@@ -1,13 +1,21 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#pragma once
-
-#define SIZE 10
-
 #include "matrixDotProduct.h"
 
+
+int size;
+
+
+typedef struct mat {
+        float** matrixA;
+        float** matrixB;
+        float** matrixC;
+}matrices;
+
+
+matrices *m;
 
 void showMatrix(float **matrix);
 float** transposeMatrix(float** matrix) ;
@@ -16,3 +24,4 @@ float** initRandMatrix();
 float** initMatrix();
 float** initUnitMatrix();
 float** transposeMatrix(float** matrix);
+int dotProduct_papi();
