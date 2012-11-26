@@ -76,7 +76,7 @@ float** initRandMatrix() {
 	for (i = 0; i < SIZE; i++) {
 		matrix[i] = (float*) malloc(SIZE * sizeof(float));
 		for (j = 0; j < SIZE; j++) {			
-			matrix[i][j] = (rand() % 3) + 1;
+			matrix[i][j] = (rand() % 100) + 1;
 		}
 	}
 
@@ -118,22 +118,12 @@ float** initUnitMatrix() {
 
 int main (int argc, char** argv) {
 
+	char dump[1];
 	float** matrixA = initRandMatrix();
 	float** matrixB = initUnitMatrix();
 	float** matrixC = initMatrix();
-
+	gets(dump);
 	dotProduct(matrixB, matrixA, matrixC);	
-	showMatrix(matrixC);
-	printf("\n");
-	dotProductTransposed(matrixB, matrixA, matrixC);
-	showMatrix(matrixC);
-
-	printf("\n");
-	
-	dotProduct(matrixA, matrixB, matrixC);
-	showMatrix(matrixC);
-	printf("\n");
-	dotProductTransposed(matrixA, matrixB, matrixC);
 	showMatrix(matrixC);
 
 }
