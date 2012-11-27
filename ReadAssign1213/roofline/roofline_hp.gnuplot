@@ -1,5 +1,5 @@
 set term postscript eps enhanced clip
-set output "roofline_mbp.eps"
+set output "roofline_hp.eps"
 
 
 #	Functions
@@ -15,10 +15,10 @@ xright(x)	=	x * 1.25
 
 #	Constants
 cpu_flop	=	8					#	maximum floating point throughput
-cpu_freq	=	2.8					#	clock cycle frequency (GHz)
-cpu_cores	=	2					#	number of cores
+cpu_freq	=	1.6					#	clock cycle frequency (GHz)
+cpu_cores	=	4					#	number of cores
 mem_width	=	8					#	memory bus width (Bytes)
-mem_rate	=	1.066				#	memory clock rate (GHz)
+mem_rate	=	1.333				#	memory clock rate (GHz)
 mem_chan	=	2					#	number of memory channels
 
 #window
