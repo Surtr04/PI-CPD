@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2012.11.27)  27 NOV 2012 01:23
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2012.11.27)  27 NOV 2012 03:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -742,20 +742,20 @@ LaTeX Font Info:    Try loading font information for T1+aett on input line 158.
 (/usr/share/texlive/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 177.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 192.
  [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 192.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 177.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 177.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 192.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 192.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 90CD33B65FC131D6060F511D5C7F290F;962.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 192.
  ) 
 Here is how much of TeX's memory you used:
  10984 strings out of 493485
  172409 string characters out of 3143525
- 319674 words of memory out of 3000000
+ 318674 words of memory out of 3000000
  14120 multiletter control sequences out of 15000+200000
  28617 words of font info for 57 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -770,7 +770,7 @@ ype1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmtt10.pfb>
-Output written on report.pdf (4 pages, 137185 bytes).
+Output written on report.pdf (4 pages, 139868 bytes).
 PDF statistics:
  136 PDF objects out of 1000 (max. 8388607)
  118 compressed objects within 2 object streams

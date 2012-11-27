@@ -168,6 +168,21 @@ for (i = 0; i < size; i++) {
 \end{verbatim}
 
 \subsection{Counters Used}
+To measure the performance of our algorithm we gathered several counters from the system through \emph{PAPI}.
+\begin{description}
+\item[PAPI \_TOT\_CYC] Total number of cycles;
+\item[PAPI \_TOT\_INS] Instructions completed;
+\item[PAPI \_LD\_INS] number of load instructions;
+\item[PAPI \_SR\_INS] number of store instructions;
+\item[PAPI \_FP\_OPS] Floating point operations;
+\item[PAPI \_FP\_INS] Floating point instructions;
+\item[PAPI \_L1\_DCA] L1 data cache accesses;
+\item[PAPI \_L1\_DCM] L1 data cache misses;
+\item[PAPI \_L2\_DCA] L2 data cache accesses;
+\item[PAPI \_L2\_DCM] L2 data cache misses;
+\item[PAPI \_L3\_DCA] L3 data cache accesses;
+\end{description}
+
 \subsection{Tests}
 \subsection{Results}
 \subsubsection{Analysis Miss Rates}
