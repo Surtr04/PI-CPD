@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt,openright,openbib]{report}
+\documentclass[a4paper,10pt,openright,openbib]{article}
 \usepackage[portuges]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{ae}
@@ -13,6 +13,10 @@
 \usepackage{colortbl}
 \usepackage[margin=10pt,font=small,labelfont=bf]{caption}
 \usepackage{mdwlist}
+\usepackage{cleveref}
+
+\usepackage{amsmath}
+\usepackage[retainorgcmds]{IEEEtrantools}
 
 
 \setlength{\parindent}{0cm}
@@ -20,5 +24,156 @@
 
 
 \begin{document}
-	
+
+%% Roofline%%
+\section{Roofline}
+\subsection{Machines Profile}
+The machines used for this study were a MacBook Pro late 2008 and a HP dv6-2190ep from 2010.
+The information about the machines were gathered from \emph{/proc/cpuinfo}, \emph{/proc/meminfo}, the \emph{Intel Ark} and \emph{Crucial} websites and with \emph{dmidecode} and \emph{sysctl} linux tools.
+
+\subsubsection{Peaks}
+In order to calculate the rooflines, we needed the Floating-Point(FP) Performance's Peak and the Memory Bandwidth's Peak. 
+To attain the FP Performance's Peak we calculate the following formula:
+
+$$\mathrm{GFlop/s_{max}} =  \#_{\mathrm{cores}} \times f_{\mathrm{clock}} \times \#_{\mathrm{SIMD}}$$
+
+
+To calculate de Memory Bandwidth's Peak we resolve the following formula:
+
+$$\mathrm{BW_{max}} =  \#_{\mathrm{channels}} \times mem_{\mathrm{clock}} \times bus_{\mathrm{bandwidth}}$$
+ 
+
+
+\subsubsection{Specifications}
+The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
+
+\begin{table}[!htp]
+		\begin{tabular}{lrl}
+			\hline \\
+			\textbf{Manufacter:} & Apple \\
+			\hline \\
+			\textbf{Model:} & MacBook Pro late 2008 \\
+			\hline \\
+			\textbf{Processor} & & \\
+			Manufacturer: & Intel & \\
+			Arch: & Core & \\
+			Model: & Core 2 Duo T9600 & \\
+			Clock Frequency: & 2.80 GHz & \\
+			FP Performance's Peak: & 44.8 GFlops/s & \\
+			\hline \\
+			\textbf{Cache} & & \\
+			Level: & 1 & \\
+			Size: & 32KB + 32KB & \\
+			Line Size: & 64 B & \\
+			Associative: & 8-way & \\
+			Memory Access Bandwidth: & VER ISTO !!!!!!!!!! & \\
+			\\
+			Level: & 2 & \\
+			Size: & 6 MB & \\
+			Line Size: & 64 B & \\
+			Associative: & 24-way & \\
+			\hline \\
+			\textbf{RAM} \\
+			Type: & VER ISTO !!!!!!!!! & \\
+			Frequency: & VER ISTO !!!!!!!!! & \\
+			Size: & VER ISTO !!!!!!!!! & \\
+			Num. Channels: & 2 & \\
+			Latency: & VER ISTO !!!!!!!!!!! & \\
+		\end{tabular}
+		\caption{MacBook Pro late 2008 specifications}
+		\label{tab:mbp}
+\end{table}
+The specifications of the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
+\begin{table}[!htp]
+		\begin{tabular}{lrl}
+			\hline \\
+			\textbf{Manufacter:} & HP \\
+			\hline \\
+			\textbf{Model:} & Pavillion dv6-2190ep \\
+			\hline \\
+			\textbf{Processor} & & \\
+			Manufacturer: & Intel & \\
+			Arch: & Nehalem & \\
+			Model: & i7-720QM & \\
+			Clock Frequency: & 1.60 GHz & \\
+			FP Performance's Peak: & 51.2 GFlops/s & \\
+			\hline \\
+			\textbf{Cache} & & \\
+			Level: & 1 & \\
+			Size: & 32KB + 32KB & \\
+			Line Size: & 64 B & \\
+			Associative: & 4/8-way & \\
+			Memory Access Bandwidth: & VER ISTO !!!!!!!!!! & \\
+			\\
+			Level: & 2 & \\
+			Size: & 256 KB & \\
+			Line Size: & 64 B & \\
+			Associative: & 8-way & \\
+			\\
+			Level: & 3 & \\
+			Size: & 6 MB & \\
+			Line Size: & 64 B & \\
+			Associative: & 12-way & \\
+			\hline \\
+			\textbf{RAM} \\
+			Type: & SDRAM DDR3 PC3-10600 & \\
+			Frequency: & 1333 MHz & \\
+			Size: & 4GB & \\
+			Num. Channels: & 2 & \\
+			Latency: & VER ISTO !!!!!!!! & \\
+		\end{tabular}
+		\caption{HP Pavillion dv6-2190ep specifications}
+		\label{tab:hp}
+\end{table}
+
+
+\subsection{Roofline Model}
+\subsubsection{Machines' Roofline}
+IMAGEM MBP
+
+IMAGEM HP
+
+\subsubsection{Ceilings}
+As suggested by the Roofline paper we added several ceilings to understand wich optimizations we may perform.
+This ceilings were given by recalculating the roofline without some key charateristics.
+\begin{description}
+\item[Peak floating-point performance] The roofline, where all components and features are considered.
+\item[]
+\item[]
+\item[]
+\end{description}
+For memory only one ceiling was calculated, besides the roofline.
+\begin{description}
+\item[Peak stream bandwidth] The roofline, where all features are considered.
+\item[One-channel]
+\end{description}
+
+\section{PAPI Case Study}
+\subsection{Problem}
+The case study of this report, is to analyse the performance of a \textbf{matrix multiplication} algorithm, \begin{equation}Matrix A * Matrix B = Matrix C\end{equation} wich contains a triple nested loop with the indexes i,j and k(line,column and position). Our implementation will explore the index order \textbf{i,j,k} of the triple nested loop.
+
+\subsection{Algorithm Analysis}
+The algorithm produced to calculate the matrix multiplication is:
+
+\begin{verbatim}
+for (i = 0; i < size; i++) {
+    for (j = 0; j < size; j++) {
+        for(k = 0; k < size; k++) {
+            acc += matrixA[i][k] * matrixB[k][j];				
+            }		
+            matrixC[i][j] = acc;	
+            acc = 0;
+        }
+    }
+\end{verbatim}
+
+\subsection{Counters Used}
+\subsection{Tests}
+\subsection{Results}
+\subsubsection{Analysis Miss Rates}
+\subsubsection{Analysis Memory Access}
+
+
 \end{document}
+
+
