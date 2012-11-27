@@ -18,8 +18,6 @@ int op; //with or w/out optimizations
 
 
 int papi_events[NUM_EVENTS] = {
-	PAPI_FML_INS,	/* Total number of multiplications 	*/
-	PAPI_FDV_INS,	/* Total number of divisions 		*/
 	PAPI_TOT_CYC, 	/* Total number of cycles 			*/
 	PAPI_TOT_INS,	/* Instructions completed 			*/
 	PAPI_LD_INS,	/* number of load instructions 		*/
@@ -33,7 +31,6 @@ int papi_events[NUM_EVENTS] = {
 	PAPI_L2_DCA,	/* L2 data cache accesses 			*/
 	PAPI_L2_DCM,	/* L2 data cache misses 			*/
 	PAPI_L3_DCA,    /* L3 data cache accesses 			*/
-	PAPI_L3_TCM,    /* L3 cache misses 					*/
 };
 
 void run_papi() {
