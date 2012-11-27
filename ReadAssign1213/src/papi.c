@@ -6,27 +6,34 @@
 #include "matrixDotProduct.h"
 
 
-#define NUM_EVENTS 12			
-int event_set;					
-int current_event;				
-long long event_value;			
+void handle_error(int err_no) {
+	fprintf(stderr,"\nError: %d - %s\n",err_no,p_errors[err_no].err_code);	
+	exit(-1);
+}
+
+#define NUM_EVENTS 14			
+
+int current_event;	
+int op; //with or w/out optimizations			
 
 
 int papi_events[NUM_EVENTS] = {
-	PAPI_FML_INS,	
-	PAPI_FDV_INS,	
-	PAPI_TOT_CYC, 	
-	PAPI_TOT_INS,	
-	PAPI_LD_INS,	
-	PAPI_SR_INS,	
+	PAPI_FML_INS,	/* Total number of multiplications 	*/
+	PAPI_FDV_INS,	/* Total number of divisions 		*/
+	PAPI_TOT_CYC, 	/* Total number of cycles 			*/
+	PAPI_TOT_INS,	/* Instructions completed 			*/
+	PAPI_LD_INS,	/* number of load instructions 		*/
+	PAPI_SR_INS,	/* number of store instructions 	*/	
 
-	PAPI_VEC_INS,	
-	PAPI_FP_OPS,	
+	PAPI_FP_OPS,	/* Floating point operations 		*/
+	PAPI_FP_INS,	/* Floating point instructions 		*/	
 
-	PAPI_L1_DCA,	
-	PAPI_L1_DCM,	
-	PAPI_L2_DCA,	
-	PAPI_L2_DCM,
+	PAPI_L1_DCA,	/* L1 data cache accesses 			*/
+	PAPI_L1_DCM,	/* L1 data cache misses 			*/
+	PAPI_L2_DCA,	/* L2 data cache accesses 			*/
+	PAPI_L2_DCM,	/* L2 data cache misses 			*/
+	PAPI_L3_DCA,    /* L3 data cache accesses 			*/
+	PAPI_L3_TCM,    /* L3 cache misses 					*/
 };
 
 void run_papi() {
@@ -47,11 +54,15 @@ void run_papi() {
 	papi_safe(PAPI_add_event(event_set, papi_events[current_event]), ERR_PAPI_ADD_EVENT);
 	start_time = PAPI_get_virt_usec();
 	
-	dotProduct_papi();
+	if(op)
+		dotProductTransposed_papi();
+	else
+		dotProduct_papi();
+	
 
 	end_time = PAPI_get_virt_usec();
 	fprintf(stdout, "%s\t", inf.symbol);
-	fprintf(stdout, "\t%llu\t", event_value);
+	fprintf(stdout, "\t%llu\t", event_value[0]);	
 	fprintf(stdout, "\t%llu\n", end_time - start_time);
 	papi_safe(PAPI_remove_event(event_set, papi_events[current_event]), ERR_PAPI_REMOVE_EVENT);
 
@@ -61,19 +72,19 @@ void run_papi() {
 
 int main (int argc, char** argv) {
 	//matrix size - w/ op? - event_index
-	if(argc < 3){
+	if(argc < 4){
 		fprintf(stderr,"wrong number of arguments");
 		exit(1);
 	}
 
 	size = atoi(argv[1]);
-	int op = atoi(argv[2]);
+	op = atoi(argv[2]);
 	current_event = atoi(argv[3]);
 
+	m = (matrices*) (malloc(sizeof(matrices)));
+
 	if (!op) {
-
-		m = (matrices*) (malloc(sizeof(matrices)));
-
+		
 		m->matrixA = initRandMatrix();
 		m->matrixB = initUnitMatrix();
 		m->matrixC = initMatrix();			

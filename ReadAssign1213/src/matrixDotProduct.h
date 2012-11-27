@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "matrixDotProduct.h"
+#include "papi_errors.h"
+#include <papi.h>
 
 
 int size;
-
 
 typedef struct mat {
         float** matrixA;
@@ -25,3 +25,4 @@ float** initMatrix();
 float** initUnitMatrix();
 float** transposeMatrix(float** matrix);
 int dotProduct_papi();
+int dotProductTransposed_papi();

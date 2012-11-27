@@ -3,9 +3,14 @@
 #include <stdlib.h>
 #include "matrixDotProduct.h"
 
+int event_set;          //papi
+long long event_value[2];  //papi  
+
 typedef struct p_error {
         char err_code[30];        
 } papi_error;
+
+
 
 #define ERR_PAPI_INIT			0
 #define ERR_PAPI_INIT2			1
@@ -16,7 +21,7 @@ typedef struct p_error {
 #define ERR_PAPI_START			6
 #define ERR_PAPI_STOP			7
 
-static papi_error errors[] = {
+static papi_error p_errors[] = {
         {"ERR_PAPI_INIT"			},
         {"ERR_PAPI_INIT2"			},
         {"ERR_PAPI_EVENT_SET"		        },
@@ -31,7 +36,3 @@ static papi_error errors[] = {
 #define papi_safe(func,err_no) if (func != PAPI_OK) handle_error(err_no)
 #define check(func,err_no) if (func) handle_error(err_no)
 
-void handle_error(int err_no) {
-	fprintf(stderr,"\nError: %d - %s\n",err_no,errors[err_no].err_code);	
-	exit(-1);
-}
