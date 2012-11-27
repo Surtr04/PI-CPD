@@ -141,10 +141,22 @@ The specifications of the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
 
 
 \subsection{Roofline Model}
-\subsubsection{Machines' Roofline}
-IMAGEM MBP
-
-IMAGEM HP
+\subsubsection{MacBook Pro Roofline}
+\begin{figure}[!htp]
+	\centering
+	\begin{minipage}[t]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{images/roofline_mbp.eps}
+		\caption{Mackbook Pro late 2008 \label{fig:roofline1}}
+	\end{minipage}
+\end{figure}
+\subsubsection{HP Pavillion Roofline}
+\begin{figure}[!htp]
+	\centering
+	\begin{minipage}[t]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{images/roofline_hp.eps}
+		\caption{HP Pavillion dv6-2190ep Roofline \label{fig:roofline2}}
+	\end{minipage}
+\end{figure}
 
 \subsubsection{Ceilings}
 As suggested by the Roofline paper we added several ceilings to understand wich optimizations we may perform.
@@ -219,13 +231,41 @@ The four tests, presented below, were chosen to run in the two different version
 \end{table}
 \subsection{Results}
 \subsubsection{Analysis Chache}
+
+ To measure the data cache misses the counters PAPI\_L1\_DCM and PAPI\_L2\_DCM were used.
+
 \begin{figure}[!htp]
 	\centering
 	\begin{minipage}[t]{0.5\linewidth}
 		\includegraphics[width=\textwidth]{images/caches.eps}
-		\caption{dsa \label{fig:cachel1}}
+		\caption{Percentage of Cache Misses \label{fig:cachel1}}
 	\end{minipage}
 \end{figure}
+
+The above graphic shows an increase of percentage of misses with the optimized version, they are misleading. The next graph shows that although the percentage of misses increased, the total of misses didn't because the number of accesses also droped.
+
+\begin{figure}[!htp]
+	\centering
+	\begin{minipage}[t]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{images/misses.eps}
+		\caption{Number of Cache Misses \label{fig:cachel1}}
+	\end{minipage}
+\end{figure} 
+
+Usage of both levels of cache was estimated with specific counters. PAPI\_L1\_DCA and PAPI\_L2\_DCA provided the number of data accesses to the caches.
+
+Before the results were out, it was expected a decrease of cache accesses from version one to version two of the algorithm.
+
+\begin{figure}[!htp]
+	\centering
+	\begin{minipage}[t]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{images/totals.eps}
+		\caption{Number of Memory Accesses \label{fig:cachel1}}
+	\end{minipage}
+\end{figure}
+
+As we can see, the number of access to cache drops significantly from the first version to the second version while running with the L1 Cache Test. Though in the second test, the L2 Cache, the number of accesses slightly increased.
+
 
 \begin{thebibliography}{9}
 \bibitem{roofline}
