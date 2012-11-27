@@ -11,7 +11,7 @@ void handle_error(int err_no) {
 	exit(-1);
 }
 
-#define NUM_EVENTS 14			
+#define NUM_EVENTS 11
 
 int current_event;	
 int op; //with or w/out optimizations			
