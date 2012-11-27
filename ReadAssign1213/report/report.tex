@@ -29,20 +29,31 @@
 \section{Roofline}
 \subsection{Machines Profile}
 The machines used for this study were a MacBook Pro late 2008 and a HP dv6-2190ep from 2010.
-The information about the machines were gathered from \emph{/proc/cpuinfo}, \emph{/proc/meminfo}, the \emph{Intel Ark} and \emph{Crucial} websites and with \emph{dmidecode} and \emph{sysctl} linux tools.
+The information about the machines were gathered from \emph{/proc/cpuinfo}, \emph{/proc/meminfo}, the \emph{Intel Ark} \cite{ark} and \emph{Crucial} \cite{crucial} websites and with \emph{dmidecode} and \emph{sysctl} linux tools.
 
 \subsubsection{Peaks}
-In order to calculate the rooflines, we needed the Floating-Point(FP) Performance's Peak and the Memory Bandwidth's Peak. 
-To attain the FP Performance's Peak we calculate the following formula:
+In order to calculate the rooflines, we needed the Floating-Point(FP) Performance Peak and the Memory Bandwidth's Peak. 
+To attain the FP Performance Peak we calculate the following formula:
 
 $$\mathrm{GFlop/s_{max}} =  \#_{\mathrm{cores}} \times f_{\mathrm{clock}} \times \#_{\mathrm{SIMD}}$$
 
+MacBook Pro FP Performance Peak:
+$$\mathrm{GFlop/s_{max}} =  2 \times 2.8 \times 8
+						 =  44.8 GFLOPS\\s$$
+HP Pavillion FP Performance Peak:
+$$\mathrm{GFlop/s_{max}} =  4 \times 1.6 \times 8
+						 =  51.2 GFLOPS\\s$$
 
-To calculate de Memory Bandwidth's Peak we resolve the following formula:
+To calculate de Memory Bandwidth Peak we resolve the following formula:
 
 $$\mathrm{BW_{max}} =  \#_{\mathrm{channels}} \times mem_{\mathrm{clock}} \times bus_{\mathrm{bandwidth}}$$
  
-
+MacBook Pro Memory Bandwidth Peak:
+$$\mathrm{GFlop/s_{max}} =  2 \times 1067 \times 64
+						 =  17.072 GB\\byte$$
+HP Pavillion Memory Bandwidth Peak:
+$$\mathrm{GFlop/s_{max}} =  2 \times 1333 \times 64
+						 =  21.328 GB\\byte$$
 
 \subsubsection{Specifications}
 The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
@@ -58,6 +69,7 @@ The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
 			Manufacturer: & Intel & \\
 			Arch: & Core & \\
 			Model: & Core 2 Duo T9600 & \\
+			Cores: & 2 & \\
 			Clock Frequency: & 2.80 GHz & \\
 			FP Performance's Peak: & 44.8 GFlops/s & \\
 			\hline \\
@@ -66,7 +78,7 @@ The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
 			Size: & 32KB + 32KB & \\
 			Line Size: & 64 B & \\
 			Associative: & 8-way & \\
-			Memory Access Bandwidth: & VER ISTO !!!!!!!!!! & \\
+			Memory Access Bandwidth: & 40 GB/s & \\
 			\\
 			Level: & 2 & \\
 			Size: & 6 MB & \\
@@ -74,7 +86,7 @@ The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
 			Associative: & 24-way & \\
 			\hline \\
 			\textbf{RAM} \\
-			Type: & VER ISTO !!!!!!!!! & \\
+			Type: & SDRAM DDR3 PC3-8500 & \\
 			Frequency: & 1067 MHz & \\
 			Size: & 4 GB & \\
 			Num. Channels: & 2 & \\
@@ -95,6 +107,7 @@ The specifications of the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
 			Manufacturer: & Intel & \\
 			Arch: & Nehalem & \\
 			Model: & i7-720QM & \\
+			Cores: & 4 & \\
 			Clock Frequency: & 1.60 GHz & \\
 			FP Performance's Peak: & 51.2 GFlops/s & \\
 			\hline \\
@@ -103,7 +116,7 @@ The specifications of the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
 			Size: & 32KB + 32KB & \\
 			Line Size: & 64 B & \\
 			Associative: & 4/8-way & \\
-			Memory Access Bandwidth: & VER ISTO !!!!!!!!!! & \\
+			Memory Access Bandwidth: & 22 GB/s & \\
 			\\
 			Level: & 2 & \\
 			Size: & 256 KB & \\
@@ -169,6 +182,7 @@ for (i = 0; i < size; i++) {
 
 \subsection{Counters Used}
 To measure the performance of our algorithm we gathered several counters from the system through \emph{PAPI}.
+The following counters were used:
 \begin{description}
 \item[PAPI \_TOT\_CYC] Total number of cycles;
 \item[PAPI \_TOT\_INS] Instructions completed;
@@ -188,6 +202,42 @@ To measure the performance of our algorithm we gathered several counters from th
 \subsubsection{Analysis Miss Rates}
 \subsubsection{Analysis Memory Access}
 
+\begin{thebibliography}{9}
+\bibitem{roofline}
+	\texttt{\small
+	Roofline: An insightful Visual Performance Model for Floating-Point Programs and Multicore Architectures}	\\
+	\emph{Samuel Webb Williams, Andre Waterman, David A. Patterson}	\\
+	23th November 2012
+
+\bibitem{ark}
+	\texttt{\small
+	http://ark.intel.com/products/35563/Intel-Core2-Duo-Processor-T9600-6M-Cache-2_80-GHz-1066-MHz-FSB}	\\
+	\emph{Intel{\textregistered} Core {\texttrademark} 2 Duo Processor T9600 (6M Cache, 2.80 GHz, 1066 MHz FSB)}	\\
+	{\copyright}Intel Corporation	\\
+	23th November 2012
+
+\bibitem{ark2}
+	\texttt{\small
+	http://ark.intel.com/products/43122/Intel-Core-i7-720QM-Processor-6M-Cache-1_60-GHz}	\\
+	\emph{Intel{\textregistered} Core {\texttrademark} i7-720QM Processor(6M Cache, 1.60 GHz)}	\\
+	{\copyright}Intel Corporation	\\
+	23th November 2012
+
+\bibitem{crucial}
+	\texttt{\small
+	http://www.crucial.com/store/ListParts.aspx?model=MacBook\%20Pro\%20\%28Early\%202008\%20and\%20Late\%202008\%29}	\\
+	\emph{Computer memory upgrades for Apple MacBook Pro (Early 2008 and Late 2008) Laptop/Notebook from Crucial.com }	\\
+	{\copyright} Micron Technology	\\
+	24th November 2012
+
+\bibitem{crucial2}
+	\texttt{\small
+	http://www.crucial.com/store/listparts.aspx?model=Pavilion\%20dv6-2190ep&Cat=RAM}	\\
+	\emph{Computer memory upgrades for HP - Compaq Pavilion dv6-2190ep Laptop/Notebook from Crucial.com}	\\
+	{\copyright} Micron Technology	\\
+	24th November 2012	
+
+\end{thebibliography}
 
 \end{document}
 
