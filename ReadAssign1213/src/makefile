@@ -9,7 +9,7 @@ papi_test:$(OBJS)
 papi.o:papi.c papi_errors.h matrixDotProduct.h
 	$(CC) $(CFLAGS) -c papi.c
 
-matrixDotProduct.o:matrixDotProduct.c matrixDotProduct.h
+matrixDotProduct.o:matrixDotProduct.c matrixDotProduct.h papi_errors.h
 	$(CC) $(CFLAGS) -c matrixDotProduct.c 
 
 clean:

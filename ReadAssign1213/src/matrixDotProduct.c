@@ -74,6 +74,9 @@ int dotProduct_papi () {
 	int i,j,k;
 	float acc = 0;	
 
+
+	papi_safe(PAPI_start(event_set), ERR_PAPI_START);
+		
 	for (i = 0; i < size; i++) {
 		for (j = 0; j < size; j++) {
 			for(k = 0; k < size; k++) {
@@ -84,8 +87,38 @@ int dotProduct_papi () {
 		}
 	}		
 	
+
+	papi_safe(PAPI_stop(event_set, event_value), ERR_PAPI_STOP);	
+
 	return 0;
 }
+
+
+int dotProductTransposed_papi () {
+
+	int i,j,k;
+	float acc = 0;	
+
+
+	papi_safe(PAPI_start(event_set), ERR_PAPI_START);
+
+
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < size; j++) {
+			for(k = 0; k < size; k++) {
+				acc += m->matrixA[i][k] * m->matrixB[j][k];				
+			}		
+			m->matrixC[i][j] = acc;	
+			acc = 0;
+		}
+	}		
+	
+	papi_safe(PAPI_stop(event_set, event_value), ERR_PAPI_STOP);	
+
+	return 0;
+
+}
+
 
 float** initRandMatrix() {
 
