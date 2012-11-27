@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2012.11.27)  27 NOV 2012 03:08
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2012.11.27)  27 NOV 2012 06:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -539,89 +539,6 @@ Package cleveref Info: `listings' support loaded on input line 2854.
 Package cleveref Info: loaded `english' language definitions on input line 6907
 .
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2000/07/18 v2.13 AMS math features
-\@mathmargin=\skip47
-
-For additional information on amsmath, use the `?' option.
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0
-\@emptytoks=\toks24
-\ex@=\dimen129
-))
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d
-\pmbraise@=\dimen130
-)
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
-)
-\inf@bad=\count111
-LaTeX Info: Redefining \frac on input line 211.
-\uproot@=\count112
-\leftroot@=\count113
-LaTeX Info: Redefining \overline on input line 307.
-\classnum@=\count114
-\DOTSCASE@=\count115
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
-\Mathstrutbox@=\box28
-\strutbox@=\box29
-\big@size=\dimen131
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
-\macc@depth=\count116
-\c@MaxMatrixCols=\count117
-\dotsspace@=\muskip11
-\c@parentequation=\count118
-\dspbrk@lvl=\count119
-\tag@help=\toks25
-\row@=\count120
-\column@=\count121
-\maxfields@=\count122
-\andhelp@=\toks26
-\eqnshift@=\dimen132
-\alignsep@=\dimen133
-\tagshift@=\dimen134
-\tagwidth@=\dimen135
-\totwidth@=\dimen136
-\lineht@=\dimen137
-\@envbody=\toks27
-\multlinegap=\skip48
-\multlinetaggap=\skip49
-\mathdisplay@stack=\toks28
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/IEEEtran/IEEEtrantools.sty
-Package: IEEEtrantools 2007/01/11 V1.2 by Michael Shell
-
--- See the "IEEEtrantools_doc.txt" manual for usage information.
--- http://www.michaelshell.org/tex/ieeetran/tools/
-\@IEEEtrantmpdimenA=\dimen138
-\@IEEEtrantmpdimenB=\dimen139
-\@IEEEtrantmpcountA=\count123
-\@IEEEtrantmpcountB=\count124
-\@IEEEtrantmptoksA=\toks29
-\IEEEnormaljot=\dimen140
-\IEEEilabelindentA=\dimen141
-\IEEEilabelindentB=\dimen142
-\IEEEilabelindent=\dimen143
-\IEEEelabelindent=\dimen144
-\IEEEdlabelindent=\dimen145
-\IEEElabelindent=\dimen146
-\IEEEiednormlabelsep=\dimen147
-\IEEEiedmathlabelsep=\dimen148
-\IEEEiedtopsep=\skip50
-\c@IEEEsubequation=\count125
-\@IEEEeqnnumcols=\count126
-\@IEEEeqncolcnt=\count127
-\IEEEPARstartletwidth=\dimen149
-)
 
 LaTeX Warning: Unused global option(s):
     [openright].
@@ -629,33 +546,33 @@ LaTeX Warning: Unused global option(s):
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count128
-\scratchdimen=\dimen150
-\scratchbox=\box30
-\nofMPsegments=\count129
-\nofMParguments=\count130
-\everyMPshowfont=\toks30
-\MPscratchCnt=\count131
-\MPscratchDim=\dimen151
-\MPnumerator=\count132
-\makeMPintoPDFobject=\count133
-\everyMPtoPDFconversion=\toks31
+\scratchcounter=\count111
+\scratchdimen=\dimen129
+\scratchbox=\box28
+\nofMPsegments=\count112
+\nofMParguments=\count113
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count114
+\MPscratchDim=\dimen130
+\MPnumerator=\count115
+\makeMPintoPDFobject=\count116
+\everyMPtoPDFconversion=\toks25
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -671,9 +588,9 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count134
-\AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 26.
+\c@lstlisting=\count117
+\AtBeginShipoutBox=\box29
+Package hyperref Info: Link coloring ON on input line 24.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
@@ -681,11 +598,11 @@ Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count135
+\c@section@level=\count118
 )
-LaTeX Info: Redefining \ref on input line 26.
-LaTeX Info: Redefining \pageref on input line 26.
-LaTeX Info: Redefining \nameref on input line 26.
+LaTeX Info: Redefining \ref on input line 24.
+LaTeX Info: Redefining \pageref on input line 24.
+LaTeX Info: Redefining \nameref on input line 24.
 
 (./report.out) (./report.out)
 \@outlinefile=\write3
@@ -728,38 +645,74 @@ LaTeX Info: Redefining \nameref on input line 26.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 36.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 36.
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--49
+Underfull \hbox (badness 10000) in paragraph at lines 43--47
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
 
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 158.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 171.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+) [4]
+Underfull \hbox (badness 10000) in paragraph at lines 224--227
+[]\T1/aett/m/n/9 Roofline: An in-sight-ful Vi-sual Per-for-mance Mo-del for Flo
+ating-Point Pro-grams and Mul-ti-core
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+aer on input line 231.
+
+(/usr/share/texlive/texmf-dist/tex/latex/ae/omsaer.fd
+File: omsaer.fd 1999/12/27
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 192.
- [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 192.
+LaTeX Font Info:    Font shape `OMS/aer/m/it' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 231.
+LaTeX Font Info:    Font shape `OMS/aer/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 231.
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--234
+[]\T1/aett/m/n/9 http://ark.intel.com/products/35563/Intel-Core2-Duo-Processor-
+T9600-6M-Cache-2_80-GHz-1066-
+ []
+
+
+Overfull \hbox (50.7521pt too wide) in paragraph at lines 244--248
+[]\T1/aett/m/n/9 http://www.crucial.com/store/ListParts.aspx?model=MacBook%20Pr
+o%20%28Early%202008%20and%20Late%202008%29 
+ []
+
+[5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 258.
+ [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 258.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 192.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 192.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 258.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 258.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 90CD33B65FC131D6060F511D5C7F290F;962.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 192.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 258.
  ) 
 Here is how much of TeX's memory you used:
- 10984 strings out of 493485
- 172409 string characters out of 3143525
+ 10208 strings out of 493485
+ 160965 string characters out of 3143525
  318674 words of memory out of 3000000
- 14120 multiletter control sequences out of 15000+200000
- 28617 words of font info for 57 fonts, out of 3000000 for 9000
+ 13345 multiletter control sequences out of 15000+200000
+ 33294 words of font info for 63 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 36i,10n,38p,391b,386s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,10n,38p,380b,460s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
@@ -769,11 +722,13 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist
 ype1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmtt10.pfb>
-Output written on report.pdf (4 pages, 139868 bytes).
+/cm/cmti7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
+t10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb
+>
+Output written on report.pdf (6 pages, 177632 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 118 compressed objects within 2 object streams
- 23 named destinations out of 1000 (max. 500000)
+ 161 PDF objects out of 1000 (max. 8388607)
+ 139 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
  121 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -14,9 +14,8 @@
 \usepackage[margin=10pt,font=small,labelfont=bf]{caption}
 \usepackage{mdwlist}
 \usepackage{cleveref}
+\usepackage{epsfig}
 
-\usepackage{amsmath}
-\usepackage[retainorgcmds]{IEEEtrantools}
 
 
 \setlength{\parindent}{0cm}
@@ -29,7 +28,7 @@
 \section{Roofline}
 \subsection{Machines Profile}
 The machines used for this study were a MacBook Pro late 2008 and a HP dv6-2190ep from 2010.
-The information about the machines were gathered from \emph{/proc/cpuinfo}, \emph{/proc/meminfo}, the \emph{Intel Ark} \cite{ark} and \emph{Crucial} \cite{crucial} websites and with \emph{dmidecode} and \emph{sysctl} linux tools.
+The information about the machines were gathered from \emph{/proc/cpuinfo}, \emph{/proc/meminfo}, the \emph{Intel Ark} and \emph{Crucial} websites, with \emph{dmidecode} and \emph{sysctl} linux tools and with \emph{bandwidth} package.
 
 \subsubsection{Peaks}
 In order to calculate the rooflines, we needed the Floating-Point(FP) Performance Peak and the Memory Bandwidth's Peak. 
@@ -43,7 +42,8 @@ $$\mathrm{GFlop/s_{max}} =  2 \times 2.8 \times 8
 HP Pavillion FP Performance Peak:
 $$\mathrm{GFlop/s_{max}} =  4 \times 1.6 \times 8
 						 =  51.2 GFLOPS\\s$$
-
+\\
+\\
 To calculate de Memory Bandwidth Peak we resolve the following formula:
 
 $$\mathrm{BW_{max}} =  \#_{\mathrm{channels}} \times mem_{\mathrm{clock}} \times bus_{\mathrm{bandwidth}}$$
@@ -60,11 +60,11 @@ The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
 
 \begin{table}[!htp]
 		\begin{tabular}{lrl}
-			\hline \\
+			\hline 
 			\textbf{Manufacter:} & Apple \\
 			\hline \\
 			\textbf{Model:} & MacBook Pro late 2008 \\
-			\hline \\
+			\hline 
 			\textbf{Processor} & & \\
 			Manufacturer: & Intel & \\
 			Arch: & Core & \\
@@ -72,7 +72,7 @@ The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
 			Cores: & 2 & \\
 			Clock Frequency: & 2.80 GHz & \\
 			FP Performance's Peak: & 44.8 GFlops/s & \\
-			\hline \\
+			\hline 
 			\textbf{Cache} & & \\
 			Level: & 1 & \\
 			Size: & 32KB + 32KB & \\
@@ -84,7 +84,7 @@ The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
 			Size: & 6 MB & \\
 			Line Size: & 64 B & \\
 			Associative: & 24-way & \\
-			\hline \\
+			\hline 
 			\textbf{RAM} \\
 			Type: & SDRAM DDR3 PC3-8500 & \\
 			Frequency: & 1067 MHz & \\
@@ -98,11 +98,11 @@ The specifications of the MacBook Pro are displayed on \autoref{tab:mbp}. \\
 The specifications of the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
 \begin{table}[!htp]
 		\begin{tabular}{lrl}
-			\hline \\
+			\hline 
 			\textbf{Manufacter:} & HP \\
-			\hline \\
+			\hline 
 			\textbf{Model:} & Pavillion dv6-2190ep \\
-			\hline \\
+			\hline 
 			\textbf{Processor} & & \\
 			Manufacturer: & Intel & \\
 			Arch: & Nehalem & \\
@@ -110,7 +110,7 @@ The specifications of the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
 			Cores: & 4 & \\
 			Clock Frequency: & 1.60 GHz & \\
 			FP Performance's Peak: & 51.2 GFlops/s & \\
-			\hline \\
+			\hline 
 			\textbf{Cache} & & \\
 			Level: & 1 & \\
 			Size: & 32KB + 32KB & \\
@@ -127,7 +127,7 @@ The specifications of the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
 			Size: & 6 MB & \\
 			Line Size: & 64 B & \\
 			Associative: & 12-way & \\
-			\hline \\
+			\hline 
 			\textbf{RAM} \\
 			Type: & SDRAM DDR3 PC3-10600 & \\
 			Frequency: & 1333 MHz & \\
@@ -166,7 +166,8 @@ For memory only one ceiling was calculated, besides the roofline.
 The case study of this report, is to analyse the performance of a \textbf{matrix multiplication} algorithm, \begin{equation}Matrix A * Matrix B = Matrix C\end{equation} wich contains a triple nested loop with the indexes i,j and k(line,column and position). Our implementation will explore the index order \textbf{i,j,k} of the triple nested loop.
 
 \subsection{Algorithm Analysis}
-The algorithm produced to calculate the matrix multiplication is:
+The implementation produced to calculate the matrix multiplication was made in C and compiled with Optimization level 1 (-o).
+The algorithm of matrix multiplication is presented here, in order to better understand the problem at hand.
 
 \begin{verbatim}
 for (i = 0; i < size; i++) {
@@ -180,9 +181,10 @@ for (i = 0; i < size; i++) {
     }
 \end{verbatim}
 
+Two versions of the program were run, one with the matrixB and other with the transpose matrixB. With this second version, it is expected that the positions used in the algorithm will be contiguous, reducing the number of accesses to memory. 
+
 \subsection{Counters Used}
-To measure the performance of our algorithm we gathered several counters from the system through \emph{PAPI}.
-The following counters were used:
+To measure the algorithm's perfomance, hardware counters were used. To gather the information of these counters we used \emph{PAPI}(Performance API). This tool alowed us to measure the following counters:
 \begin{description}
 \item[PAPI \_TOT\_CYC] Total number of cycles;
 \item[PAPI \_TOT\_INS] Instructions completed;
@@ -198,9 +200,40 @@ The following counters were used:
 \end{description}
 
 \subsection{Tests}
+The four tests, presented below, were chosen to run in the two different version(normal and transpose). Each test was run four times, with the best execution time being select as long as the range was no larger than the other three. Each test fits in a different memory level(L1, L2, L3 and RAM).   
+\begin{table}[!htp]
+	\center{
+	\begin{tabular}{lrlrlrl}
+		\hline
+		\textbf{Memory} & \textbf{Size} & \textbf{Matrix Size} \\
+		\hline
+		L1 & 30 KB & 50 \\
+		L2 & 255 KB & 146 \\
+		L3 & 3 MB & 500 \\
+		RAM & 7.68 MB & 800 \\
+		\hline
+	\end{tabular}
+	\caption{Test cases}
+	\label{tab:testcases}
+	}
+\end{table}
 \subsection{Results}
-\subsubsection{Analysis Miss Rates}
-\subsubsection{Analysis Memory Access}
+\begin{figure}[!htp]
+	\centering%
+	\begin{minipage}[t]{0.5\linewidth}
+		\epsfig{file=images/caches.eps}
+		\caption{dsa \label{fig:cachel1}}
+	\end{minipage}
+\end{figure
+}
+\subsubsection{Analysis Chache}
+\begin{figure}[!htp]
+	\centering%
+	\begin{minipage}[t]{0.5\linewidth}
+		\includegraphics[width=\textwidth]{images/caches.eps}
+		\caption{dsa \label{fig:cachel1}}
+	\end{minipage}
+\end{figure}
 
 \begin{thebibliography}{9}
 \bibitem{roofline}
@@ -211,14 +244,14 @@ The following counters were used:
 
 \bibitem{ark}
 	\texttt{\small
-	http://ark.intel.com/products/35563/Intel-Core2-Duo-Processor-T9600-6M-Cache-2_80-GHz-1066-MHz-FSB}	\\
+	http://ark.intel.com/products/35563/Intel-Core2-Duo-Processor-T9600-6M-Cache-2\_80-GHz-1066-MHz-FSB}	\\
 	\emph{Intel{\textregistered} Core {\texttrademark} 2 Duo Processor T9600 (6M Cache, 2.80 GHz, 1066 MHz FSB)}	\\
 	{\copyright}Intel Corporation	\\
 	23th November 2012
 
 \bibitem{ark2}
 	\texttt{\small
-	http://ark.intel.com/products/43122/Intel-Core-i7-720QM-Processor-6M-Cache-1_60-GHz}	\\
+	http://ark.intel.com/products/43122/Intel-Core-i7-720QM-Processor-6M-Cache-1\_60-GHz}	\\
 	\emph{Intel{\textregistered} Core {\texttrademark} i7-720QM Processor(6M Cache, 1.60 GHz)}	\\
 	{\copyright}Intel Corporation	\\
 	23th November 2012
@@ -232,7 +265,7 @@ The following counters were used:
 
 \bibitem{crucial2}
 	\texttt{\small
-	http://www.crucial.com/store/listparts.aspx?model=Pavilion\%20dv6-2190ep&Cat=RAM}	\\
+	http://www.crucial.com/store/listparts.aspx?model=Pavilion\%20dv6-2190ep\&Cat=RAM}	\\
 	\emph{Computer memory upgrades for HP - Compaq Pavilion dv6-2190ep Laptop/Notebook from Crucial.com}	\\
 	{\copyright} Micron Technology	\\
 	24th November 2012	
