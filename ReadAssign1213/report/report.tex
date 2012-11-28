@@ -158,21 +158,6 @@ The specifications of the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
 	\end{minipage}
 \end{figure}
 
-\subsubsection{Ceilings}
-As suggested by the Roofline paper we added several ceilings to understand wich optimizations we may perform.
-This ceilings were given by recalculating the roofline without some key charateristics.
-\begin{description}
-\item[Peak floating-point performance] The roofline, where all components and features are considered.
-\item[]
-\item[]
-\item[]
-\end{description}
-For memory only one ceiling was calculated, besides the roofline.
-\begin{description}
-\item[Peak stream bandwidth] The roofline, where all features are considered.
-\item[One-channel]
-\end{description}
-
 \section{PAPI Case Study}
 \subsection{Problem}
 The case study of this report, is to analyse the performance of a \textbf{matrix multiplication} algorithm, \begin{equation}Matrix A * Matrix B = Matrix C\end{equation} wich contains a triple nested loop with the indexes i,j and k(line,column and position). Our implementation will explore the index order \textbf{i,j,k} of the triple nested loop.
