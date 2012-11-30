@@ -1,4 +1,6 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Methods}{}% 2
-\BOOKMARK [1][-]{section.3}{Results}{}% 3
-\BOOKMARK [1][-]{section.4}{Discussion}{}% 4
+\BOOKMARK [1][-]{section.2}{Roofline}{}% 2
+\BOOKMARK [1][-]{section.3}{Machines' Characteristics}{}% 3
+\BOOKMARK [1][-]{section.4}{PAPI Case Study}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{PAPI Specifications}{section.4}% 5
+\BOOKMARK [1][-]{section.5}{Results}{}% 6
