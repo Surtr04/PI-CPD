@@ -20,7 +20,6 @@
 \usepackage{appendix}
 
 
-
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{2pt}
 
@@ -30,12 +29,14 @@
 \begin{multicols}{2}
 \title{Roofline and Matrix Multiplication PAPI Analysis}
 \author{
-    Brito Rui\\
+    Brito, Rui\\
+    PG22781\\
     Department of Informatics\\
     University of Minho\\
     ruibrito666@gmail.com
   \and
-    Alves José\\
+    Alves, José\\
+    PG22765\\
     Department of Informatics\\
     University of Minho\\
     zealves.080@gmail.com
@@ -45,10 +46,11 @@
 \end{multicols}
 
 \begin{abstract}
-	
-	This paper focuses on the comparative analysis, based on the Roofline model\cite{roofline}, of two computers and on matrix dot product algorithm performance improvements.
-
+	This paper describes the roofline\cite{roofline} analysis of two different machines. The roofline consists in a theoretical performance model that provides visual insights on floating point computing performance. This model relates processor performance to off-chip memory traffic, giving a upper bound on performance of a kernel depending on its operational intensity. There is also a study of a matrix dot product using PAPI(Performance Application Programming Interface)\cite{papi}. With PAPI we are able to use the low-level hardware counters to identify the most accessed areas of our memory hierarchy as well as the operations made by running software.  
 \end{abstract}
+
+\section{Introduction}
+The importance of a system’s characterization is due to the need of understanding the limitations of a system, in order to make the necessary optimizations to obtain the maximum performance of a system. In order to provide a easy-to-understand performance model for floating-point programs, the Roofline Model was created. The Roofline indentifies a theoretical upper bound on performance on a kernel that relates if a certain opetional intensity is memory-bound, dependant on accesses of memory, or computational-bound, dependant on floating-point operational units. To comprehend the influence of different components and certain architecture characteristics a number of ceilings, both computational and memory driven, may be added. Since the Roofline Model is better understood with a case study, a matrix multiplication problem was proposed to present the theoretical limitations of the algorithm through the model. To specify the problem in the Roofline model, a series of values were obtained from the hardware counters through PAPI(Performance Application Programming Interface). PAPI allow us to reach the low-level hardware counters and obtain information from components accessed by the software running. 
 
 %% Roofline%%
 \section{Roofline}
@@ -83,6 +85,7 @@ $$\mathrm{GFlop/s_{max}} =  2 \times 1333 \times 64
 
 \subsubsection{Specifications}
 The specifications for the MacBook Pro are displayed on \autoref{tab:mbp}. \\
+\small{It should be noted that L1 Access Bandwidth refers to 128-bit sequential reads}\\
 
 \tabcolsep=0.11cm
 \begin{table}[!htp]
@@ -105,8 +108,8 @@ The specifications for the MacBook Pro are displayed on \autoref{tab:mbp}. \\
 			Level: & 1 & \\
 			Size: & 32KB + 32KB & \\
 			Line Size: & 64 B & \\
-			Associative: & 8-way & \\
-			Memory Access Bandwidth: & 40 GB/s & \\
+			Associative: & 8-way & \\			
+			L1 Access Bandwidth: & 40 GB/s & \\
 			\\
 			Level: & 2 & \\
 			Size: & 6 MB & \\
@@ -145,7 +148,7 @@ The specifications for the HP dv6-2190ep are displayed on \autoref{tab:hp}. \\
 			Size: & 32KB + 32KB & \\
 			Line Size: & 64 B & \\
 			Associative: & 4/8-way & \\
-			Memory Access Bandwidth: & 22 GB/s & \\
+			L1 Access Bandwidth: & 22 GB/s & \\
 			\\
 			Level: & 2 & \\
 			Size: & 256 KB & \\
@@ -199,7 +202,8 @@ The naive algorithm of matrix multiplication is presented here, in order to bett
 for (i = 0; i < size; i++) {
     for (j = 0; j < size; j++) {
         for(k = 0; k < size; k++) {
-                acc += matrixA[i][k] * matrixB[k][j];				
+                acc += matrixA[i][k] * 
+                         matrixB[k][j];				
             }		
             matrixC[i][j] = acc;	
             acc = 0;
@@ -264,7 +268,7 @@ All four tests, presented below, were chosen to run in the two different version
 	}
 \end{table}
 \subsection{Results}
-\subsubsection{Analysis Chache}
+\subsubsection{Cache Analysis}
 
  To measure the data cache misses the counters PAPI\_L1\_DCM and PAPI\_L2\_DCM were used. Each test fits in a different memory hierarchy level(L1, L2, L3 and RAM). (Note that test suffixed with a 0 mean unoptimized version, while those suffixed with a 1 mean, optimized version).
 
@@ -325,6 +329,8 @@ For more palpable values, the following table shows the execution times.
 
 As it can be seen, the best improvements are seen in cache level 3 and in the main memory.
 
+\subsection{Going Even Further}
+The transposed matrix optimization, while showing improvements, it still is far away from the desired peak performance. Apart from enabling and/or taking advantage of all the features shown in the roofline model, implementing the algorithm in a way so that it uses blocks, would dramatically improve performace\cite{caqa}. But that isn't this paper's goal, we just wanted to let the readers know that there is still much to improve on. 
 
 \begin{thebibliography}{99}
 \bibitem{roofline}
@@ -343,7 +349,6 @@ As it can be seen, the best improvements are seen in cache level 3 and in the ma
 	\texttt{\small
 	Computer Architecture: A Quantitative Aproach, 5th Ed.}	\\
 	\emph{John L. Hennesy, David A. Patterson}	\\	
-
 
 \bibitem{ark}
 	\texttt{\small
@@ -365,13 +370,83 @@ As it can be seen, the best improvements are seen in cache level 3 and in the ma
 \appendix
 \appendixpage
 \section{CUDA Implementation}
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Furthermore, an implementation of this algorithm was done using the GPU. We used the MacBook Pro referred earlier which has an NVIDIA GeForce 9600M GT with a compute capability of 1.1. The GPU kernel is has follows:
+
+\begin{verbatim}
+	__global__ void dotProduct( float* matrixA, float* matrixB, 
+	                              float* matrixC, int n) {
+ 
+   int j = blockIdx.x * blockDim.x + threadIdx.x;
+   int i = blockIdx.y * blockDim.y + threadIdx.y;
+      
+   float value = 0;
+   int k;
+   for (k = 0; k < n; k++) {  	    	 
+      value += matrixA[i * n + k] * matrixB[k * n + j];           
+   }  
+
+   matrixC[i * n + j] = value;
+}
+\end{verbatim}
+
+To measure it's performance we used the NVIDIA command line profiler which read hardware counters from the GPU. Table \ref{tab:cuda} shows those results for a matrix of size (20x20). Using NVIDIA's own \emph{matrixMulCUBLAS}, we got the peak performance for this particular GPU which is 14.48 Gflops. With our naive algorithm we achieved 3.44 Gflops. There should probably be another Roofline taking the GPU into account, with ceilings such as SW Prefetching, Shared Memory, Memory Coalescing, NUMA allocation and usage, etc...
+
+\begin{table}[!htp]
+	\footnotesize
+	\center{
+	\begin{tabular}{lrlrlrl}
+		\hline
+		\textbf{method} & \textbf{gputime} & \textbf{cputime} & \textbf{instructions} \\
+		\hline		
+			memcpyHtoD & 6.912 & 26.669 & - \\
+			memcpyHtoD & 6.048 & 17.427 & - \\
+			dotProduct & 64.960 & 94.172 & 2237 \\
+			memcpyDtoH & 5.920 & 42.166 & - \\
+		\hline
+	\end{tabular}
+	\caption{Cuda Profile}
+	\label{tab:cuda}
+	}
+\end{table}
+
+\section{Images}
+\begin{figure*}[!htp]
+	\centering
+	\begin{minipage}[t]{\linewidth}
+		\includegraphics[width=\linewidth]{images/roofline_mbp.eps}
+		\caption{Mackbook Pro late 2008 }
+	\end{minipage}
+\end{figure*}
+\begin{figure*}[!htp]
+	\centering
+	\begin{minipage}[t]{\linewidth}
+		\includegraphics[width=\linewidth]{images/roofline_hp.eps}
+		\caption{HP Pavillion dv6-2190ep Roofline }
+	\end{minipage}
+\end{figure*}
+
+\begin{figure*}[!htp]
+	\centering
+	\begin{minipage}[t]{\linewidth}
+		\includegraphics[width=\linewidth]{images/caches.eps}
+		\caption{Percentage of Cache Misses }
+	\end{minipage}
+\end{figure*}
+\begin{figure*}[!htp]
+	\centering
+	\begin{minipage}[t]{\linewidth}
+		\includegraphics[width=\linewidth]{images/misses.eps}
+		\caption{Number of Cache Misses }
+	\end{minipage}
+\end{figure*} 
+\begin{figure*}[!htp]
+	\centering
+	\begin{minipage}[t]{\linewidth}
+		\includegraphics[width=\linewidth]{images/totals.eps}
+		\caption{Number of Memory Accesses }
+	\end{minipage}
+\end{figure*}
+
+
 
 \end{document}
-
-
