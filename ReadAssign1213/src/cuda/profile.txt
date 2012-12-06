@@ -1,9 +1,10 @@
+NV_Warning: Ignoring the invalid profiler config option: gpustarttimestamp,instructions
 # CUDA_PROFILE_LOG_VERSION 2.0
-# CUDA_DEVICE 0 GeForce 9600M GT
+# CUDA_DEVICE 0 GeForce 9400M
 # CUDA_CONTEXT 1
 # CUDA_PROFILE_CSV 1
-gpustarttimestamp,method,gputime,cputime,occupancy,instructions
-220623f1c5e0,memcpyHtoD,6.912,26.669
-220623f2e8c0,memcpyHtoD,6.048,17.427
-22062401c560,_Z10dotProductPfS_S_i,64.960,94.172,0.542,2237
-220624049040,memcpyDtoH,5.920,42.166
+method,gputime,cputime,occupancy
+memcpyHtoD,9.312,20.751
+memcpyHtoD,8.928,13.797
+_Z10dotProductPfS_S_i,24.768,25.914,0.542
+memcpyDtoH,6.880,49.865
