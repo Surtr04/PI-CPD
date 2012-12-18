@@ -3,17 +3,18 @@
 \BOOKMARK [2][-]{subsection.2.1}{Machine Profiles}{section.2}% 3
 \BOOKMARK [3][-]{subsubsection.2.1.1}{Performance Peaks}{subsection.2.1}% 4
 \BOOKMARK [3][-]{subsubsection.2.1.2}{Specifications}{subsection.2.1}% 5
-\BOOKMARK [2][-]{subsection.2.2}{Roofline Model}{section.2}% 6
-\BOOKMARK [3][-]{subsubsection.2.2.1}{MacBook Pro Roofline}{subsection.2.2}% 7
-\BOOKMARK [3][-]{subsubsection.2.2.2}{HP Pavillion Roofline}{subsection.2.2}% 8
-\BOOKMARK [1][-]{section.3}{PAPI Case Study}{}% 9
-\BOOKMARK [2][-]{subsection.3.1}{Problem}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.2}{Algorithm Analysis}{section.3}% 11
-\BOOKMARK [2][-]{subsection.3.3}{Tests}{section.3}% 12
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Methodology}{subsection.3.3}% 13
-\BOOKMARK [3][-]{subsubsection.3.3.2}{Test Cases}{subsection.3.3}% 14
-\BOOKMARK [2][-]{subsection.3.4}{Results}{section.3}% 15
-\BOOKMARK [3][-]{subsubsection.3.4.1}{Cache Analysis}{subsection.3.4}% 16
-\BOOKMARK [2][-]{subsection.3.5}{Going Even Further}{section.3}% 17
-\BOOKMARK [1][-]{appendix.A}{CUDA Implementation}{}% 18
-\BOOKMARK [1][-]{appendix.B}{Images}{}% 19
+\BOOKMARK [1][-]{section.3}{sdjfdsfhsdk}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Roofline Model}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.1.1}{MacBook Pro Roofline}{subsection.3.1}% 8
+\BOOKMARK [3][-]{subsubsection.3.1.2}{HP Pavillion Roofline}{subsection.3.1}% 9
+\BOOKMARK [1][-]{section.4}{PAPI Case Study}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Problem}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Algorithm Analysis}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{Tests}{section.4}% 13
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Methodology}{subsection.4.3}% 14
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Test Cases}{subsection.4.3}% 15
+\BOOKMARK [2][-]{subsection.4.4}{Results}{section.4}% 16
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Cache Analysis}{subsection.4.4}% 17
+\BOOKMARK [2][-]{subsection.4.5}{Going Even Further}{section.4}% 18
+\BOOKMARK [1][-]{appendix.A}{CUDA Implementation}{}% 19
+\BOOKMARK [1][-]{appendix.B}{Images}{}% 20
