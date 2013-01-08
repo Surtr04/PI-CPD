@@ -1,0 +1,94 @@
+#! /bin/bash
+usage()
+{
+    cat <<EOF
+Usage: configure [OPTION]
+
+Options:
+  --prefix		 installation prefix 
+  --libs		 library linking information
+  --cflags		 compiler and pre-processor flags
+  --version		 version information
+  --debug               debug version
+
+EOF
+    exit $1
+}
+
+# default parameters list
+Prefix=$PWD
+Compilator="g++"
+if test $# -eq 0; then
+  echo "Using default parameters"  
+fi
+# read the first parameter------------------------------------
+    case "$1" in
+    --prefix)
+	echo "ask for prefix"
+	;;
+
+    --debug)
+        echo "debug version"
+        Debug=" -D _DEBUGS"
+        ;;
+
+    --version)
+	echo "ask for version"
+	;;
+
+    --help)
+	usage 0
+	;;
+
+    --cflags)
+        echo "ask for cflags"
+       	;;
+
+    --libs)
+       	echo "ask for libs"
+       	;;
+    esac
+ # read the second parameter------------------------------------
+ # read the third parameter------------------------------------
+# ------  check the system -------------
+if [ ! -x /usr/bin/g++ ]; then
+     echo "g++ not found";
+     exit 0;
+fi;
+if [ ! -x /usr/bin/make ]; then
+     echo "make not found";
+     exit 0;
+fi;
+
+   
+# ------------------------ write in FV-config.conf ------------
+echo "# Parameters directory" > FV-config.conf
+echo "PREFIX="$Prefix>> FV-config.conf
+#-----
+echo "# Parameters compiler" >> FV-config.conf
+echo "CCC"=$Compilator >>  FV-config.conf
+Cflags=" -O3  -fopenmp"$Debug
+IncludeDirectory=" -I "$Prefix"/include"
+echo  "CFLAGS="$Cflags$IncludeDirectory>> FV-config.conf
+LibDirectory=" -L"$Prefix"/lib -lFVLib"
+echo  "LIBS="$LibDirectory>> FV-config.conf
+#  do the FVLib-config file with correct directories
+# ------------------------ write in FV-config -----------
+echo "#! /bin/bash">bin/FVLib-config
+echo "prefix="$Prefix>> bin/FVLib-config
+cat bin/FVLib-config.in >> bin/FVLib-config
+chmod \777  bin/FVLib-config
+if [ ! -d "$HOME"/bin ] ; then 
+       mkdir $HOME/bin; 
+       export PATH=$PATH:$HOME/bin
+fi;
+if [ ! -f "$HOME"/bin/FVLib-config ]; then 
+     ln -s $Prefix/bin/FVLib-config $HOME/bin/FVLib-config;hash;
+fi;
+if [ ! -f "$HOME"/bin/fvcm ]; then 
+     ln -s $Prefix/bin/fvcm $HOME/bin/fvcm;hash;
+fi;
+if [ ! -f "$HOME"/bin/fvcd ]; then 
+     ln -s $Prefix/bin/fvcd $HOME/bin/fvcd;hash;
+fi;
+echo "configuration done"
