@@ -1,5 +1,5 @@
 #! /bin/bash
-prefix=/home/clain/src/FVLib
+prefix=/Users/rmb/Documents/MEI/CPD/PI-CPD/PI/FVLib
 exec_prefix=${prefix}/bin
 libdir=${prefix}/lib
 includedir=${prefix}/include
@@ -71,7 +71,7 @@ while test $# -gt 0; do
         ;;
 
     --libs)
-        echo -L ${libdir} -lFVLib -lm
+        echo -L${libdir} -lFVLib -lm
         ;;
     *)
         usage
