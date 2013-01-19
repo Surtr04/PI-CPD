@@ -10,3 +10,6 @@ void makeFlux(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
 void makeResidual(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
                   FVVect<double> &rhs,FVVect<double> &Vd,FVVect<double> &Vn,
                   FVVect<double> &G,Parameter &para);
+
+
+double invSqrt(double x);

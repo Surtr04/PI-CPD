@@ -18,7 +18,7 @@ clean:
 .SUFFIXES: .c .cc .cpp .cxx .o
 
 .cpp.o:
-	$(FVLib_CXX)$  $(FVLib_CFLAGS) -c $<
+	$(FVLib_CXX)$  $(FVLib_CFLAGS) -c -g $<
 
 .cc.o:
-	$(FVLib_CXX)   $(FVLib_CFLAGS) -c  $<
+	$(FVLib_CXX)   $(FVLib_CFLAGS) -c  -g $<

@@ -1,5 +1,5 @@
 #! /bin/bash
-prefix=/Users/rmb/Documents/MEI/CPD/PI-CPD/PI/FVLib
+prefix=/Users/rmb/Desktop/FVLib
 exec_prefix=${prefix}/bin
 libdir=${prefix}/lib
 includedir=${prefix}/include

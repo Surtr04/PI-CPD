@@ -670,6 +670,8 @@ for(size_t k=0;k<nb_rows;k++)
     }    
 }   */
 
+
+
 // first optimized version
 template<class T_>
 void FVDenseM<T_>::LUFactorize() 
@@ -695,6 +697,9 @@ for(size_t k=0;k<nb_rows;k++)
         }   
     }    
 }
+
+
+
 template<class T_>
 void FVDenseM<T_>::ForwardSubstitution(FVVect<double> &u) 
 {
