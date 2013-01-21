@@ -3,6 +3,7 @@
 #
 FVLib_CONFIG=FVLib-config
 FVLib_CXX    =`$(FVLib_CONFIG) --cxx`
+LLVM=llvm-g++-4.2
 FVLib_CFLAGS  =`$(FVLib_CONFIG) --cflags` -O3 -fopenmp -D _DEBUGS
 FVLib_LIBS     =`$(FVLib_CONFIG) --libs` 
 OBJ_CODE = user.o functional.o main.o 

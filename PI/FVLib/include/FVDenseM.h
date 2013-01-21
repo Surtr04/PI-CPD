@@ -684,14 +684,14 @@ for(size_t k=0;k<nb_rows;k++)
     for(size_t j=0;j<k;j++)
         {
          sum=0.;
-         #pragma omp parallel for reduction(+:sum) num_threads(nb_thread)  
+         //#pragma omp parallel for reduction(+:sum) num_threads(nb_thread)  
          for(size_t i=0;i<j;i++) sum+=a[pos_k+i]*a[nb_cols*i+j];
          a[pos_k+j]=(a[pos_k+j]-sum)/a[nb_cols*j+j];
         }
     for(size_t j=k;j<nb_cols;j++)
         {
          sum=0.;
-         #pragma omp parallel for reduction(+:sum) num_threads(nb_thread) 
+         //#pragma omp parallel for reduction(+:sum) num_threads(nb_thread) 
          for(size_t i=0;i<k;i++) {sum+=a[pos_k+i]*a[nb_cols*i+j];}
          a[pos_k+j]-=sum;
         }   
@@ -713,7 +713,7 @@ pos_i=0;
 for(size_t i=0;i<nb_rows;i++)
     {
     sum=0.;
-    #pragma omp parallel for reduction(+:sum) num_threads(nb_thread)
+    //#pragma omp parallel for reduction(+:sum) num_threads(nb_thread)
     for(size_t j=1;j<=i;j++) // WARNING we need to allow "j=-1"    
                              // because we use unsigned int, we shift the indexes of 1 
                              // So we start at 1 til j ON PURPOSE
@@ -765,7 +765,7 @@ for(size_t i=0;i<nb_rows;i++)
     {
     sum=0.;
     size_t ii=nb_rows-i-1;
-    #pragma omp parallel for reduction(+:sum) num_threads(nb_thread)
+    //#pragma omp parallel for reduction(+:sum) num_threads(nb_thread)
     for(size_t j=ii+1;j<nb_cols;j++)
         sum+=a[pos_ii+j]*u[j]; 
     u[ii]-=sum;u[ii]/=a[pos_ii+ii];

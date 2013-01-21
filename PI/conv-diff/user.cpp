@@ -1,7 +1,6 @@
 #include "user.h"
 
-double Xvelocity(FVPoint2D<double> P,Parameter &para) {
-	double val; 
+double Xvelocity(FVPoint2D<double> P,Parameter &para) {	
 	return(para.getDouble("Xvelocity"));
 }
 

@@ -67,7 +67,7 @@ echo "PREFIX="$Prefix>> FV-config.conf
 #-----
 echo "# Parameters compiler" >> FV-config.conf
 echo "CCC"=$Compilator >>  FV-config.conf
-Cflags=" -O3  -fopenmp"$Debug
+Cflags="-g -O3  -fopenmp"$Debug
 IncludeDirectory=" -I "$Prefix"/include"
 echo  "CFLAGS="$Cflags$IncludeDirectory>> FV-config.conf
 LibDirectory=" -L"$Prefix"/lib -lFVLib"
