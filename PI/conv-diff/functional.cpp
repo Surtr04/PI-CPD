@@ -10,6 +10,7 @@ double invSqrt(double x) {
     x = x*(1.5f-xhalf*x*x);
     
     return x;
+}
 */
 
 // compute source term
@@ -84,10 +85,12 @@ void makeFlux(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
     const unsigned int neuCode = para.getUnsigned("NeumannCode");
     const double difusion = getDiffusion(NULL,para);        
     
+
     for(size_t i = 0; i < edges; i++) {
 
 
-        ptr_e = m.nextEdge();
+        //ptr_e = m.nextEdge();
+        ptr_e = m.getEdge(i);
 
         normal_velocity=Dot(u[ptr_e->label-1],ptr_e->normal);  
         leftPhi=phi[ptr_e->leftCell->label-1];
@@ -135,9 +138,8 @@ void makeFlux(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
 void makeResidual(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
                   FVVect<double> &rhs,FVVect<double> &Vd,FVVect<double> &Vn,
                   FVVect<double> &G,Parameter &para) {
-
-    FVEdge2D *ptr_e;   
-    FVCell2D *ptr_c;
+       
+    
     FVVect<double> F(m.getNbEdge());
     makeFlux(m,phi,u,Vd,Vn,F,para);
     G=0.;
@@ -145,16 +147,22 @@ void makeResidual(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > 
     m.beginEdge();
     const size_t edges = m.getNbEdge();
     const size_t cells = m.getNbCell();
-
+    FVCell2D *ptr_c;     
+        FVEdge2D *ptr_e;
+    #pragma omp parallel for private(ptr_c,ptr_e)
     for(size_t i = 0; i < edges; i++) {
 
-        ptr_e=m.nextEdge();
-                
-        ptr_c = ptr_e->leftCell;               
-        G[ptr_c->label-1] += F[ptr_e->label-1];
+        //ptr_e=m.nextEdge();        
+        ptr_e = m.getEdge(i);
         
-        if((ptr_c = ptr_e->rightCell)) {            
-            G[ptr_c->label-1] -= F[ptr_e->label-1];    
+        
+        ptr_c = ptr_e->leftCell;   
+        #pragma omp atomic 
+        G[ptr_c->label - 1] += F[ptr_e->label - 1];
+        
+        if((ptr_c = ptr_e->rightCell)) {
+            #pragma omp atomic               
+            G[ptr_c->label - 1] -= F[ptr_e->label - 1];    
         }        
     }    
 
@@ -164,3 +172,47 @@ void makeResidual(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > 
         G[j]-=rhs[j];
     }
 }
+
+
+
+
+
+
+
+
+void makeResidual2(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
+                  FVVect<double> &rhs,FVVect<double> &Vd,FVVect<double> &Vn,
+                  FVVect<double> &G,Parameter &para) {
+
+    FVEdge2D *ptr_e;   
+    FVCell2D *ptr_c;
+    FVVect<double> F(m.getNbEdge());
+    makeFlux(m,phi,u,Vd,Vn,F,para);
+    G=0.;
+
+    m.beginEdge();    
+    const size_t cells = m.getNbCell();
+
+    //#pragma omp parallel for
+    for(size_t i = 0; i < cells; i++) {
+                
+        ptr_c = m.getCell(i);
+        ptr_c->beginEdge();
+                
+        while((ptr_e = ptr_c->nextEdge())) {
+            ptr_c = ptr_e->leftCell;                      
+            G[ptr_c->label-1] += F[ptr_e->label-1];
+
+            if((ptr_c = ptr_e->rightCell)) {            
+                G[ptr_c->label-1] -= F[ptr_e->label-1];    
+            }        
+        }
+    }    
+
+    //#pragma omp parallel for
+    for(size_t j=0; j < cells; j++) {
+        G[j]/=m.getCell(j)->area;   
+        G[j]-=rhs[j];
+    }
+}
+

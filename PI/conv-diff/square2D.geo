@@ -5,7 +5,7 @@ MINUS_TWO_DIM   = 1073741824;
 MINUS_ONE_DIM   =  536870912;
 H=1.;
 L=H;
-lc = H/25;
+lc = H/40;
 // geometrical part
 Point(1) = {0.0, 0.0, 0.0, lc};
 Point(2) = {L  , 0.0, 0.0, lc} ;
@@ -33,3 +33,5 @@ Physical Surface(10) = {6} ;
 //Physical Surface(10) = {6} ;
 //Physical Surface(12+MINUS_ONE_DIM) = {6} ;
 
+Coherence;
+Coherence;
