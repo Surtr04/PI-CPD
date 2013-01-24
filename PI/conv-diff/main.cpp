@@ -7,7 +7,7 @@ int main() {
     cout<<"number of cells="<<m.getNbCell()<<" and vertices="<<m.getNbVertex()<<endl;
     FVVect<double> phi(m.getNbCell()),G(m.getNbCell());
     FVVect<FVPoint2D<double> > u(m.getNbEdge());
-    FVVect<double> F(m.getNbEdge()),Vd(m.getNbEdge()),Vn(m.getNbEdge());
+    FVVect<double> F(m.getNbEdge()), Vd(m.getNbEdge()), Vn(m.getNbEdge());
     FVVect<double> Vphi(m.getNbVertex());
     FVVect<double> b(m.getNbCell()),rhs(m.getNbCell()),sol(m.getNbCell()),error(m.getNbCell());
     FVDenseM<double> A(m.getNbCell());
@@ -42,7 +42,7 @@ int main() {
     }
 
 
-    // Resolution of the linear systemcout<<endl;
+     //Resolution of the linear systemcout<<endl;
     cout<<"Solving the linear system"<<endl;
     A.LUFactorize();
     A.ForwardSubstitution(b) ;

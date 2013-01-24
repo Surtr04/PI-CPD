@@ -85,7 +85,7 @@ void makeFlux(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
     const unsigned int neuCode = para.getUnsigned("NeumannCode");
     const double difusion = getDiffusion(NULL,para);        
     
-
+    
     for(size_t i = 0; i < edges; i++) {
 
 
@@ -148,7 +148,9 @@ void makeResidual(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > 
     const size_t edges = m.getNbEdge();
     const size_t cells = m.getNbCell();
     FVCell2D *ptr_c;     
-        FVEdge2D *ptr_e;
+    FVEdge2D *ptr_e;
+    
+    
     #pragma omp parallel for private(ptr_c,ptr_e)
     for(size_t i = 0; i < edges; i++) {
 
@@ -164,16 +166,15 @@ void makeResidual(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > 
             #pragma omp atomic               
             G[ptr_c->label - 1] -= F[ptr_e->label - 1];    
         }        
-    }    
+    } 
+ 
 
-    //#pragma omp parallel for
+    #pragma omp parallel for
     for(size_t j=0; j < cells; j++) {
         G[j]/=m.getCell(j)->area;   
         G[j]-=rhs[j];
     }
 }
-
-
 
 
 
@@ -193,26 +194,28 @@ void makeResidual2(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> >
     m.beginEdge();    
     const size_t cells = m.getNbCell();
 
-    //#pragma omp parallel for
+    #pragma omp parallel for
     for(size_t i = 0; i < cells; i++) {
                 
         ptr_c = m.getCell(i);
-        ptr_c->beginEdge();
-                
-        while((ptr_e = ptr_c->nextEdge())) {
-            ptr_c = ptr_e->leftCell;                      
-            G[ptr_c->label-1] += F[ptr_e->label-1];
-
-            if((ptr_c = ptr_e->rightCell)) {            
-                G[ptr_c->label-1] -= F[ptr_e->label-1];    
-            }        
+        ptr_c->beginEdge();            
+        
+        while((ptr_e = ptr_c->nextEdge())) {            
+            if(ptr_c == ptr_e->leftCell) {
+                ptr_c = ptr_e->leftCell;                      
+                G[ptr_c->label - 1] += F[ptr_e->label - 1];
+            }
+            else {
+                if((ptr_c = ptr_e->rightCell)) {            
+                    G[ptr_c->label - 1] -= F[ptr_e->label - 1];    
+                }
+            }    
+            
         }
-    }    
 
-    //#pragma omp parallel for
-    for(size_t j=0; j < cells; j++) {
-        G[j]/=m.getCell(j)->area;   
-        G[j]-=rhs[j];
-    }
+        G[i] /= ptr_c->area;   
+        G[i] -= rhs[i];
+
+    }    
 }
 
