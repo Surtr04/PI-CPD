@@ -74,7 +74,7 @@ void makeFlux(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
               FVVect<double> &Vd,FVVect<double> &Vn,
               FVVect<double> &F,Parameter &para) {
 
-    FVEdge2D *ptr_e;
+    //FVEdge2D *ptr_e;
     double leftPhi,rightPhi,normal_velocity;
     FVPoint2D<double> BB;
     m.beginEdge();
@@ -86,52 +86,65 @@ void makeFlux(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
     const double difusion = getDiffusion(NULL,para);        
     
     
+    #pragma omp parallel for private(normal_velocity,leftPhi,rightPhi)
     for(size_t i = 0; i < edges; i++) {
 
-
+        FVEdge2D *ptr_e;
         //ptr_e = m.nextEdge();
         ptr_e = m.getEdge(i);
-
-        normal_velocity=Dot(u[ptr_e->label-1],ptr_e->normal);  
-        leftPhi=phi[ptr_e->leftCell->label-1];
+        
+        normal_velocity = Dot(u[ptr_e->label-1],ptr_e->normal);  
+        leftPhi = phi[ptr_e->leftCell->label-1];
         
         if(ptr_e->rightCell) {
             // edge has the code = 0    
-            rightPhi=phi[ptr_e->rightCell->label-1];
-            // compute the convection contribution
-            if(normal_velocity<0)
-                F[ptr_e->label-1]=normal_velocity*rightPhi;
-            else
-                F[ptr_e->label-1]=normal_velocity*leftPhi;   
-            // compute the diffusive contribution
-            BB=ptr_e->rightCell->centroid - ptr_e->leftCell->centroid;            
             
-            F[ptr_e->label-1]-=difusion*(rightPhi-leftPhi)/Norm(BB); 
-
-        }
-    else {
-        //  we are on the boundary
-        if(ptr_e->code == dirCode) {
-            
-            // we have a Dirichlet condition
-            rightPhi=Dirichlet(ptr_e->centroid,para);
+            rightPhi = phi[ptr_e->rightCell->label-1];
             // compute the convection contribution
-            if(normal_velocity<0)
-                F[ptr_e->label-1]=normal_velocity*rightPhi;
-            else
-                F[ptr_e->label-1]=normal_velocity*leftPhi;   
-            // compute the diffusive contribution
-            BB=ptr_e->centroid-ptr_e->leftCell->centroid;
-            F[ptr_e->label-1]-=difusion*(rightPhi-leftPhi)/Norm(BB); 
+            if(normal_velocity<0) {
+              
+                F[ptr_e->label-1] = normal_velocity*rightPhi;
             }
-         if(ptr_e->code == neuCode) {
-            // we have a Neumann condition 
-            F[ptr_e->label-1]=Neumann(ptr_e->centroid,para);
+            else {
+              
+                F[ptr_e->label-1] = normal_velocity*leftPhi;   
+            }
+            // compute the diffusive contribution
+            BB=ptr_e->rightCell->centroid - ptr_e->leftCell->centroid;                        
+            
+            F[ptr_e->label-1] -= difusion*(rightPhi-leftPhi)/Norm(BB); 
+
+         }
+          else {
+            //  we are on the boundary
+            if(ptr_e->code == dirCode) {                
+                // we have a Dirichlet condition                
+                rightPhi = Dirichlet(ptr_e->centroid,para);
+                // compute the convection contribution
+                if(normal_velocity<0) {
+                    
+                    F[ptr_e->label-1] = normal_velocity*rightPhi;
+                }
+                else {
+                    
+                    F[ptr_e->label-1] = normal_velocity*leftPhi;   
+                }
+                // compute the diffusive contribution                
+                BB = ptr_e->centroid-ptr_e->leftCell->centroid;
+               
+                F[ptr_e->label-1] -= difusion*(rightPhi-leftPhi)/Norm(BB); 
+            }
+             
+            if(ptr_e->code == neuCode) {
+                // we have a Neumann condition      
+                
+                F[ptr_e->label-1] = Neumann(ptr_e->centroid,para);
             }
         }
 
-    // here, we have all the data to compute the flux
-    F[ptr_e->label-1]*=ptr_e->length;
+        // here, we have all the data to compute the flux    
+        
+        F[ptr_e->label-1] *= ptr_e->length;
     }
 }
 
