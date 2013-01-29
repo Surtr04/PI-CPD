@@ -5,7 +5,7 @@ MINUS_TWO_DIM   = 1073741824;
 MINUS_ONE_DIM   =  536870912;
 H=1.;
 L=H;
-lc = H/40;
+lc = H/150;
 // geometrical part
 Point(1) = {0.0, 0.0, 0.0, lc};
 Point(2) = {L  , 0.0, 0.0, lc} ;

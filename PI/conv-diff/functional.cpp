@@ -130,7 +130,7 @@ void makeFlux(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > &u,
                     F[ptr_e->label-1] = normal_velocity*leftPhi;   
                 }
                 // compute the diffusive contribution                
-                BB = ptr_e->centroid-ptr_e->leftCell->centroid;
+                BB = ptr_e->centroid - ptr_e->leftCell->centroid;
                
                 F[ptr_e->label-1] -= difusion*(rightPhi-leftPhi)/Norm(BB); 
             }
@@ -169,8 +169,7 @@ void makeResidual(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > 
 
         //ptr_e=m.nextEdge();        
         ptr_e = m.getEdge(i);
-        
-        
+                
         ptr_c = ptr_e->leftCell;   
         #pragma omp atomic 
         G[ptr_c->label - 1] += F[ptr_e->label - 1];
@@ -188,8 +187,6 @@ void makeResidual(FVMesh2D &m, FVVect<double> &phi, FVVect< FVPoint2D<double> > 
         G[j]-=rhs[j];
     }
 }
-
-
 
 
 
