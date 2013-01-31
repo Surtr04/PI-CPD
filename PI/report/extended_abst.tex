@@ -49,23 +49,18 @@
 
 High-performance computing has been a fundamental process to science, in order to make viable certain softwares that require massive amounts of calculation. The use of several optimization techniques has help decrease the execution time of different algorithm, providing results and simulations in a viable time for its uses.
 
-This document will describe a study about improving performance of \emph{conv-diff}. This application calculate de heat of a material while spreading though an area. In this study we approach different ways to improve the solution.
+This document will describe a study about improving performance of \emph{conv-diff}. This application calculate de heat of a material while spreading though an area. In this study we approach different ways to improve the solution. The project was devide in three stages. The first one was analysing the original application, building its profile while also developing a better sequencial version. 
+On the second stage, a shared-memory parallel version was made. Finnaly on the third stage, a CUDA version is being developed, taking advantage of the graphic board.
 
 This extended abstract presents the aplication domain, explaining its uses and objective. Knowing its domain and application's profile, a foundation is created to develop different optimizations. From here an optimized sequencial version was developed, as well as an OpenMP shared-memory version. The ongoing and future work and a brief conclusion will be presented in the last sections of this extended abstract.
 
-\section{Case Domain}
+\section{Study Domain}
 
-%Desenvolver o objectivo cientifico
-The application analyzed for this study is \emph{conv-diff(Convexion-Diffusion)}.This application calculates the heat in the spread of a material, through the course of time. To achieve this end, the surface is represented as a mesh. Each cell of the mesh can be calculate with the velocity of the flux in each of its edges, its edge's normal, and its $\phi$.
-The input and the output of the program is a XML file, that can both be converted to msh format for graphic visualization with gmsh.
-%%Part of this program functions, as well as the conversion commands between the formats, are from FVLib. Explicar FVLib
+The application analyzed for this study is \emph{conv-diff(Convexion-Diffusion)}.This application calculates the heat in the spread of a material, using a finite volumn method. To compute the heat diffusion, the surface is represented as a mesh. Being represented by cells and edges, the algorithm will cross all edges, calculating the contribution of the adjacents cells. This application rests in a Finite Volume Library (FVLib), which handles the structures and some of the logic functions of the problem.
 
-%Breve introducao ao metodo de volumes finitos
-Being a finite volumn method each cell only is only dependant of its neighbours in the mesh. This low dependencies between cells, favors parallelization, thanks to the data locality.
 
 \section{Profiling}
 
-%Profile geral, poucos numeros!
 The program consists in two major parts, a cycle that computes the $\phi$ for each cell, using the functions \emph{makeResidual}, which calls the function \emph{makeFlux}, and an FVLib function, \emph{LUFactorize}, which validates the results of the above cycle. Both the calculated mesh and the real mesh, computed by the LUFactorize, are presented in the output files, together with the error between them.
  
 After analyzing the application, we conclude that the algorithm has a high workload in the \emph{LUFactorize} function,
