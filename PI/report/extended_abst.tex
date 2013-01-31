@@ -45,7 +45,7 @@
 \maketitle
 \end{multicols}
 
-\section{Introduction}
+\section{Introduction}    %% Reler, corrigir algum erro
 
 High-performance computing has been a fundamental process to science, in order to make viable certain softwares that require massive amounts of calculation. The use of several optimization techniques has help decrease the execution time of different algorithm, providing results and simulations in a viable time for its uses.
 
@@ -54,12 +54,12 @@ On the second stage, a shared-memory parallel version was made. Finnaly on the t
 
 This extended abstract presents the aplication domain, explaining its uses and objective. Knowing its domain and application's profile, a foundation is created to develop different optimizations. From here an optimized sequencial version was developed, as well as an OpenMP shared-memory version. The ongoing and future work and a brief conclusion will be presented in the last sections of this extended abstract.
 
-\section{Study Domain}
+\section{Study Domain}    %% Reler, corrigir algum erro, adicionar algo se te lembrares
 
 The application analyzed for this study is \emph{conv-diff(Convexion-Diffusion)}.This application calculates the heat in the spread of a material, using a finite volumn method. To compute the heat diffusion, the surface is represented as a mesh. Being represented by cells and edges, the algorithm will cross all edges, calculating the contribution of the adjacents cells. This application rests in a Finite Volume Library (FVLib), which handles the structures and some of the logic functions of the problem.
 
 
-\section{Profiling}
+\section{Profiling}    %% Reler, reestruturar e adicionar o que faltar
 
 The program consists in two major parts, a cycle that computes the $\phi$ for each cell, using the functions \emph{makeResidual}, which calls the function \emph{makeFlux}, and an FVLib function, \emph{LUFactorize}, which validates the results of the above cycle. Both the calculated mesh and the real mesh, computed by the LUFactorize, are presented in the output files, together with the error between them.
  
@@ -74,7 +74,7 @@ After analyzing the application, we conclude that the algorithm has a high workl
 
 %linhas gerais
 
-\section{On-going and Future Work}
+\section{On-going and Future Work}    %% Reler, corrigir algum erro
 
 After implementing both the sequencial version and the OpenMP version, a na\"{i}ve implementation in CUDA was started. This version aims to take advantage of the graphics board performance using its vector units to diminish the compute time. For this a restructuring of the code is necessary removing most of the memory accesses while maintaining an abstraction of the system. After resolving this issue and other minor ones, we expect to achieve a boost in performance.
 
