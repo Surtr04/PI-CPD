@@ -98,9 +98,9 @@ After optimizing the sequential code, we turned our efforts to parallelizing the
 
 \section{On-going and Future Work}    %% Reler, corrigir algum erro
 
-After implementing both the sequencial version and the OpenMP version, a na\"{i}ve implementation in CUDA was started. This version aims to take advantage of the graphics board potential parallelism, improving performance using its vector units to diminish the compute time. For this a restructuring of the code is necessary removing most of the memory accesses while maintaining an abstraction of the system. After resolving this issue and other minor ones, we expect to achieve a boost in performance.
+After implementing both the sequencial version and the OpenMP version, a na\"{i}ve implementation in CUDA was started. This version aims to take advantage of the GPU's massive parallelism, improving performance using its vector units to diminish computation time. However, for this to be possible, a thorough restructuring of the code is necessary.This is because most of the structures are implemented using pointers, something hinders CPU performance, but also makes it impossible to use CUDA, since we can't have a structure in the device memory poiting to host memory. Thus we are facing the challenge of removing most of the memory accesses while maintaining the abstraction and flexibility currently present in the application. After resolving this issue and other minor ones, we expect to achieve a boost in performance.
 
-In future work, it is expected to develop a optimized CUDA version as well as a OpenMPI. A hybrid version using both CPU and GPU could also be a future implementation to have gains in performance. It is also expected to optimize several areas of code, questioning some decisions like using double-precision versus single-precision. 
+In future work, it is expected to develop a optimized CUDA version as well as a OpenMPI. A hybrid version using both CPU and GPU could also be a future implementation to have gains in performance. It is also expected to optimize several areas of code, questioning some decisions like using double-precision versus single-precision. Another area that might require attention is the input parser and the input file's structure. 
 
 \section{Conclusion}
 
