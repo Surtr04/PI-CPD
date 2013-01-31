@@ -58,6 +58,26 @@ This extended abstract presents the aplication's domain, explaining its uses and
 
 The application analyzed for this study is \emph{conv-diff(Convexion-Diffusion)}.This application simulates the way heat is tranfered in a fluid using the finite-volumes method.To compute the heat diffusion, the surface is represented as a mesh. Being represented by cells and edges, the algorithm will traverse all edges, calculating the contribution of the adjacent cells. This application rests in a Finite Volume Library (FVLib), which handles the structures and some of the logic functions necessary for the problem's solution.
 
+The application's main objective is to compute a vector $\overline{\phi}$ such that $\overline{\phi} \longrightarrow G(\overline{\phi}) = \left(\begin{array}{c}
+0\\ 
+0\\
+\vdots\end{array}\right)$
+This is acomplished in three different stages:
+\begin{enumerate}
+    \item {We begin with a candidate vector $\phi$} 
+    \item {For each edge, we compute the flux $F_{ij}$, with $i$ and $j$ being the indices of the adjacent cells}
+    \item {For each cell, we compute $\sum |e_{ij}| F_{ij} - |c_i| f_i$}
+\end{enumerate}
+Thus: $\phi = \left(\begin{array}{c}
+\phi_1\\
+\vdots\\
+\phi_I
+\end{array}\right) \longrightarrow G = \left(\begin{array}{c}
+G_1\\
+\vdots\\
+G_I
+\end{array}\right)$
+
 
 \section{Profiling}    %% Reler, reestruturar e adicionar o que faltar
 
