@@ -94,7 +94,7 @@ After dissecting the code and understanding the problem at hand, we began to not
 
 \section{Shared Memory Parallel Optimization(OpenMP)}
 
-After optimizing the sequential code, we turned our efforts to parallelizing the code. The two loops responsible for the matrix free calculations were ideal candidates. We parallelized both this loops. We had some strugles with data-races in these loops, but we overcame these problems rather easily. The data-races exist beacause the mesh is traversed by the edges, however, as we found out, if they are traversed by cell, these data-races no longer exist. Also, the library that was provided includes some iterator style structures. These were also a problem, because, while OpenMP as no problem in parallelizing STL iterators, this doesn't hold for \emph{FVlib}'s iterators. So, we had to convert those to a standard for loop. The code was successfully parallelized, however, results were disappointing, execution time didn't decrease noticeably, hinting at a very memory bound application. 
+After optimizing the sequential code, we turned our efforts to parallelizing the code. The two loops responsible for the matrix free calculations were ideal candidates. We parallelized both this loops. We had some strugles with data-races in these, but we overcame the problems rather easily. The data-races exist beacause the mesh is traversed by the edges, however, as we found out, if they are traversed by cell, these data-races no longer exist. Also, the library that was provided includes some iterator style structures. These were also a problem, because, while OpenMP as no problem in parallelizing STL iterators, this doesn't hold for \emph{FVlib}'s iterators. So, we had to convert those to a standard for loop. The code was successfully parallelized, however, results were disappointing, execution time didn't decrease noticeably, hinting at a very memory bound application. 
 
 \section{On-going and Future Work}    %% Reler, corrigir algum erro
 
@@ -104,7 +104,7 @@ In future work, it is expected to develop a optimized CUDA version as well as a 
 
 \section{Conclusion}
 
-This extended abstract serves as a introduction to the study here presented. The initial results from the implementations of optimized versions, sequential and parallel, shows the capability of improvements in the computed time.
+This extended abstract serves as a introduction to the study here presented. The initial results from the implementations of optimized versions, sequential and parallel, shows small improvements in the computed time. Future iterations of the solutions may increase the improvements, shifting the application to a computing bound zone.
 
 Through the development of the solutions some problems were presented, such as the mesh being disperse and the structures implemented with  extensive use of pointers. This problems delayed the development of solutions, in particular the CUDA version. The decision of maintaining the abstraction of the system may prove to be a bold direction, but favorable in terms of comprehension.
 
