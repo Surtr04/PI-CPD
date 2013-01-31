@@ -81,18 +81,18 @@ G_I
 
 \section{Profiling}    %% Reler, reestruturar e adicionar o que faltar
 
-The program consists in two major parts, a cycle that computes the $\phi$ for each cell, using the functions \emph{makeResidual}, which calls the function \emph{makeFlux}, and an FVLib function, \emph{LUFactorize}, which validates the results of the above cycle. Both the calculated mesh and the real mesh, computed by the LUFactorize, are presented in the output files, together with the error between them.
+The program consists in four major parts, reading the initial mesh from a file. Then, using the functions \emph{makeResidual}, which calls the function \emph{makeFlux}, the flux contributions are calculated and the vector phi is built, thus achieving a matrix free implementation. Following this, to calculate the deviation in the results from the previous operations, the function \emph{LUFactorize}. Finally, both the meshes are writen to the output files, together with the error between them.
  
-After analyzing the application, we conclude that the algorithm has a high workload in the \emph{LUFactorize} function,
+After analyzing the application, we conclude that the algorithm has a very high workload in the \emph{LUFactorize} function, comprising of more than 90\% of the execution time.
 
 
 \section{Sequencial Optimization}
 
-%linhas gerais
+After analysing the code and understanding the problem at hand, we began to notice some implementation errors, these errors were very easy to spot, such as reading the same variable repeatedly from a file and a very long chain of calculation with a very heavy division at the end which could clearly have been avoided. We changed all those aspects of the application because they were easy, requiring minimal effort. That being said, it doesn't mean they didn't pay results, computation time has been greatly reduced, with the aforementioned \emph{LUFactorize} function taking an even more prominent role in our profile.
 
 \section{Shared Memory Parallel Optimization(OpenMP)}
 
-%linhas gerais
+
 
 \section{On-going and Future Work}    %% Reler, corrigir algum erro
 
