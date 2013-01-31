@@ -45,46 +45,45 @@
 \maketitle
 \end{multicols}
 
-\begin{abstract}
-    This extended abstract describes the analysis of \emph{conv-diff}, ..... 
-\end{abstract}
-
 \section{Introduction}
 
-Software optimization has been a fundamental process to science, in order to make viable certain softwares that require massive amounts of calculation. The use of several techniques has help to decrease the execution time of different algorithm providing results and simulations in a viable time for its uses. Thanks to this techniques of optimization research time is also pushed to a new maximum, decreasing the time between its possible dependencies.
-This extended abstract presents the aplication domain, explaining its uses and objective. Knowing its domainan aplication's profile, its structure analysis and bottleneck sections. With the profile as a foundation,  different optimizations were implemented: optimized sequencial version; OpenMP shared memory version. In the last sections of this extended abstract the speedup values are presented and discussed.
+Software optimization has been a fundamental process to science, in order to make viable certain softwares that require massive amounts of calculation. The use of several techniques has help decrease the execution time of different algorithm providing results and simulations in a viable time for its uses. Thanks to this techniques of optimization, research time is also pushed to a new maximum, decreasing the time between its possible dependencies.%% sources desenvolver esta parte
+This extended abstract presents the aplication domain, explaining its uses and objective. Knowing its domain and application's profile, a foundation is created to develop different optimizations: optimized sequencial version; OpenMP shared memory version. In the last sections of this extended abstract, the ongoing and future work and a brief conclusion will be presented.
 
 \section{Case Domain}
 
+%Desenvolver o objectivo cientifico
 The application analyzed for this study is \emph{conv-diff(Convexion-Diffusion)}.This application calculates the heat in the spread of a material, through the course of time. To achieve this end, the surface is represented as a mesh. Each cell of the mesh can be calculate with the velocity of the flux in each of its edges, its edge's normal, and its \emph{fi}.
 The input and the output of the program is a XML file, that can both be converted to msh format for graphic visualization with gmsh.
-%%Part of this program functions, as well as the conversion commands between the formats, are from FVLib. FALAR DA FVLIB
+%%Part of this program functions, as well as the conversion commands between the formats, are from FVLib. Explicar FVLib
 
+%Breve introducao ao metodo de volumes finitos
 Being a finite volumn method each cell only is only dependant of its neighbours in the mesh. This low dependencies between cells, favors parallelization, thanks to the data locality.
 
-The program consists in two major parts, a cycle that computes the \emph{fi} for each cell, using the functions \emph{makeResidual}, which calls the function \emph{makeFlux}, and an FVLib function, \emph{LUFactorize}, which validates the results of the above cycle. Both the calculated mesh and the real mesh, computed by the LUFactorize, are presented in the output files, together with the error between them.
-
 \section{Profiling}
+
+%Profile geral, poucos numeros!
+The program consists in two major parts, a cycle that computes the \emph{fi} for each cell, using the functions \emph{makeResidual}, which calls the function \emph{makeFlux}, and an FVLib function, \emph{LUFactorize}, which validates the results of the above cycle. Both the calculated mesh and the real mesh, computed by the LUFactorize, are presented in the output files, together with the error between them.
  
- After analyzing the application, we conclude that the algorithm has a high workload in the \emph{LUFactorize} function,
+After analyzing the application, we conclude that the algorithm has a high workload in the \emph{LUFactorize} function,
 
 
 \section{Sequencial Optimization}
 
-%% VERSAO OPTIMA SEQUENCIAL
+%linhas gerais
 
 \section{Shared Memory Parallel Optimization(OpenMP)}
 
-
+%linhas gerais
 
 \section{On-going and Future Work}
 
 After implementing both the sequencial version and the OpenMP version, a vanilla implementation in CUDA was started. This version aims to take advantage of the graphics board performance using its vector units to diminish the compute time. For this a restructuring of the code is necessary removing most of the memory accesses while maintaining an abstraction of the system. After resolving this issue and other minor ones, we expect to achieve a boost in performance.
 
-In future work, it is expected to develop a optimized CUDA version as well as a OpenMPI. It is also expected to optimize several areas of code, questioning some decisions like using double-precision versus single-precision.
+In future work, it is expected to develop a optimized CUDA version as well as a OpenMPI. A hybrid version using both CPU and GPU could also be a future implementation to have gains in performance. It is also expected to optimize several areas of code, questioning some decisions like using double-precision versus single-precision. 
 
 \section{Conclusion}
 
-
+%dizer apenas como correu desenvolvimento, e resultados positivos/negativos
 
 \end{document}
