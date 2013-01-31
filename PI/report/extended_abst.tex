@@ -88,11 +88,11 @@ After analyzing the application, we conclude that the algorithm has a very high 
 
 \section{Sequencial Optimization}
 
-After analysing the code and understanding the problem at hand, we began to notice some implementation errors, these errors were very easy to spot, such as reading the same variable repeatedly from a file and a very long chain of calculation with a very heavy division at the end which could clearly have been avoided. We changed all those aspects of the application because they were easy, requiring minimal effort. That being said, it doesn't mean they didn't pay results, computation time has been greatly reduced, with the aforementioned \emph{LUFactorize} function taking an even more prominent role in our profile.
+After analysing the code and understanding the problem at hand, we began to notice some implementation errors, these errors were very easy to spot, such as reading the same variable repeatedly from a file and a very long chain of calculations with a very heavy division at the end which could clearly have been avoided. We changed all those aspects of the application because they were easy, requiring minimal effort. That being said, it doesn't mean they didn't pay results, computation time has been greatly reduced, with the aforementioned \emph{LUFactorize} function taking an even more prominent role in our profile.
 
 \section{Shared Memory Parallel Optimization(OpenMP)}
 
-
+After optimizing the sequential code, we turned our efforts to parallelizing the code. The two loops responsible for the matrix free calculations were ideal candidates. We parallelized both this loops. We had some strugles with data-races in these loops, but we overcame these problems rather easily. The data-races exist beacause the mesh is traversed by the edges, however, as we found out, if they are traversed by cell, these data-races no longer exist. Also, the library that was provided includes some iterator style structures. These were also a problem, because, while OpenMP as no problem in parallelizing STL iterators, this doesn't hold for \emph{FVlib}'s iterators. So, we had to convert those to a standard for loop. The code was successfully parallelized, however, results were disappointing, execution time didn't decrease noticeably, hinting at a very memory bound application. 
 
 \section{On-going and Future Work}    %% Reler, corrigir algum erro
 
