@@ -1,0 +1,3 @@
+compiler: gcc 4.7.2
+time: 8.105997 s
+time_p_region: 0.447864 s 
