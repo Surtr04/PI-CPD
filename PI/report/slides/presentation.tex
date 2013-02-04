@@ -55,16 +55,49 @@
 \begin{frame}[plain]
 	\frametitle{Convexion-Diffusion}
 	\begin{description}
-		\item [makeFlux] asd;
-		\item [makeResidual] dsa;
-		\item [LUFactorize] sad;
+		\item [makeFlux] Calculates the contribution from each edge <- VER ISTO;
+		\item [makeResidual] Calculates the flux for each cell, from each contribution <- VER ISTO;
+		\item [LUFactorize] Calculate the exact result of the problem <- VER ISTO;
 	\end{description}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Test Environment}
-	CENAS
+
+\section{Test Environment}
+\begin{frame}[plain]
+	\frametitle{Test Machine}
+	\begin{description}
+		\item [AMD Opt 6174] 
+		\item [2] processores;
+		\item [12] cores per processor;
+		\item [2.2 GHz] clock frequency;
+		\item [128 KB] for L1;
+		\item [512 KB] for L2;
+		\item [12 MB] for L3;
+		\item [64 GB] of RAM;
+	\end{description}
 \end{frame}
+
+\begin{frame}[plain]
+	\frametitle{Test Parameters}
+	\begin{enumerate}
+		\item Best of 3 executions;
+		\item Test for different number of threads;
+		\item CENAS;
+	\end{enumerate}
+\end{frame}
+
+
+\section{Sequential version}
+\begin{frame}
+	\frametitle{Original version}
+	For each edge:
+	\begin{enumerate}
+		\item Calculate edge velocity;
+		\item Calculate flux;
+	\end{enumerate}
+	For each cell
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
