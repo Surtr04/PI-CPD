@@ -17,7 +17,7 @@
 }
 
 %	presentation info
-\title{Study and Optimization of a Finite Volume Application}
+\title{Study and Optimization of a Finite Volume's Method Application}
 
 \author{José Alves, Rui Brito}
 
@@ -56,24 +56,26 @@
 	\frametitle{Convexion-Diffusion}
 	\begin{description}
 		\item [makeFlux] Calculates the contribution from each edge <- VER ISTO;
-		\item [makeResidual] Calculates the flux for each cell, from each contribution <- VER ISTO;
-		\item [LUFactorize] Calculate the exact result of the problem <- VER ISTO;
+		\item [makeResidual] Calculates the $\phi$ vector, ading the flux for each cell, from each contribution <- VER ISTO;
+		\item [LUFactorize] Calculate a Gauss elimination <- VER ISTO;
 	\end{description}
 \end{frame}
 
 
-\section{Test Environment}
+\section{Test Methodology}
 \begin{frame}[plain]
-	\frametitle{Test Machine}
+	\frametitle{Test Machines}
 	\begin{description}
-		\item [AMD Opt 6174] 
-		\item [2] processores;
-		\item [12] cores per processor;
-		\item [2.2 GHz] clock frequency;
-		\item [128 KB] for L1;
-		\item [512 KB] for L2;
-		\item [12 MB] for L3;
-		\item [64 GB] of RAM;
+		\item [compute-511-2@search] [MacBookPro] [compute-611-1]
+		\item [AMD Opt 6174] [Intel Ivy-Bridge i7] [Xeon X5650]
+		\item processors[2] [1] [2]
+		\item cores per processor[12]; [4] [6]
+		\item hyperthreadin [-] [SIM] [SIM]
+		\item clock frequency[2.2 GHz]; [2.3] [2.66]
+		\item L1[128 KB]; [64] [128]
+		\item L2[512 KB]; [256] [256]
+		\item L3[12 MB]; [6 MB] [12 MB]
+		\item RAM[64 GB]; [16 GB] [48GB]
 	\end{description}
 \end{frame}
 
@@ -95,7 +97,110 @@
 		\item Calculate edge velocity;
 		\item Calculate flux;
 	\end{enumerate}
-	For each cell
+	For each cell:
+	\begin {enumerate}
+		\item Compute all contributions;
+	Compute vector $\phi$;
+	Compute a Gauss elimination;
+	Compute the error;
+\end{frame}
+
+\begin{frame}
+	\frametitle{Optimized version}
+	\begin{enumerate}
+		\item Reduce number of loads;
+		\item Change some variable definitions to \emph{const};
+		\item Usage of a recent compiler;
+	\end{enumerate} 
+\end{frame}
+
+
+\section{Roofline}
+\begin{frame}
+	\begin{figure}[!htp]
+		%\includegraphics[width=12cm]{images/roofline.eps}
+		\label{fig:roofline}
+	\end{figure}
+\end{frame}
+
+\section{PAPI Analysis}
+\begin{frame}
+	\frametitle{Counters Used}
+
+	Used counters gathered by PAPI:
+	\begin{description}
+		\item[PAPI\_TOT\_CYC] Total cycles;
+		\item[PAPI\_TOT\_INS] Total instructions
+		\item[PAPI\_LD\_INS] Load Instructions
+		\item[PAPI\_SR\_INS] Store Instructions
+		\item[PAPI\_FML\_INS] Multiply instructions
+		\item[PAPI\_FDV\_INS] Division instructions
+		\item[PAPI\_VEC\_INS] Vector Instructions
+		\item[PAPI\_FP\_OPS] Floating point operations
+		\item[PAPI\_L1\_DCA] L1 data cache accesses
+		\item[PAPI\_L1\_DCM] L1 data cache misses
+		\item[PAPI\_L2\_DCA] L2 data cache accesses
+		\item[PAPI\_L2\_DCM] L2 data cache misses
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{PAPI comparison}
+	\begin{figure}[!htp]
+		%\includegraphics[width=12cm]{images/roofline.eps}
+	\label{fig:original_papi}
+	\end{figure}
+	\begin{figure}[!htp]
+		%\includegraphics[width=12cm]{images/roofline.eps}
+	\label{fig:optm_papi}
+	\end{figure}
+\end{frame}
+
+
+\section{Shared-Memory Parallel Optimization}
+\begin{frame}
+	\frametitle{OpenMP Objectives}
+	\begin{enumerate}
+		\item Parallelize application;
+		\item Decrease runtime;
+	\end{enumerate}
+\end{frame}	
+
+
+\begin{frame}
+	\frametitle{Amdahl's Law}
+	\begin{enumerate}
+		
+		$S_{N}=\frac{1}{(1-P) + P/N}$
+
+		\begin{center}
+			\begin{table}[!htp]
+			\begin{tabular}{lrlrlrl}
+			\hline
+			\textbf{Parallel Portion} & \textbf{\# Cores} & \textbf{Expected Speedup}\\
+			\hline
+			CENAS & 1 & CENAS \\
+			CENAS & 2 & CENAS \\
+			CENAS & 4 & CENAS \\
+			CENAS & 8 & CENAS \\
+			CENAS & 12 & CENAS \\
+			CENAS & 16 & CENAS \\
+			CENAS & 24 & CENAS \\
+			\hline
+			\end{tabular}
+			\caption{Test cases}
+			\label{tab:testcases}
+			\end{table}
+		\end{center}	
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Achieved Results}
+	\begin{figure}[!htp]
+		%\includegraphics[width=12cm]{images/roofline.eps}
+	\label{fig:optm_papi}
+	\end{figure}
 \end{frame}
 
 
@@ -106,10 +211,7 @@
 \begin{frame}
 	\begin{figure}[!htp]
 		%\includegraphics[width=12cm]{images/roofline.eps}
-		\label{fig:roofline}
-		\end{figure}
-\end{frame}
-
+		
 \section{PAPI Case Study: Matrix Multiplication}
 \begin{frame}%	begin slide
 	\frametitle{Problem}
