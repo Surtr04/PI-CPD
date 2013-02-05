@@ -46,7 +46,7 @@
 \begin{frame}[plain]
 	\frametitle{Convexion-Diffusion}
 	\begin{description}
-		\item [What?]Simulates the way heat is transferred in a spread of a fluid;
+		\item [What?] Calculates the heat diffusion of a fluid while it spreads through an area;
 		\item [How?] Uses finite-volumes method;
 		\item [Why?] Represents surface as a mesh, making each cell only dependent of its neighbours;
 	\end{description}
@@ -55,8 +55,8 @@
 \begin{frame}[plain]
 	\frametitle{Convexion-Diffusion}
 	\begin{description}
-		\item [makeFlux] Calculate the contribution from each edge;
-		\item [makeResidual] Calculate the $\phi$ vector, adding the flux for each cell, from each contribution;
+		\item [makeFlux] Compute the contribution from each edge;
+		\item [makeResidual] Compute the $\phi$ vector, adding the flux for each cell from each contribution;
 		\item [LUFactorize] Calculate the matrix form of a Gauss elimination;
 	\end{description}
 \end{frame}
@@ -94,8 +94,8 @@
 \begin{frame}[plain]
 	\frametitle{Test Parameters}
 	\begin{description}
-		\item [-] Best of 3 executions, within a 5\% error margin of each other;
-		\item [-] Test for different number of threads across carious systems;
+		\item [-] Best of 3 executions within a 5\% error margin of each other;
+		\item [-] Test for different number of threads across various systems;
 		\item [-] Single user mode;
 	\end{description}
 \end{frame}
@@ -105,26 +105,39 @@
 
 \begin{frame}
 	\frametitle{Original version}
-	For each edge:
+	\begin{description}
+	\item [-] For each edge:
 	\begin{description}
 		\item [-] Calculate edge velocity;
 		\item [-] Calculate flux;
 	\end{description}
-	For each cell:
+	\item [-] For each cell:
 	\begin{description}
 		\item [-] Compute all contributions;
 	\end{description}
-	Compute vector $\phi$;
-	Compute the matrix form of a Gauss elimination;
-	Compute the error;
+	\item [-] Compute vector $\phi$;
+	\item [-] Compute the matrix form of a Gauss elimination;
+	\item [-] Compute the error;
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Challenges}
+	\begin{description}
+	\item [-] High number of memory accesses;
+	\item [-] Low operational intensity;
+	\item [-] Deep memory indirection chain;
+	\end{description}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Optimized version}
 	\begin{description}
-		\item [-] Reduce number of loads;
-		\item [-] Change some variable definitions to \emph{const};
-		\item [-] Usage of a recent compiler;
+		\item [-] Removed redundant loads and calculations;
+		\item [-] Changed some variable definitions to \emph{const};
+		\item [-] Usage of a recent compiler(SLP);
+		\item [-] Reduced makeResidual's workload from 9.2\% to 5.53\%;
+		\item [-] Improved computation time from 12.47s to 8.29s;
 	\end{description} 
 \end{frame}
 
@@ -168,7 +181,7 @@
 \end{frame}
 
 
-\section{Shared-Memory Parallel Optimization}
+\section{OpenMP Implementation}
 
 \begin{frame}
 	\frametitle{OpenMP Objectives}
@@ -210,23 +223,35 @@
 	\begin{center}
 
 	\begin{figure}[!htp]
-		\includegraphics[width=10cm]{images/graph.eps}
+		\includegraphics[width=10cm]{images/total.eps}
+		\caption{Total application runtime}
+		\label{fig:roofline}
+	\end{figure}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Achieved Results}
+	\begin{center}
+
+	\begin{figure}[!htp]
+		\includegraphics[width=10cm]{images/parallel.eps}
+		\caption{Parallel section runtime}
 		\label{fig:roofline}
 	\end{figure}
 	\end{center}
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Conclusion}
+\section{On-going and future work}
 \begin{frame}
-	\frametitle{Conclusion}
 	\begin{center}
 	\begin{itemize}
-		\item GPU version delayed, due to structural difficulties;
-		\item CENAS;
-		\item CENAS;
+		\item GPU version delayed;
+		\item Thorough restructuring of the code;
+		\item FVLib optimizations;
+		\item Improve IO;
+		\item MPI version;
 	\end{itemize}
 	\end{center}
 \end{frame}
