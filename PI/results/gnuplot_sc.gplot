@@ -1,5 +1,5 @@
 set terminal postscript eps color
-set output "graph.eps"
+set output "parallel.eps"
 
 set datafile separator ","
 
@@ -33,9 +33,11 @@ set key center right
 amdahl(p,n) = 1/((1-p)+(p/n))
 
 
-plot "scalability_data.txt" using 1:2 title "i7 parallel" with lp ls 1, \
-	 "scalability_data.txt" using 1:3 title "i7 total" with lp ls 2, \
-	 "scalability_data.txt" using 1:4 title "opteron parallel" with lp ls 3, \
+plot "scalability_data.txt" using 1:2 title "i7 parallel" with lp ls 1, "scalability_data.txt" using 1:4 title "opteron parallel" with lp ls 3, "scalability_data.txt" using 1:6 title "xeon parallel" with lp ls 5
+
+
+set output "total.eps"
+
+plot "scalability_data.txt" using 1:3 title "i7 total" with lp ls 2, \
 	 "scalability_data.txt" using 1:5 title "opteron total" with lp ls 4, \
-	 "scalability_data.txt" using 1:6 title "xeon parallel" with lp ls 5, \
 	 "scalability_data.txt" using 1:7 title "xeon total"with lp ls 6
