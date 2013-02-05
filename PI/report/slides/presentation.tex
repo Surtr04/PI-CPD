@@ -64,17 +64,18 @@
 
 \section{Test Methodology}
 \begin{frame}[plain]
-	\title{Test Machines}
+	\frametitle{Test Machines}
 		\begin{center}
+
 			\begin{table}[!htp]
-			\begin{tabular}{lrlrlrlrl}
-			\hline
-			 & {Parallel Portion} & \textbf{\# Cores} & \textbf{Expected Speedup}\\
+			\resizebox{\textwidth}{!}{
+			\begin{tabular}{|c|c|c|c|}
 			\hline
 			 & compute-511-2@search & compute-611-1 & MacBookPro\\
 			 & AMD Opt 6174 & Xeon X5650 & Intel Ivy-Bridge i7\\
+			\hline
 			\# processors & 2 & 2 & 1\\
-			\# cores per processorCENAS & 12 & 6 & 4\\
+			\# cores per processor & 12 & 6 & 4\\
 			hyperthreading & - & yes & yes\\
 			clock frequency(GHz) & 2.2 & 2.66 & 2.3\\
 			L1 capacity & 128KB & 128KB & 64KB\\
@@ -82,7 +83,7 @@
 			L3 capacity & 12MB & 12MB & 6MB\\
 			RAM capacity & 64GB & 48GB & 16GB\\
 			\hline
-			\end{tabular}
+			\end{tabular}}
 			\caption{Test cases}
 			\label{tab:testcases}
 			\end{table}
@@ -110,6 +111,7 @@
 	For each cell:
 	\begin {enumerate}
 		\item Compute all contributions;
+	\end{enumerate}
 	Compute vector $\phi$;
 	Compute a Gauss elimination;
 	Compute the error;
@@ -179,7 +181,6 @@
 
 \begin{frame}
 	\frametitle{Amdahl's Law}
-	\begin{description}
 		
 		$S_{N}=\frac{1}{(1-P) + P/N}$
 
@@ -202,7 +203,6 @@
 			\label{tab:testcases}
 			\end{table}
 		\end{center}	
-	\end{description}
 \end{frame}
 
 \begin{frame}
@@ -215,115 +215,6 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{Roofline}
-\begin{frame}
-	\begin{figure}[!htp]
-		%\includegraphics[width=12cm]{images/roofline.eps}
-		
-\section{PAPI Case Study: Matrix Multiplication}
-\begin{frame}%	begin slide
-	\frametitle{Problem}
-
-	Analyse the performance of a \textbf{matrix multiplication} algorithm, \begin{equation}Matrix A * Matrix B = Matrix C\end{equation} wich contains a triple nested loop with the indexes i,j and k (line,column and position).\\
-
-	The implementation used runs two versions of the problem, one multipying matrixA with matrixB, and another multipying matrixA with the transpose of matrixB.
-\end{frame}%	end slide
-
-\begin{frame}[fragile]
-	\frametitle{Algorithm}
-
-Standard implementation of a matrix multiplication in C.
-
-\begin{verbatim}
-for (i = 0; i < size; i++) {
-    for (j = 0; j < size; j++) {
-        for(k = 0; k < size; k++) {
-            acc += matrixA[i][k] * matrixB[k][j];				
-            }		
-            matrixC[i][j] = acc;	
-            acc = 0;
-        }
-    }
-\end{verbatim}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Counters Used}
-
-	Used counters gathered by PAPI:
-	\begin{description}
-		\item[PAPI\_TOT\_CYC] Total cycles;
-		\item[PAPI\_TOT\_INS] Total instructions
-		\item[PAPI\_LD\_INS] Load Instructions
-		\item[PAPI\_SR\_INS] Store Instructions
-		\item[PAPI\_FML\_INS] Multiply instructions
-		\item[PAPI\_FDV\_INS] Division instructions
-		\item[PAPI\_VEC\_INS] Vector Instructions
-		\item[PAPI\_FP\_OPS] Floating point operations
-		\item[PAPI\_L1\_DCA] L1 data cache accesses
-		\item[PAPI\_L1\_DCM] L1 data cache misses
-		\item[PAPI\_L2\_DCA] L2 data cache accesses
-		\item[PAPI\_L2\_DCM] L2 data cache misses
-	\end{description}
-\end{frame}
-
-\section{Test cases}
-\begin{frame}
-	\frametitle{Test cases}
-
-	Test cases were selected to fit on the multiple memory levels.\\
-	Each Test case was run 4 times for each version of the problem.
-
-	\begin{center}
-		\begin{table}[!htp]
-	\begin{tabular}{lrlrlrl}
-		\hline
-		\textbf{Memory} & \textbf{Size} & \textbf{Matrix Size} \\
-		\hline
-		L1 & 30 KB & 50 \\
-		L2 & 255 KB & 146 \\
-		L3 & 3 MB & 500 \\
-		RAM & 7.68 MB & 800 \\
-		\hline
-	\end{tabular}
-	\caption{Test cases}
-	\label{tab:testcases}
-\end{table}
-	\end{center}
-\end{frame}
-
-\section{Results}
-\subsection{Memory Accesses}
-
-
-\begin{frame}
-	\frametitle{Memory Accesses}
-
-	The following table shows the number of memory accesses, through PAPI readings.
-
-	\begin{table}[!htp]
-		\begin{center}
-		{\small
-			\begin{tabular}{|l|r|c|}
-
-				\hline
-				Test	&	PAPI	&	 Accesses/Inst		\\
-				\hline
-				L1\_1	&	380844 & 0.49033 \\
-				L1\_2	&	258412 & 0.33270 \\
-				L2\_1	&	9411279	& 0.42860\\
-				L2\_2	&	6318058	& 0.33449\\
-				L3\_1   &	7761996 & 0.00885\\
-				L3\_2   &   152192 & 0.00020\\
-				\hline
-			\end{tabular}
-		}
-		\end{center}
-	\end{table}
-\end{frame}
-
 
 \section{Conclusion}
 \begin{frame}
