@@ -7,6 +7,8 @@ set logscale x 2
 set ylabel "t (s)"
 set xlabel "number of cores"
 
+set xrange [1:24]
+
 #style for grid
 set style line 81 lt 3  # dashed
 set style line 81 lt rgb "#808080" lw 0.5  # grey
@@ -26,6 +28,9 @@ set style line 5 lt rgb "#8C00FF" lw 2 pt 13
 set style line 6 lt rgb "#FFF200" lw 2 pt 13
 
 set key center right
+
+
+amdahl(p,n) = 1/((1-p)+(p/n))
 
 
 plot "scalability_data.txt" using 1:2 title "i7 parallel" with lp ls 1, \
