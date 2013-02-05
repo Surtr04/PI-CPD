@@ -92,11 +92,11 @@
 
 \begin{frame}[plain]
 	\frametitle{Test Parameters}
-	\begin{enumerate}
+	\begin{description}
 		\item Best of 3 executions;
 		\item Test for different number of threads;
 		\item CENAS;
-	\end{enumerate}
+	\end{description}
 \end{frame}
 
 
@@ -104,14 +104,14 @@
 \begin{frame}
 	\frametitle{Original version}
 	For each edge:
-	\begin{enumerate}
+	\begin{description}
 		\item Calculate edge velocity;
 		\item Calculate flux;
-	\end{enumerate}
+	\end{description}
 	For each cell:
-	\begin {enumerate}
+	\begin{description}
 		\item Compute all contributions;
-	\end{enumerate}
+	\end{description}
 	Compute vector $\phi$;
 	Compute a Gauss elimination;
 	Compute the error;
@@ -119,11 +119,11 @@
 
 \begin{frame}
 	\frametitle{Optimized version}
-	\begin{enumerate}
+	\begin{description}
 		\item Reduce number of loads;
 		\item Change some variable definitions to \emph{const};
 		\item Usage of a recent compiler;
-	\end{enumerate} 
+	\end{description} 
 \end{frame}
 
 
@@ -172,10 +172,10 @@
 \section{Shared-Memory Parallel Optimization}
 \begin{frame}
 	\frametitle{OpenMP Objectives}
-	\begin{enumerate}
+	\begin{description}
 		\item Parallelize application;
 		\item Decrease runtime;
-	\end{enumerate}
+	\end{description}
 \end{frame}	
 
 
