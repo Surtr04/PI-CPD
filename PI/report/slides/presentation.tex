@@ -64,19 +64,29 @@
 
 \section{Test Methodology}
 \begin{frame}[plain]
-	\frametitle{Test Machines}
-	\begin{description}
-		\item [compute-511-2@search] [MacBookPro] [compute-611-1]
-		\item [AMD Opt 6174] [Intel Ivy-Bridge i7] [Xeon X5650]
-		\item processors[2] [1] [2]
-		\item cores per processor[12]; [4] [6]
-		\item hyperthreadin [-] [SIM] [SIM]
-		\item clock frequency[2.2 GHz]; [2.3] [2.66]
-		\item L1[128 KB]; [64] [128]
-		\item L2[512 KB]; [256] [256]
-		\item L3[12 MB]; [6 MB] [12 MB]
-		\item RAM[64 GB]; [16 GB] [48GB]
-	\end{description}
+	\title{Test Machines}
+		\begin{center}
+			\begin{table}[!htp]
+			\begin{tabular}{lrlrlrlrl}
+			\hline
+			 & {Parallel Portion} & \textbf{\# Cores} & \textbf{Expected Speedup}\\
+			\hline
+			 & compute-511-2@search & compute-611-1 & MacBookPro\\
+			 & AMD Opt 6174 & Xeon X5650 & Intel Ivy-Bridge i7\\
+			\# processors & 2 & 2 & 1\\
+			\# cores per processorCENAS & 12 & 6 & 4\\
+			hyperthreading & - & yes & yes\\
+			clock frequency(GHz) & 2.2 & 2.66 & 2.3\\
+			L1 capacity & 128KB & 128KB & 64KB\\
+			L2 capacity & 512KB & 256KB & 256KB\\
+			L3 capacity & 12MB & 12MB & 6MB\\
+			RAM capacity & 64GB & 48GB & 16GB\\
+			\hline
+			\end{tabular}
+			\caption{Test cases}
+			\label{tab:testcases}
+			\end{table}
+		\end{center}
 \end{frame}
 
 \begin{frame}[plain]
@@ -169,7 +179,7 @@
 
 \begin{frame}
 	\frametitle{Amdahl's Law}
-	\begin{enumerate}
+	\begin{description}
 		
 		$S_{N}=\frac{1}{(1-P) + P/N}$
 
@@ -192,7 +202,7 @@
 			\label{tab:testcases}
 			\end{table}
 		\end{center}	
-	\end{enumerate}
+	\end{description}
 \end{frame}
 
 \begin{frame}
