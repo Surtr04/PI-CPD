@@ -71,7 +71,7 @@
 			\resizebox{\textwidth}{!}{
 			\begin{tabular}{|c|c|c|c|}
 			\hline
-			 & compute-511-2@search & compute-611-1 & MacBookPro\\
+			 & compute-511-2@search & compute-611-1@search & MacBookPro\\
 			 & AMD Opt 6174 & Xeon X5650 & Intel Ivy-Bridge i7\\
 			\hline
 			\# processors & 2 & 2 & 1\\
@@ -93,7 +93,7 @@
 \begin{frame}[plain]
 	\frametitle{Test Parameters}
 	\begin{description}
-		\item Best of 3 executions;
+		\item Best of 3 executions, with an error margin of 5\%;
 		\item Test for different number of threads;
 		\item CENAS;
 	\end{description}
@@ -142,17 +142,17 @@
 	Used counters gathered by PAPI:
 	\begin{description}
 		\item[PAPI\_TOT\_CYC] Total cycles;
-		\item[PAPI\_TOT\_INS] Total instructions
-		\item[PAPI\_LD\_INS] Load Instructions
-		\item[PAPI\_SR\_INS] Store Instructions
-		\item[PAPI\_FML\_INS] Multiply instructions
-		\item[PAPI\_FDV\_INS] Division instructions
-		\item[PAPI\_VEC\_INS] Vector Instructions
-		\item[PAPI\_FP\_OPS] Floating point operations
-		\item[PAPI\_L1\_DCA] L1 data cache accesses
-		\item[PAPI\_L1\_DCM] L1 data cache misses
-		\item[PAPI\_L2\_DCA] L2 data cache accesses
-		\item[PAPI\_L2\_DCM] L2 data cache misses
+		\item[PAPI\_TOT\_INS] Total instructions;
+		\item[PAPI\_LD\_INS] Load Instructions;
+		\item[PAPI\_SR\_INS] Store Instructions;
+		\item[PAPI\_FML\_INS] Multiply instructions;
+		\item[PAPI\_FDV\_INS] Division instructions;
+		%%\item[PAPI\_VEC\_INS] Vector Instructions;
+		\item[PAPI\_FP\_OPS] Floating point operations;
+		\item[PAPI\_L1\_DCA] L1 data cache accesses;
+		\item[PAPI\_L1\_DCM] L1 data cache misses;
+		\item[PAPI\_L2\_DCA] L2 data cache accesses;
+		\item[PAPI\_L2\_DCM] L2 data cache misses;
 	\end{description}
 \end{frame}
 
@@ -186,17 +186,17 @@
 
 		\begin{center}
 			\begin{table}[!htp]
-			\begin{tabular}{lrlrlrl}
+			\begin{tabular}{|r|r|r|}
 			\hline
 			\textbf{Parallel Portion} & \textbf{\# Cores} & \textbf{Expected Speedup}\\
 			\hline
-			CENAS & 1 & CENAS \\
-			CENAS & 2 & CENAS \\
-			CENAS & 4 & CENAS \\
-			CENAS & 8 & CENAS \\
-			CENAS & 12 & CENAS \\
-			CENAS & 16 & CENAS \\
-			CENAS & 24 & CENAS \\
+			 & 1 & 1 \\
+			 & 2 & 1.0284 \\
+			 & 4 & 1.0433 \\
+			 5.53\% & 8 & 1.0508 \\
+			 & 12 & 1.0534 \\
+			 & 16 & 1.0547 \\
+			 & 24 & 1.0560 \\
 			\hline
 			\end{tabular}
 			\caption{Test cases}
@@ -207,10 +207,26 @@
 
 \begin{frame}
 	\frametitle{Achieved Results}
-	\begin{figure}[!htp]
-		%\includegraphics[width=12cm]{images/roofline.eps}
-	\label{fig:optm_papi}
-	\end{figure}
+	\begin{center}
+		\begin{table}[!htp]
+			\begin{tabular}{|r|r|r|}
+			\hline
+			compute-511-2@search & compute-611-1@search & MacBookPro & Expected Speedup\\
+			\textbf{Parallel Portion} & \textbf{\# Cores} & \textbf{Expected Speedup}\\
+			\hline
+			 & 1 & 1 \\
+			 & 2 & 1.0284 \\
+			 & 4 & 1.0433 \\
+			 5.53\% & 8 & 1.0508 \\
+			 & 12 & 1.0534 \\
+			 & 16 & 1.0547 \\
+			 & 24 & 1.0560 \\
+			\hline
+			\end{tabular}
+			\caption{Test cases}
+			\label{tab:testcases}
+		\end{table}
+	\end{center}	
 \end{frame}
 
 
@@ -220,8 +236,9 @@
 \begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
-		\item Some difficulties measuring memory ceilings;
-		\item Lack of analysis of output from PAPI;
+		\item GPU version delayed, due to structural dificulties;
+		\item CENAS;
+		\item CENAS;
 	\end{itemize}
 \end{frame}
 
