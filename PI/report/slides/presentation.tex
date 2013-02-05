@@ -158,14 +158,28 @@
 
 \begin{frame}
 	\frametitle{PAPI comparison}
-	\begin{figure}[!htp]
-		%\includegraphics[width=12cm]{images/roofline.eps}
-	\label{fig:original_papi}
-	\end{figure}
-	\begin{figure}[!htp]
-		%\includegraphics[width=12cm]{images/roofline.eps}
-	\label{fig:optm_papi}
-	\end{figure}
+	\begin{center}
+
+			\begin{table}[!htp]
+			\resizebox{\textwidth}{!}{
+			\begin{tabular}{|c|c|c|}
+			\hline
+			 & original version & optimized sequential version\\
+			\hline
+			Total cycles & processors & 2 & 2 & 1\\
+			Total instructions & 12 & 6 & 4\\
+			Load instructions & - & yes & yes\\
+			Store instructions & 2.2 & 2.66 & 2.3\\
+			FP operations & 128KB & 64KB\\
+			L1 data accesses & 512KB & 256KB & 256KB\\
+			L2 data accesses & 12MB & 12MB & 6MB\\
+			\hline
+			\end{tabular}}
+			\caption{Test cases}
+			\label{tab:testcases}
+			\end{table}
+		\end{center}
+
 \end{frame}
 
 
