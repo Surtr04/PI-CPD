@@ -46,7 +46,7 @@
 \begin{frame}[plain]
 	\frametitle{Convexion-Diffusion}
 	\begin{description}
-		\item [What?]Simulates the way heat is transferred in a spread of a fluid;
+		\item [What?]Simulates the way heat is transfered in a spread of a fluid;
 		\item [How?] Uses finite-volumes method;
 		\item [Why?] Represents surface as a mesh, making each cell only dependent of its neighbours;
 	\end{description}
@@ -56,14 +56,13 @@
 	\frametitle{Convexion-Diffusion}
 	\begin{description}
 		\item [makeFlux] Calculate the contribution from each edge;
-		\item [makeResidual] Calculate the $\phi$ vector, adding the flux for each cell, from each contribution;
+		\item [makeResidual] Calculate the $\phi$ vector, ading the flux for each cell, from each contribution;
 		\item [LUFactorize] Calculate the matrix form of a Gauss elimination;
 	\end{description}
 \end{frame}
 
 
 \section{Test Methodology}
-
 \begin{frame}[plain]
 	\frametitle{Test Machines}
 		\begin{center}
@@ -77,7 +76,7 @@
 			\hline
 			\# processors & 2 & 2 & 1\\
 			\# cores per processor & 12 & 6 & 4\\
-			hyper-threading & - & yes & yes\\
+			hyperthreading & - & yes & yes\\
 			clock frequency(GHz) & 2.2 & 2.66 & 2.3\\
 			L1 capacity & 128KB & 128KB & 64KB\\
 			L2 capacity & 512KB & 256KB & 256KB\\
@@ -85,7 +84,7 @@
 			RAM capacity & 64GB & 48GB & 16GB\\
 			\hline
 			\end{tabular}}
-			\caption{Test machines}
+			\caption{Test cases}
 			\label{tab:test machines}
 			\end{table}
 		\end{center}
@@ -94,25 +93,24 @@
 \begin{frame}[plain]
 	\frametitle{Test Parameters}
 	\begin{description}
-		\item [-] Best of 3 executions, within a 5\% error margin of each other;
-		\item [-] Test for different number of threads across carious systems;
-		\item [-] Single user mode;
+		\item Best of 3 executions, within a 5\% error margin of each other;
+		\item Test for different number of threads across carious systems;
+		\item Single user mode;
 	\end{description}
 \end{frame}
 
 
 \section{Sequential version}
-
 \begin{frame}
 	\frametitle{Original version}
 	For each edge:
 	\begin{description}
-		\item [-] Calculate edge velocity;
-		\item [-] Calculate flux;
+		\item Calculate edge velocity;
+		\item Calculate flux;
 	\end{description}
 	For each cell:
 	\begin{description}
-		\item [-] Compute all contributions;
+		\item Compute all contributions;
 	\end{description}
 	Compute vector $\phi$;
 	Compute the matrix form of a Gauss elimination;
@@ -120,18 +118,24 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Original version}
+	
+\end{frame}
+
+\begin{frame}
 	\frametitle{Optimized version}
 	\begin{description}
-		\item [-] Reduce number of loads;
-		\item [-] Change some variable definitions to \emph{const};
-		\item [-] Usage of a recent compiler;
+		\item Reduce number of loads;
+		\item Change some variable definitions to \emph{const};
+		\item Usage of a recent compiler;
 	\end{description} 
 \end{frame}
 
 \section{PAPI Analysis}
-
 \begin{frame}
 	\frametitle{Counters Used}
+
+	Used counters gathered by PAPI:
 	\begin{description}
 		\item[PAPI\_TOT\_INS] Total instructions;
 		\item[PAPI\_LD\_INS] Load Instructions;
@@ -160,7 +164,7 @@
 			L2 data accesses & 22.914 & 17.467\\
 			\hline
 			\end{tabular}}
-			\caption{PAPI comparison}
+			\caption{Test cases}
 			\label{tab:testcases}
 			\end{table}
 		\end{center}
@@ -169,22 +173,21 @@
 
 
 \section{Shared-Memory Parallel Optimization}
-
 \begin{frame}
 	\frametitle{OpenMP Objectives}
 	\begin{description}
-		\item [-] Parallelize application;
-		\item [-] Decrease runtime;
+		\item Parallelize application;
+		\item Decrease runtime;
 	\end{description}
 \end{frame}	
 
 
 \begin{frame}
 	\frametitle{Amdahl's Law}
-		\begin{center}
+		
 		$S_{N}=\frac{1}{(1-P) + P/N}$
 
-		
+		\begin{center}
 			\begin{table}[!htp]
 			\begin{tabular}{|r|r|r|}
 			\hline
@@ -199,7 +202,7 @@
 			 & 24 & 1.0560 \\
 			\hline
 			\end{tabular}
-			\caption{Theoretical speedups}
+			\caption{Test cases}
 			\label{tab:testcases}
 			\end{table}
 		\end{center}	
@@ -207,13 +210,10 @@
 
 \begin{frame}
 	\frametitle{Achieved Results}
-	\begin{center}
-
 	\begin{figure}[!htp]
-		\includegraphics[width=10cm]{images/graph.eps}
+		\includegraphics[width=12cm]{images/graph.eps}
 		\label{fig:roofline}
 	\end{figure}
-	\end{center}
 \end{frame}
 
 
@@ -222,13 +222,11 @@
 \section{Conclusion}
 \begin{frame}
 	\frametitle{Conclusion}
-	\begin{center}
 	\begin{itemize}
-		\item GPU version delayed, due to structural difficulties;
+		\item GPU version delayed, due to structural dificulties;
 		\item CENAS;
 		\item CENAS;
 	\end{itemize}
-	\end{center}
 \end{frame}
 
 \section{Questions}
