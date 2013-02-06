@@ -1,4 +1,4 @@
-\beamer@endinputifotherversion {3.10pt}
+\beamer@endinputifotherversion {3.20pt}
 \select@language {english}
 \beamer@sectionintoc {1}{Case Study}{3}{0}{1}
 \beamer@sectionintoc {2}{Test Methodology}{5}{0}{2}

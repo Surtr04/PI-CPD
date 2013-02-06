@@ -27,7 +27,7 @@ set style line 4 lt rgb "#F25900" lw 2 pt 13
 set style line 5 lt rgb "#8C00FF" lw 2 pt 13
 set style line 6 lt rgb "#FFF200" lw 2 pt 13
 
-set key center right
+set key bottom right
 
 
 amdahl(p,n) = 1/((1-p)+(p/n))
