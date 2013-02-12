@@ -49,7 +49,7 @@
 \end{multicols}
 
 \begin{abstract}
-    This report presents an analysis and optimization of a Diffusion-Convection application. This application uses a Finite Volume method to compute the heat diffusion in a fluid in an area of a surface. The optimizations made were: an optimized sequential version and a shared-memory OpenMP version.
+    This report presents an analysis and details optimizations of a Diffusion-Convection application. This application uses a Finite Volume method to compute the heat diffusion in a fluid in an area of a surface. The optimizations made were: an optimized sequential version and a shared-memory OpenMP version.
     Speedups were only obtained on the sequential version. Although some structural optimizations were made in the sequential version, locality issues remained, turning the achieved results worse than the original version for the parallel version.
     Later in this report the results are compared joined with some speculation for on-going work.  
 \end{abstract}
@@ -251,7 +251,7 @@ After implementing both the sequential version and the OpenMP version, a na\"{i}
 
 In future work, it is expected to develop an optimized CUDA version as well as an MPI version. A hybrid version using both CPU and GPU could also be a future implementation ideia, if it proves worthy performance wise. It is also expected to optimize several areas of code, questioning some decisions like using double-precision versus single-precision. Another area that might require attention is the input parser and the input file's structure. 
 
-Moreover, we also want to focus some time in the calculation of the normal vector shown in \Cref{sec:sequentialopt}, as it is such a heavy part of the computation. Maybe an all assembly alternative is best chance we have of improving the square-root problem. 
+Moreover, we also want to focus some time in the calculation of the normal vector shown in \Cref{sec:sequentialopt}, as it is such a heavy part of the computation. Maybe an all assembly alternative is best chance we have of improving the square-root problem. Also, beucause \emph{LUFactorize} takes so much time, we plan in removing it from the source code, since it only there to check the result's correctness and the important part is the construction of the vector $G$ (\emph{makeResidual}), so, as we grow more confident in the results we get, the need to check their correctness is not present.
 
 \section{Conclusion}
 \label{sec:conclusion}
