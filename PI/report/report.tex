@@ -49,19 +49,23 @@
 \end{multicols}
 
 \begin{abstract}
-    This report describes our analysis of a Diffusion-Convection application. Our main goal was to profile the aplication's behaviour, identifying it's main problems, such as bottlenecks, in order to aid in future optimizations. 
+    This report presents an analysis and optimization of Diffusion-Convection application. This application uses a Finite Volume method to compute the heat in a spread of a fluid in a surface. The optimizations made were: an optimized sequential version and a shared-memory OpenMP version.
+    Speedups were only obtained on the sequential version. Although some structural optimizations were made in the sequential version, locality issues remained, turning the achieved results in the parallel version worse than the original version.
+    Later in this report the results are compared joined with some speculation for on-going work.  
 \end{abstract}
 
 \section{Introduction}    %% Reler, corrigir algum erro
 
 High-Performance Computing (HPC) has been a fundamental process to science, in order to make viable certain simulations that require massive amounts of calculation. The use of several optimization techniques has helped decrease the execution time of different algorithms, providing critical results faster, thus helping research move forward at a faster pace.
 
-This report will describe a study about improving the performance of \emph{conv-diff}. This application calculates de heat diffusion of a fluid while it spreads though an area. In this study we approach different ways to improve upon the initial solution. The project was devised in three stages. The first one was analyzing the original application, building its profile while also developing a better sequential version. 
-On the second stage, a shared-memory parallel version was made (\emph{OpenMP}). Finally on the third stage, a CUDA version is being developed, taking advantage of the massive parallelism modern GPU's have to offer.
+This report will describe a study of \emph{conv-diff} application with the objective of improving its performance. This application calculates de heat diffusion of a fluid while it spreads though an area through a Finite Volume method. 
 
+This study approaches different ways to improve upon the initial solution. The project was devised in three stages. The first one was analyzing the original application, building its profile while also developing a better sequential version. The second stage was focused on a shared-memory parallel version, in (\emph{OpenMP}). Finally on the third stage, a naive CUDA version is being developed, taking advantage of the GPU's massive parallelism.
+
+The report is organized in the following order. \Cref{sec:casestudy} details the application's problem, explaining what aims to resolve and how it does it. \Cref{sec:profiling} shows the high workload areas which are adressed in the following sections for optimization. \Cref{sec:sequentialopt} presents the first optimized version implemented followed by the second version made, this one parallel in section \Cref{sec:openmp}. In the end of this report, some considerations are made for the future work on \Cref{sec:futurework} and conclusion were taken in \Cref{sec:conclusion}
 
 \section{Case Study}    %% Reler, corrigir algum erro, adicionar algo se te lembrares
-
+\label{sec:casestudy}
 The application analyzed for this study is \emph{conv-diff(Convection-Diffusion)}. This application simulates the way heat is transferred in a fluid using the finite-volumes method. To compute the heat diffusion, the surface is represented as a mesh. Being represented by cells and edges, the algorithm will traverse all edges, calculating the contribution of the adjacent cells. This application rests in a Finite Volume Library (FVLib), which handles the structures and some of the logic functions necessary for the problem's solution. 
 
 The application's main objective is to compute a vector $\overline{\phi}$ such that $\overline{\phi} \longrightarrow G(\overline{\phi}) = \left(\begin{array}{c}
@@ -85,7 +89,7 @@ G_I
 \end{array}\right)$
 
 \section{Profiling}    %% Reler, reestruturar e adicionar o que faltar
-
+\label{sec:profiling}
 The program consists in four major parts, reading the initial mesh from a file. Then, using the functions \emph{makeResidual}, which calls the function \emph{makeFlux}, the flux contributions are calculated and the vector phi is built, thus achieving a matrix free implementation. Following this, to calculate the deviation in the results from the previous operations, the function \emph{LUFactorize}. Finally, both the meshes are written to the output files, together with the error between them.
  
 After analyzing the application, we conclude that the algorithm has a very high workload in the \emph{LUFactorize} function, comprising of more than 90\% of the execution time.
@@ -93,7 +97,7 @@ This is mostly because LUFactorize is a matrix implementation of the algorithm p
 
 
 \section{Sequential Optimization}
-
+\label{sec:sequentialopt}
 
 After dissecting the code and understanding the problem at hand, we began to notice several implementation errors, these errors, such as reading the same variable repeatedly from a file and long chains of calculation with a heavy division at the end, were easy to spot, and could clearly been avoided. We changed all those trivial aspects of the application, which required minimal effort. That being said, this simple optimizations paid results. The computation time has been greatly reduced, with the aforementioned \emph{LUFactorize} function taking an even more prominent role in our profile.
 
@@ -157,7 +161,7 @@ These are all the optimizations we attempted on the original sequential version.
 
 
 \section{Shared Memory Parallel Optimization(OpenMP)}
-
+\label{sec:openmp}
 After optimizing the sequential code, we turned our efforts to parallelizing the code. The two loops responsible for the matrix free calculations were ideal candidates. We parallelized both these loops. We had some struggles with data-races in these, but we overcame the problems rather easily. The data-races exist because the mesh is traversed by the edges, however, as we found out, if they are traversed by cell, these data-races no longer exist. Also, the library that was provided includes some iterator style structures. These were also a problem, because, while OpenMP as no problem in parallelizing STL iterators, this doesn't hold true for \emph{FVlib}'s iterators. So, we had to convert those to a standard for loop, this way, the OpenMP library, knows which thread is to reveive the workload. The code was successfully parallelized, however, results were disappointing, execution time didn't decrease noticeably, hinting at a very memory bound application. 
 
 \begin{minipage}{.45\textwidth}
@@ -189,13 +193,13 @@ After optimizing the sequential code, we turned our efforts to parallelizing the
 The above code shows the parallel code for the smallest function we could parallelize. As it can be seen from the example, there are two data-races in the parallel region. These data-races ensure that only one thread at a given time access the array G. As we said above, this problem isn't present in the traversal by cell. We implemented a traversal by cells, but it didn't improve much either which means that the problem is rooted at a lower level, the \emph{FVLib} itself. 
 
 \section{On-going and Future Work}    %% Reler, corrigir algum erro
-
+\label{sec:futurework}
 After implementing both the sequential version and the OpenMP version, a na\"{i}ve implementation in CUDA was started. This version aims to take advantage of the GPU's massive parallelism, improving performance using its vector units to diminish computation time. However, for this to be possible, a thorough restructuring of the code is necessary.This is because most of the structures are implemented using pointers, something hinders CPU performance, but also makes it impossible to use CUDA, since we can't have a structure in the device memory pointing to host memory. Thus we are facing the challenge of removing most of the memory accesses while maintaining the abstraction and flexibility currently present in the application. After resolving this issue and other minor ones, we expect to achieve a boost in performance.
 
 In future work, it is expected to develop a optimized CUDA version as well as a OpenMPI. A hybrid version using both CPU and GPU could also be a future implementation to have gains in performance. It is also expected to optimize several areas of code, questioning some decisions like using double-precision versus single-precision. Another area that might require attention is the input parser and the input file's structure. 
 
 \section{Conclusion}
-
+\label{sec:conclusion}
 This extended abstract serves as a introduction to the study here presented. The initial results from the implementations of optimized versions, sequential and parallel, shows small improvements in the computed time. Future iterations of the solutions may increase the improvements, shifting the application to a computing bound zone.
 
 Through the development of the solutions some problems were presented, such as the mesh being disperse and the structures implemented with extensive use of pointers. This problems delayed the development of solutions, in particular the CUDA version. The decision of maintaining the abstraction of the system may prove to be a bold direction, but favorable in terms of comprehension.
