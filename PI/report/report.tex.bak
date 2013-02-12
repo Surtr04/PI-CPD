@@ -49,8 +49,8 @@
 \end{multicols}
 
 \begin{abstract}
-    This report presents an analysis and optimization of a Diffusion-Convection application. This application uses a Finite Volume method to compute the heat diffusion in a fluid in an area of a surface. The optimizations made were: an optimized sequential version and a shared-memory OpenMP version.
-    Speedups were only obtained on the sequential version. Although some structural optimizations were made in the sequential version, locality issues remained, turning the achieved results worse than the original version for the parallel version.
+    This report presents an analysis and optimization of Diffusion-Convection application. This application uses a Finite Volume method to compute the heat in a spread of a fluid in a surface. The optimizations made were: an optimized sequential version and a shared-memory OpenMP version.
+    Speedups were only obtained on the sequential version. Although some structural optimizations were made in the sequential version, locality issues remained, turning the achieved results in the parallel version worse than the original version.
     Later in this report the results are compared joined with some speculation for on-going work.  
 \end{abstract}
 
@@ -58,11 +58,11 @@
 
 High-Performance Computing (HPC) has been a fundamental process to science, in order to make viable certain simulations that require massive amounts of calculation. The use of several optimization techniques has helped decrease the execution time of different algorithms, providing critical results faster, thus helping research move forward at a faster pace.
 
-This report will describe a study of \emph{conv-diff} application with the objective of improving its performance. This application calculates the heat diffusion of a fluid while it spreads though an area through a Finite Volume method. 
+This report will describe a study of \emph{conv-diff} application with the objective of improving its performance. This application calculates de heat diffusion of a fluid while it spreads though an area through a Finite Volume method. 
 
 This study approaches different ways to improve upon the initial solution. The project was devised in three stages. The first one was analyzing the original application, building its profile while also developing a better sequential version. The second stage was focused on a shared-memory parallel version, in (\emph{OpenMP}). Finally on the third stage, a naive CUDA version is being developed, taking advantage of the GPU's massive parallelism.
 
-This report is organized in the following manner. \Cref{sec:casestudy} details the application's problem, explaining what aims to resolve and how it does it. \Cref{sec:profiling} shows the high workload areas which are addressed in the following sections for optimization. Next, in section \Cref{sec:test_methodology} we detail our test methology for this study.  \Cref{sec:sequentialopt} presents the first optimized version implemented followed by the second version made, this one parallel (using OpenMP) in section \Cref{sec:openmp}. In the end of this report, some considerations are made for the future work on \Cref{sec:futurework} and conclusion were taken in \Cref{sec:conclusion}
+The report is organized in the following order. \Cref{sec:casestudy} details the application's problem, explaining what aims to resolve and how it does it. \Cref{sec:profiling} shows the high workload areas which are adressed in the following sections for optimization. \Cref{sec:sequentialopt} presents the first optimized version implemented followed by the second version made, this one parallel in section \Cref{sec:openmp}. In the end of this report, some considerations are made for the future work on \Cref{sec:futurework} and conclusion were taken in \Cref{sec:conclusion}
 
 \section{Case Study}    %% Reler, corrigir algum erro, adicionar algo se te lembrares
 \label{sec:casestudy}
@@ -94,14 +94,6 @@ The program consists in four major parts, reading the initial mesh from a file. 
  
 After analyzing the application, we conclude that the algorithm has a very high workload in the \emph{LUFactorize} function, comprising of more than 90\% of the execution time.
 This is mostly because LUFactorize is a matrix implementation of the algorithm presented in the previous section. While it provides accurate results, it's memory usage, for example, make it unusable for big meshes. As an example, a mesh with more than fifty thousand cells will easily consume more than 10 GB of RAM. 
-
-
-\section{Test Methodology} % (fold)
-\label{sec:test_methodology}
-
-In order to achieve precise and consistent results, all tests were run on a dedicated execution of the algorithm, with niceness set to -20, to ensure the tests execution was top priority to the OS's scheduler. Furthermore, all network connections were disabled. To decrease the chance of human error, all tests were hard-coded into a bash script, with another script traversing those tests and showing the results. Also, it should be noted that every test was run at least 3 times. A 5\% error margin was checked between execution (the aforementioned script handles this part), and if this margin is not met, the tests are run again. 
-
-% section test_methodology (end)
 
 
 \section{Sequential Optimization}
@@ -141,7 +133,7 @@ As can be seen from the code excerpt above, the code reads values from a structu
 \end{lstlisting}
 \end{minipage}    
 
-This is another alarming example. The last line of code presents a very heavy sequence of instructions. Actually, in our profile we measured that about 70\% of the time spent in that function amounts to that last line of code. What we did was remove the computation of BB to outside the loop, since it is a static variable, also, the computation done by \emph{getDiffusion} doesn't change in the loop, so we moved that outside as well. These changes changed the amount of time spent in that line to about 58\%. 
+This is another alarming example. The last line of code presents a very heavy sequence of instructions. Actually, in our profile we measured that about 70\% of the time spent in that function amounts to that last line of code. What we did was remove the computation of BB to outside the loop, since it is a static variable, also, the computation done by \emph{getDiffusion} doesn't change in the loop, so we moved that outside aswell. These changes changed the amount of time spent in that line to about 58\%. 
 We tried to solve the division problem (since it can take many clock cycles) but to avail.
 
 \begin{minipage}{.45\textwidth}
@@ -166,28 +158,6 @@ We found the above piece of code (an implementation of Newton's iterative method
 Also, just before starting the OpenMP version, we updated our gcc compiler so we could the latest version of the OpenMP library. Actually, the results we got improved dramatically when compiling with gcc 4.7.2. This is because newer versions of gcc are very good at vectorization and employ SLP (Sequential Linear Programming) techniques.
 
 These are all the optimizations we attempted on the original sequential version. The original version, with a small input, took little over 14 seconds. With the optimizations mentioned and updated compiler, we brought it down to just 8 seconds. 
-
-Below is table of results we got from PAPI, displaying the difference between the original version and the best sequential version. 
-These results show the improvements our small changes to the source code got. By not computing the same value in every iteration of the loop and making those values constant, we gratly reduced the number of loads and stores and, consequently, the number of cache accesses. Althought we can't explain the decrease in the number of total instructions at this time. 
-
-\begin{table}[!htp]
-    \resizebox{\columnwidth}{!}{
-        \begin{tabular}{|c|c|c|}
-        \hline
-            & original version & optimized sequential version\\
-        \hline
-            Total instructions & 2.517.584 & 285.551\\
-            Load instructions & 630.156 & 86.532\\
-            Store instructions & 326.459 & 39.208\\
-            FP operations & 55.673 & 44.019\\
-            L1 data accesses & 1.061.761 & 153.593\\
-            L2 data accesses & 22.914 & 17.467\\
-        \hline
-        \end{tabular}}
-    \caption{PAPI comparison}
-    \label{tab:testcases}
-\end{table}
-
 
 
 \section{Shared Memory Parallel Optimization(OpenMP)}
@@ -222,41 +192,18 @@ After optimizing the sequential code, we turned our efforts to parallelizing the
 
 The above code shows the parallel code for the smallest function we could parallelize. As it can be seen from the example, there are two data-races in the parallel region. These data-races ensure that only one thread at a given time access the array G. As we said above, this problem isn't present in the traversal by cell. We implemented a traversal by cells, but it didn't improve much either which means that the problem is rooted at a lower level, the \emph{FVLib} itself. 
 
-Below is a graph detailing the results we got for the parallel portion of the program. We ran this test on an Intel Xeon 5650, which has 12 physical cores and HyperThreading. As this processor has HT it got us wondering if it would scale any better in a processor with 24 physical cores, so we also ran the tests on an AMD Opteron 6174. Also, as most of the optimizations were made in a personal machine, we included those results as well. The faster times can be explained the the use of a recent compiler. The processor is an Intel Ivy Bridge i7 (2.3 GHz) with 4 physical cores. The slower times on the AMD machine can be explained by bad space locality. One of the strengths of the AMD processor is it's big cache, however, logically, if the program as bad locality, it will perform worse than in it's Intel counterpart. 
-As it can be seen, the application doesn't scale at all as expected, this is because of the high number of memory accesses. Also, the deep indirection chain in \emph{FVLib} plays it's part. With every structure being a collection of pointers to other structures. These results hint at the kind of work we have to do next, improve data locality and remove unecessary pointers. This, of course, means re-implementing some of the structures in \emph{FVLib}.
-
-\begin{figure}[!htp]
-    \centering
-    \begin{minipage}[t]{\columnwidth}
-        \includegraphics[width=\textwidth]{slides/images/parallel.eps}
-        \caption{Scalability of the parallel region \label{fig:parallel}}
-    \end{minipage}
-\end{figure}
-
-Below is a plot of the total execution times.
-
-
-\begin{figure}[!htp]
-    \centering
-    \begin{minipage}[t]{\columnwidth}
-        \includegraphics[width=\textwidth]{slides/images/total.eps}
-        \caption{Total execution time \label{fig:total}}
-    \end{minipage}
-\end{figure}
-
-
 \section{On-going and Future Work}    %% Reler, corrigir algum erro
 \label{sec:futurework}
-After implementing both the sequential version and the OpenMP version, a na\"{i}ve implementation in CUDA was started. This version aims to take advantage of the GPU's massive parallelism, improving performance using its vector units to diminish computation time. However, for this to be possible, a thorough restructuring of the code is necessary.This is because most of the structures are implemented using pointers, something that hinders CPU performance, but also makes it impossible to use CUDA, since we can't have a structure in the device memory pointing to host memory. Thus we are facing the challenge of removing most of the memory accesses while maintaining the abstraction and flexibility currently present in the application. After resolving this issue and other minor ones, we expect to achieve a boost in performance.
+After implementing both the sequential version and the OpenMP version, a na\"{i}ve implementation in CUDA was started. This version aims to take advantage of the GPU's massive parallelism, improving performance using its vector units to diminish computation time. However, for this to be possible, a thorough restructuring of the code is necessary.This is because most of the structures are implemented using pointers, something hinders CPU performance, but also makes it impossible to use CUDA, since we can't have a structure in the device memory pointing to host memory. Thus we are facing the challenge of removing most of the memory accesses while maintaining the abstraction and flexibility currently present in the application. After resolving this issue and other minor ones, we expect to achieve a boost in performance.
 
-In future work, it is expected to develop an optimized CUDA version as well as an MPI version. A hybrid version using both CPU and GPU could also be a future implementation ideia, if it proves worthy performance wise. It is also expected to optimize several areas of code, questioning some decisions like using double-precision versus single-precision. Another area that might require attention is the input parser and the input file's structure. 
-
-Moreover, we also want to focus some time in the calculation of the normal vector shown in \Cref{sec:sequentialopt}, as it is such a heavy part of the computation. Maybe an all assembly alternative is best chance we have of improving the square-root problem. 
+In future work, it is expected to develop a optimized CUDA version as well as a OpenMPI. A hybrid version using both CPU and GPU could also be a future implementation to have gains in performance. It is also expected to optimize several areas of code, questioning some decisions like using double-precision versus single-precision. Another area that might require attention is the input parser and the input file's structure. 
 
 \section{Conclusion}
 \label{sec:conclusion}
-This report serves as an introduction to the study here presented. The results from the sequential optimized version shows some improvements in the total execution time.
-However OpenMP results were disappointing, future iterations of the implementation may increase the improvements, shifting the application to a computing bound zone.
+This extended abstract serves as a introduction to the study here presented. The initial results from the implementations of optimized versions, sequential and parallel, shows small improvements in the computed time. Future iterations of the solutions may increase the improvements, shifting the application to a computing bound zone.
 
-Through the development of the solutions some problems were presented, such as the mesh being disperse and the structures implemented with extensive use of pointers. This problems delayed the development of solutions, in particular the CUDA version. Maintaining the abstraction of the system may prove to be a bold decision, but favorable in terms of comprehension.
+Through the development of the solutions some problems were presented, such as the mesh being disperse and the structures implemented with extensive use of pointers. This problems delayed the development of solutions, in particular the CUDA version. The decision of maintaining the abstraction of the system may prove to be a bold direction, but favorable in terms of comprehension.
+
+In the future released paper a deep analysis of the results will be made, showing the performance improvements obtained.
+
 \end{document}
