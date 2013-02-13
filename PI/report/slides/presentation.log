@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.2.6)  6 FEB 2013 01:28
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.2.6)  13 FEB 2013 14:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1405,11 +1405,11 @@ Overfull \hbox (42.70363pt too wide) has occurred while \output is active
 
 ]
 Package epstopdf Info: Source file: <images/total.eps>
-(epstopdf)                    date: 2013-02-05 13:52:04
-(epstopdf)                    size: 18285 bytes
+(epstopdf)                    date: 2013-02-11 17:52:13
+(epstopdf)                    size: 18287 bytes
 (epstopdf)             Output file: <images/total-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-06 01:28:52
-(epstopdf)                    size: 6747 bytes
+(epstopdf)                    date: 2013-02-12 19:12:49
+(epstopdf)                    size: 6816 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/total-eps-converted
 -to.pdf images/total.eps>
 (epstopdf)             \includegraphics on input line 233.
@@ -1434,11 +1434,11 @@ Overfull \hbox (42.70363pt too wide) has occurred while \output is active
 
  <./images/total-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/parallel.eps>
-(epstopdf)                    date: 2013-02-05 13:51:57
-(epstopdf)                    size: 18092 bytes
+(epstopdf)                    date: 2013-02-11 17:52:13
+(epstopdf)                    size: 18094 bytes
 (epstopdf)             Output file: <images/parallel-eps-converted-to.pdf>
-(epstopdf)                    date: 2013-02-06 01:28:52
-(epstopdf)                    size: 7020 bytes
+(epstopdf)                    date: 2013-02-12 18:43:52
+(epstopdf)                    size: 7087 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/parallel-eps-conver
 ted-to.pdf images/parallel.eps>
 (epstopdf)             \includegraphics on input line 245.
@@ -1511,7 +1511,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 268.
 Here is how much of TeX's memory you used:
  18953 strings out of 493488
  341720 string characters out of 3141327
- 439110 words of memory out of 3000000
+ 439111 words of memory out of 3000000
  21751 multiletter control sequences out of 15000+200000
  19133 words of font info for 53 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1529,7 +1529,7 @@ sr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr
 ocal/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/loc
 al/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/local
 /texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb>
-Output written on presentation.pdf (17 pages, 152794 bytes).
+Output written on presentation.pdf (17 pages, 152930 bytes).
 PDF statistics:
  671 PDF objects out of 1000 (max. 8388607)
  608 compressed objects within 7 object streams
