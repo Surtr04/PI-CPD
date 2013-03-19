@@ -17,7 +17,7 @@
 \headcommand {\beamer@subsectionpages {4}{4}}
 \headcommand {\slideentry {2}{0}{2}{5/5}{}{0}}
 \headcommand {\beamer@framepages {5}{5}}
-\headcommand {\sectionentry {3}{Measure Programs Without Synchronisation}{6}{Measure Programs Without Synchronisation}{0}}
+\headcommand {\sectionentry {3}{Measure Programs Without Synchronization}{6}{Measure Programs Without Synchronization}{0}}
 \headcommand {\beamer@sectionpages {5}{5}}
 \headcommand {\beamer@subsectionpages {5}{5}}
 \headcommand {\slideentry {3}{0}{3}{6/6}{}{0}}
@@ -32,8 +32,10 @@
 \headcommand {\beamer@subsectionpages {7}{7}}
 \headcommand {\slideentry {5}{0}{5}{8/8}{}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\beamer@partpages {1}{8}}
-\headcommand {\beamer@subsectionpages {8}{8}}
-\headcommand {\beamer@sectionpages {8}{8}}
-\headcommand {\beamer@documentpages {8}}
-\headcommand {\def \inserttotalframenumber {8}}
+\headcommand {\slideentry {5}{0}{6}{9/9}{}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\beamer@partpages {1}{9}}
+\headcommand {\beamer@subsectionpages {8}{9}}
+\headcommand {\beamer@sectionpages {8}{9}}
+\headcommand {\beamer@documentpages {9}}
+\headcommand {\def \inserttotalframenumber {9}}

@@ -41,7 +41,7 @@
 \subsection{}
 \small
 \begin{frame}
-\begin{block}{Memory Bandwidth}
+\begin{block}{Memory Bandwith}
 	$Mem\_bandwidth = ((PAPI\_L2\_TCM) \times 64 \times 1 \times 10{-9}) / exec\_time$
 	$measured\_mem\_bandwidth = (8427602 \times 64 \times 1 \times 10^{-9})/0.88 = 0.6129 GB/s$\\
 	$System\_memory\_avail\_bandwidth = 14.8473 GB/s$
@@ -73,7 +73,7 @@ As seen in the December presentation, conv-diff has some locality problems (has 
 	\end{block}
 \end{frame}
 
-\section{Measure Programs Without Synchronization}
+\section{Measure Programs Without Synchronisation}
 
 \begin{frame}[fragile]
 
@@ -106,7 +106,7 @@ As seen in the December presentation, conv-diff has some locality problems (has 
 	\begin{block}{Conclusion}
 		\begin{itemize}
 			\item Bad data locality hinders the entire application performance
-			\item Implementation either AoS or SoA is expected to improve performance dramatically 
+			\item Implementation either AoS or SoA is expected to improve performance drammaticaly 
 			\item High chance that locality problem hides other problems
 			\item Maybe what is not a problem now will prove to be so in the near future
 		\end{itemize}

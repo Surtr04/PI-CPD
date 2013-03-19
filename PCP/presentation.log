@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.2.6)  19 MAR 2013 02:19
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.2.6)  19 MAR 2013 04:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1290,7 +1290,7 @@ File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 \c@lstlisting=\count179
 
 (./presentation.nav)
-Overfull \hbox (125.48991pt too wide) detected at line 30
+Overfull \hbox (125.84811pt too wide) detected at line 30
   [] [][][] [] [] [] []  
  []
 
@@ -1299,7 +1299,7 @@ LaTeX Font Warning: Font shape `T1/cmss/m/n' in size <4> not available
 (Font)              size <5> substituted on input line 32.
 
 
-Overfull \hbox (125.48991pt too wide) has occurred while \output is active
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
@@ -1307,7 +1307,7 @@ Overfull \hbox (125.48991pt too wide) has occurred while \output is active
 
 ]
 (./presentation.toc)
-Overfull \hbox (125.48991pt too wide) has occurred while \output is active
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
@@ -1329,7 +1329,7 @@ line 50.
 (/usr/local/texlive/2012/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2012/04/26
 )
-Overfull \hbox (125.48991pt too wide) has occurred while \output is active
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
@@ -1350,7 +1350,7 @@ Package epstopdf Info: Source file: <roofline_mbp.eps>
 (epstopdf)             \includegraphics on input line 3.
 Package epstopdf Info: Output file is already uptodate.
 
-<roofline_mbp-eps-converted-to.pdf, id=175, 361.35pt x 252.945pt>
+<roofline_mbp-eps-converted-to.pdf, id=176, 361.35pt x 252.945pt>
 File: roofline_mbp-eps-converted-to.pdf Graphic file (type pdf)
 
 <use roofline_mbp-eps-converted-to.pdf>
@@ -1358,7 +1358,7 @@ Package pdftex.def Info: roofline_mbp-eps-converted-to.pdf used on input line 3
 .
 (pdftex.def)             Requested size: 252.94327pt x 177.06029pt.
 )
-Overfull \hbox (125.48991pt too wide) has occurred while \output is active
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
@@ -1368,7 +1368,7 @@ Overfull \hbox (125.48991pt too wide) has occurred while \output is active
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb)
-Overfull \hbox (125.48991pt too wide) has occurred while \output is active
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
@@ -1378,7 +1378,7 @@ Overfull \hbox (125.48991pt too wide) has occurred while \output is active
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb)
-Overfull \hbox (125.48991pt too wide) has occurred while \output is active
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
@@ -1388,7 +1388,7 @@ Overfull \hbox (125.48991pt too wide) has occurred while \output is active
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb)
-Overfull \hbox (125.48991pt too wide) has occurred while \output is active
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
@@ -1398,11 +1398,18 @@ Overfull \hbox (125.48991pt too wide) has occurred while \output is active
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb)
-Overfull \hbox (125.48991pt too wide) has occurred while \output is active
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
 [8
+
+]
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
+  [] [][][] [] [] [] []  
+ []
+
+[9
 
 ]
 \tf@nav=\write6
@@ -1414,26 +1421,26 @@ Overfull \hbox (125.48991pt too wide) has occurred while \output is active
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 117.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 117.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 125.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 125.
  (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 117.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 117.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 125.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: D0D40D3CE57224C425A1A54C2A2FFCEC;315.
+(rerunfilecheck)             Checksum: B4AEFAAA52C4377697C1FD6C3C96965C;315.
 
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 125.
  ) 
 Here is how much of TeX's memory you used:
- 18873 strings out of 493488
- 340751 string characters out of 3141327
+ 18881 strings out of 493488
+ 340835 string characters out of 3141327
  425656 words of memory out of 3000000
- 21687 multiletter control sequences out of 15000+200000
- 16559 words of font info for 46 fonts, out of 3000000 for 9000
+ 21691 multiletter control sequences out of 15000+200000
+ 18101 words of font info for 48 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  50i,20n,60p,422b,752s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
@@ -1446,11 +1453,12 @@ b></usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss0600.pfb>
 usr/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></us
 r/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/
 local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/lo
-cal/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb>
-Output written on presentation.pdf (8 pages, 109514 bytes).
+cal/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/loca
+l/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfsx2488.pfb>
+Output written on presentation.pdf (9 pages, 121056 bytes).
 PDF statistics:
- 385 PDF objects out of 1000 (max. 8388607)
- 337 compressed objects within 4 object streams
- 25 named destinations out of 1000 (max. 500000)
+ 421 PDF objects out of 1000 (max. 8388607)
+ 371 compressed objects within 4 object streams
+ 27 named destinations out of 1000 (max. 500000)
  142 words of extra memory for PDF output out of 10000 (max. 10000000)
 
