@@ -14,18 +14,18 @@ ybelow(y)	=	y * 0.85
 xright(x)	=	x * 1.25
 
 #	Constants
-cpu_flop	=	8					#	maximum floating point throughput
-cpu_freq	=	2.8					#	clock cycle frequency (GHz)
-cpu_cores	=	2					#	number of cores
+cpu_flop	=	16    				#	maximum floating point throughput
+cpu_freq	=	2.3					#	clock cycle frequency (GHz)
+cpu_cores	=	8					#	number of cores
 mem_width	=	8					#	memory bus width (Bytes)
-mem_rate	=	1.066				#	memory clock rate (GHz)
+mem_rate	=	1.666				#	memory clock rate (GHz)
 mem_chan	=	2					#	number of memory channels
 
 #window
 x_min		=	0.0625
-x_max		=	16
+x_max		=	64
 y_min		=	0.5
-y_max		=	128
+y_max		=	512
 
 #roofline
 cpu_peak	=	cpu_flop * cpu_freq * cpu_cores
@@ -124,7 +124,8 @@ plot min( mem_half(x), cpu_roof(x) ) ls 4
 
 #	--roofline
 plot roofline(x) ls 2
-
+set parametric
+plot     0.8865,t ls 3
 unset multiplot
 
 #	cleanup
