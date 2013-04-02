@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.2.6)  19 MAR 2013 04:01
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.2.6)  2 APR 2013 00:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1314,17 +1314,17 @@ Overfull \hbox (125.84811pt too wide) has occurred while \output is active
 [2
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 50.
+LaTeX Font Info:    Try loading font information for U+msa on input line 55.
  (/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 50.
+LaTeX Font Info:    Try loading font information for U+msb on input line 55.
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 50.
+line 55.
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2012/04/26
@@ -1397,19 +1397,152 @@ Overfull \hbox (125.84811pt too wide) has occurred while \output is active
 ]
 \openout4 = `presentation.vrb'.
 
- (./presentation.vrb)
+ (./presentation.vrb
+Package epstopdf Info: Source file: <images/parallel.eps>
+(epstopdf)                    date: 2013-04-02 00:04:03
+(epstopdf)                    size: 18094 bytes
+(epstopdf)             Output file: <images/parallel-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-04-02 00:07:14
+(epstopdf)                    size: 7092 bytes
+(epstopdf)             Command: <repstopdf --outfile=images/parallel-eps-conver
+ted-to.pdf images/parallel.eps>
+(epstopdf)             \includegraphics on input line 4.
+Package epstopdf Info: Output file is already uptodate.
+
+<images/parallel-eps-converted-to.pdf, id=314, 361.35pt x 252.945pt>
+File: images/parallel-eps-converted-to.pdf Graphic file (type pdf)
+
+<use images/parallel-eps-converted-to.pdf>
+Package pdftex.def Info: images/parallel-eps-converted-to.pdf used on input lin
+e 4.
+(pdftex.def)             Requested size: 307.28987pt x 215.10461pt.
+)
+Overfull \vbox (3.46729pt too high) detected at line 118
+ []
+
+
 Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
 [8
 
-]
+ <./images/parallel-eps-converted-to.pdf>]
+\openout4 = `presentation.vrb'.
+
+ (./presentation.vrb
+Package epstopdf Info: Source file: <images/total.eps>
+(epstopdf)                    date: 2013-04-02 00:04:03
+(epstopdf)                    size: 18287 bytes
+(epstopdf)             Output file: <images/total-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-04-02 00:09:31
+(epstopdf)                    size: 6821 bytes
+(epstopdf)             Command: <repstopdf --outfile=images/total-eps-converted
+-to.pdf images/total.eps>
+(epstopdf)             \includegraphics on input line 4.
+Package epstopdf Info: Output file is already uptodate.
+
+<images/total-eps-converted-to.pdf, id=352, 361.35pt x 252.945pt>
+File: images/total-eps-converted-to.pdf Graphic file (type pdf)
+
+<use images/total-eps-converted-to.pdf>
+Package pdftex.def Info: images/total-eps-converted-to.pdf used on input line 4
+.
+(pdftex.def)             Requested size: 307.28987pt x 215.10461pt.
+)
+Overfull \vbox (3.46729pt too high) detected at line 130
+ []
+
+
 Overfull \hbox (125.84811pt too wide) has occurred while \output is active
   [] [][][] [] [] [] []  
  []
 
 [9
+
+ <./images/total-eps-converted-to.pdf>]
+\openout4 = `presentation.vrb'.
+
+ (./presentation.vrb
+Package epstopdf Info: Source file: <images/parallel_woat.eps>
+(epstopdf)                    date: 2013-04-02 00:04:03
+(epstopdf)                    size: 18231 bytes
+(epstopdf)             Output file: <images/parallel_woat-eps-converted-to.pdf>
+
+(epstopdf)                    date: 2013-04-02 00:09:31
+(epstopdf)                    size: 6928 bytes
+(epstopdf)             Command: <repstopdf --outfile=images/parallel_woat-eps-c
+onverted-to.pdf images/parallel_woat.eps>
+(epstopdf)             \includegraphics on input line 4.
+Package epstopdf Info: Output file is already uptodate.
+
+<images/parallel_woat-eps-converted-to.pdf, id=391, 361.35pt x 252.945pt>
+File: images/parallel_woat-eps-converted-to.pdf Graphic file (type pdf)
+
+<use images/parallel_woat-eps-converted-to.pdf>
+Package pdftex.def Info: images/parallel_woat-eps-converted-to.pdf used on inpu
+t line 4.
+(pdftex.def)             Requested size: 307.28987pt x 215.10461pt.
+)
+Overfull \vbox (3.46729pt too high) detected at line 142
+ []
+
+
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
+  [] [][][] [] [] [] []  
+ []
+
+[10
+
+ <./images/parallel_woat-eps-converted-to.pdf>]
+\openout4 = `presentation.vrb'.
+
+ (./presentation.vrb
+Package epstopdf Info: Source file: <images/total_woat.eps>
+(epstopdf)                    date: 2013-04-02 00:04:03
+(epstopdf)                    size: 18071 bytes
+(epstopdf)             Output file: <images/total_woat-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-04-02 00:09:32
+(epstopdf)                    size: 6962 bytes
+(epstopdf)             Command: <repstopdf --outfile=images/total_woat-eps-conv
+erted-to.pdf images/total_woat.eps>
+(epstopdf)             \includegraphics on input line 4.
+Package epstopdf Info: Output file is already uptodate.
+
+<images/total_woat-eps-converted-to.pdf, id=428, 361.35pt x 252.945pt>
+File: images/total_woat-eps-converted-to.pdf Graphic file (type pdf)
+
+<use images/total_woat-eps-converted-to.pdf>
+Package pdftex.def Info: images/total_woat-eps-converted-to.pdf used on input l
+ine 4.
+(pdftex.def)             Requested size: 307.28987pt x 215.10461pt.
+)
+Overfull \vbox (3.46729pt too high) detected at line 154
+ []
+
+
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
+  [] [][][] [] [] [] []  
+ []
+
+[11
+
+ <./images/total_woat-eps-converted-to.pdf>]
+\openout4 = `presentation.vrb'.
+
+ (./presentation.vrb)
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
+  [] [][][] [] [] [] []  
+ []
+
+[12
+
+]
+Overfull \hbox (125.84811pt too wide) has occurred while \output is active
+  [] [][][] [] [] [] []  
+ []
+
+[13
 
 ]
 \tf@nav=\write6
@@ -1421,11 +1554,11 @@ Overfull \hbox (125.84811pt too wide) has occurred while \output is active
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 125.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 125.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 179.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 179.
  (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 125.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 179.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 179.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: B4AEFAAA52C4377697C1FD6C3C96965C;315.
 
@@ -1433,13 +1566,13 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 125.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 179.
  ) 
 Here is how much of TeX's memory you used:
- 18881 strings out of 493488
- 340835 string characters out of 3141327
- 425656 words of memory out of 3000000
- 21691 multiletter control sequences out of 15000+200000
+ 18925 strings out of 493488
+ 341830 string characters out of 3141327
+ 429655 words of memory out of 3000000
+ 21715 multiletter control sequences out of 15000+200000
  18101 words of font info for 48 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  50i,20n,60p,422b,752s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1455,10 +1588,10 @@ r/local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/
 local/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/lo
 cal/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/loca
 l/texlive/2012/texmf-dist/fonts/type1/public/cm-super/sfsx2488.pfb>
-Output written on presentation.pdf (9 pages, 121056 bytes).
+Output written on presentation.pdf (13 pages, 145838 bytes).
 PDF statistics:
- 421 PDF objects out of 1000 (max. 8388607)
- 371 compressed objects within 4 object streams
- 27 named destinations out of 1000 (max. 500000)
- 142 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 577 PDF objects out of 1000 (max. 8388607)
+ 513 compressed objects within 6 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 162 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -125,7 +125,7 @@ plot min( mem_half(x), cpu_roof(x) ) ls 4
 #	--roofline
 plot roofline(x) ls 2
 set parametric
-plot     0.8865,t ls 3
+plot     1274,t ls 3
 unset multiplot
 
 #	cleanup
