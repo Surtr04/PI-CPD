@@ -1,0 +1,191 @@
+\documentclass{beamer}
+
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[retainorgcmds]{IEEEtrantools}%	IEEEeqnarray
+\usepackage{mathabx}%	convolution symbol
+\usepackage{multi row}
+\usepackage{epstopdf}
+\usepackage{listings}
+
+\setbeameroption{show notes}
+
+%	presentation info
+\title{Scalability Problems In Shared Memory}
+
+\author{José Alves, Rui Brito}
+
+\institute[pg22765, pg22781]{
+	Universidade do Minho
+}
+
+\date{Braga, March 2013}
+
+
+%	beamer options
+\usetheme{Frankfurt}
+
+
+\begin{document}%	begin presentation
+
+\maketitle%	title slide
+
+\begin{frame}
+	\frametitle{Index}
+	\tableofcontents
+\end{frame}
+
+
+\section{Memory Bandwidth and Computational Intensity}
+\subsection{}
+\small
+\begin{frame}
+\note{\textbf{Beat\\}}
+The OpenFoam Computational Fluid Dynamics (CFD) software package
+\begin{itemize}
+\item Highly Modular
+\item By scientists, for scientists
+\item Fluid dynamics problems, involving chemical reactions, turbulence and heat transfer
+\item Has many other applications
+\end{itemize}
+
+\note{Vender peixe, basicamente}
+\note[item]{Com alta modularidade entende-se que é composto por várias bibliotecas, e cada função da biblioteca pode ser aplicada a uma grande variedade de tipos de dados. E ser resolvido com solvers e esquemas diferentes}
+\begin{block}{Memory Bandwidth}
+	$Mem\_bandwidth = ((PAPI\_LLC\_TCM) \times 64 \times 1 \times 10{-9}) / exec\_time$
+	$measured\_mem\_bandwidth = (3826100 \times 64 \times 1 \times 10^{-9})/0.942194 = 0.2599 GB/s$\\
+	$System\_memory\_avail\_bandwidth = 14.8473 GB/s$
+\end{block}
+\begin{block}{Instructions per cycle}
+	$Total\ Instructions = 211932871$
+	$Number\ of\ cycles = 1548$
+	$Instruction\ per\ cycle = 136907$
+\end{block}
+As seen in the December presentation, conv-diff has some locality problems (has it can also be seen by the high number of L1 misses (14937146)).
+\end{frame}
+
+\subsection{}
+\begin{frame}[fragile]
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[scale=.7]{roofline_mbp.eps}
+			\caption{Roofline for rMBP and conv\_diff}
+			\label{roofline}
+		\end{figure}
+\end{frame}
+
+
+\section{Measure Task Granularity}
+
+\begin{frame}[fragile]
+	\begin{block}{Task Granularity}
+		In conv\_diff:									
+		\begin{itemize}
+			\item Only two parallel pieces of code run in parallel
+			\item Large chunks of code
+			\item Thread creation overhead is thus minimized 
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Measure Programs Without Synchronization}
+
+\begin{frame}[fragile]
+
+	{conv}\_diff is unsuitable for this sort of optimization:
+	\begin{block}{Excessive task synchronization}		
+		\begin{itemize}
+			\item Reduction can't be used because values are updated in an array of pointers
+			\item Synchronization must be forced on attributions
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Measure Loads Per Task}
+
+\begin{frame}[fragile]
+	
+	\begin{block}{Loads Per Task}
+		\begin{itemize}
+			\item Slight improvement using dynamic and guided scheduling
+			\item Workload distribution also isn't the biggest problem
+		\end{itemize}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+	
+	\begin{figure}[!htp]
+    \centering
+    \begin{minipage}[t]{\columnwidth}
+        \includegraphics[width=\textwidth]{images/parallel.eps}
+        \caption{Scalability of the parallel region (original implementation)}
+    \end{minipage}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	
+	\begin{figure}[!htp]
+    \centering
+    \begin{minipage}[t]{\columnwidth}
+        \includegraphics[width=\textwidth]{images/total.eps}
+        \caption{Total execution time (original implementation)}
+    \end{minipage}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	
+	\begin{figure}[!htp]
+    \centering
+    \begin{minipage}[t]{\columnwidth}
+        \includegraphics[width=\textwidth]{images/parallel_woat.eps}
+        \caption{Scalability of the parallel region (without atomic directive)}
+    \end{minipage}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	
+	\begin{figure}[!htp]
+    \centering
+    \begin{minipage}[t]{\columnwidth}
+        \includegraphics[width=\textwidth]{images/total_woat.eps}
+        \caption{Total execution time (without atomic directive)}
+    \end{minipage}
+\end{figure}
+
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}[fragile]
+	
+	\begin{block}{Conclusion}
+		\begin{itemize}
+			\item Bad data locality hinders the entire application performance
+			\item Implementation either AoS or SoA is expected to improve performance dramatically 
+			\item High chance that locality problem hides other problems
+			\item Maybe what is not a problem now will prove to be so in the near future
+		\end{itemize}
+	\end{block}
+
+\end{frame}
+
+\begin{frame}
+\titlepage
+	\begin{center}
+		\Huge\bfseries
+		- ? -
+	\end{center}
+\end{frame}
+
+\end{document}%	end presentation
