@@ -1,9 +1,0 @@
-\par\begin{block}{Conclusion}
-\begin{itemize}
-\item Bad data locality hinders the entire application performance
-\item Implementation either AoS or SoA is expected to improve performance dramatically
-\item High chance that locality problem hides other problems
-\item Maybe what is not a problem now will prove to be so in the near future
-\end{itemize}
-\end{block}
-

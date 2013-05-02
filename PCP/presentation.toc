@@ -1,7 +1,0 @@
-\beamer@endinputifotherversion {3.20pt}
-\select@language {english}
-\beamer@sectionintoc {1}{Memory Bandwidth and Computational Intensity}{3}{0}{1}
-\beamer@sectionintoc {2}{Measure Task Granularity}{5}{0}{2}
-\beamer@sectionintoc {3}{Measure Programs Without Synchronization}{6}{0}{3}
-\beamer@sectionintoc {4}{Measure Loads Per Task}{7}{0}{4}
-\beamer@sectionintoc {5}{Conclusion}{12}{0}{5}
