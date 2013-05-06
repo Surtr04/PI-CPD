@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <limits.h>
 #include <stdlib.h>
+#include <math.h>
 
 
 union _32to64 {
