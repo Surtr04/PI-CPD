@@ -46,7 +46,7 @@ float* matrixVect (float *a, float *b, int n) {
 		value = 0;
 	}
 	
-	
+	s
 	return res;
 
 }
