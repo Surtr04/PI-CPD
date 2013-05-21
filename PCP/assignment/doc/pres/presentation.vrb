@@ -1,0 +1,9 @@
+\begin{block}{Scheduler}
+\begin{itemize}
+\item Ease of use makes it a powerful competitor;
+\item Not as powerfull as OpenMP (although it can work together with TBB);
+\item Good for recursive algorithms;
+\item Automatic load balancing is a plus;
+\item Supports incremental parallelization;
+\end{itemize}
+\end{block}

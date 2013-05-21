@@ -1,0 +1,57 @@
+\documentclass[a4paper,10pt,openright,openbib,twocolumn]{article}
+%\usepackage[portuges]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage[pdftex, bookmarks, colorlinks, linkcolor=black, urlcolor=blue]{hyperref} 
+%\usepackage[a4paper,left=2.5cm,right=2.5cm,top=3.5cm,bottom=3.5cm]{geometry}
+\usepackage[paper=a4paper,top=2cm,left=2cm,right=1.5cm,bottom=2cm,foot=1cm]{geometry}
+\usepackage{colortbl}
+\usepackage[margin=10pt,font=small,labelfont=bf]{caption}
+\usepackage{mdwlist}
+\usepackage{cleveref}
+\usepackage{epsfig}
+
+\usepackage{multicol}
+\usepackage{appendix}
+\usepackage{listings}
+
+
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{2pt}
+
+
+\begin{document}
+\title{The Cilk Plus Extension}
+\date{\today}
+\begin{multicols}{2}
+\author{
+    Brito, Rui\\
+    PG22781\\
+    Department of Informatics\\
+    University of Minho\\
+    ruibrito666@gmail.com
+  \and
+    Alves, José\\
+    PG22765\\
+    Department of Informatics\\
+    University of Minho\\
+    zealves.080@gmail.com
+}
+\date{}
+\maketitle
+\end{multicols}
+
+\begin{abstract}
+    This report presents an analysis of the Cilk Plus extension for the C and C++ langagues. Cilk Plus is not just a library, it is an extension implemented by the compiler and the Cilk Plus runtime, thus allowing for lower overhead than some of it's competitors. We compare Cilk Plus with a very well known alternative, OpenMP, and, although some results were positve (namely, recursive algorithms), overall, OpenMP wins. 
+\end{abstract}
+
+\section{Introduction}    %% Reler, corrigir algum erro
+    Cilk Plus provides an easy way to exploit parallelism inside an application, by using only three keywords, one can fully take advantage of both multicore and SIMD extensions. 
+\end{document}

@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.20pt}
+\select@language {english}
+\beamer@sectionintoc {1}{What is Cilk Plus}{3}{0}{1}
+\beamer@sectionintoc {2}{The Cilk Plus Extension}{5}{0}{2}
+\beamer@sectionintoc {3}{Cilk vs OpenMP}{15}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{19}{0}{4}
+\beamer@sectionintoc {5}{Questions}{20}{0}{5}
