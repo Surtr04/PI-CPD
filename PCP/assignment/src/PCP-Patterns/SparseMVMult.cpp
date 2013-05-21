@@ -101,7 +101,7 @@ void SparseCompRow_matmult( int M, double *y, double *val, int *row,
     
     for (int reps=0; reps<NUM_ITERATIONS; reps++) {
         
-#pragma omp parallel for num_threads(4)
+#pragma omp parallel for num_threads(8)
         for (int r=0; r<M; r++) {
             double sum = 0.0;
            for (int i=row[r]; i<row[r+1]; i++)
@@ -121,8 +121,8 @@ int main() {
     
     Random R = new_Random_seed(RANDOM_SEED);
     
-    int N = LG_SPARSE_SIZE_M;
-    int nz = LG_SPARSE_SIZE_nz;
+    int N = 2048;
+    int nz = 2048;
     
     initialize(N, nz, R);
     

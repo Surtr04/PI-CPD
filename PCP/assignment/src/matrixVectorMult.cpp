@@ -38,7 +38,7 @@ float* matrixVect (float *a, float *b, int n) {
 	float value = 0;
 	float *res = (float*) malloc(n * sizeof(float));
 
-	for (int i = 0; i < n; ++i)	{ 
+	cilk_for (int i = 0; i < n; ++i)	{ 
 		for(int j = 0; j < n; ++j) {
 			value += a[i * n + j] * b[j];
 		}		
@@ -46,14 +46,14 @@ float* matrixVect (float *a, float *b, int n) {
 		value = 0;
 	}
 	
-	s
+	
 	return res;
 
 }
 
 int main (int argc, char **argv) {
 
-	int size = 10000;
+	int size = 4096;
 	int i,j;
 
 	struct timeval stop;

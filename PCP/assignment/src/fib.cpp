@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 #include <cilk/cilk.h>
 #include <cilk/cilk_api.h>
 
@@ -26,7 +27,9 @@ double fib(double n) {
 
 int main(int argc, char *argv[]) {
     
-    double n = 47;
+    double n = 45;
+    struct timeval stop;
+    struct timeval start;
 
     // If we've got a parameter, assume it's the number of workers to be used
     if (argc > 1)
@@ -43,15 +46,15 @@ int main(int argc, char *argv[]) {
     }
 
     // Time how long it takes to calculate the nth Fibonacci number
-    clock_t start = clock();
+    gettimeofday(&start, NULL);
     double result = fib(n);
-    clock_t end = clock();
+    gettimeofday(&stop, NULL); 
 
     // Display our results
-    double duration = (double)(end - start) / CLOCKS_PER_SEC;
+     
     printf("Fibonacci number #%f is %.0f.\n", n, result);
-    printf("Calculated in %.3f seconds using %d workers.\n",
-           duration, __cilkrts_get_nworkers());
+    printf("Calculated in %lus %dus, using %d workers.\n",
+           stop.tv_sec - start.tv_sec,stop.tv_usec - start.tv_usec, __cilkrts_get_nworkers());
 
     return 0;
 }

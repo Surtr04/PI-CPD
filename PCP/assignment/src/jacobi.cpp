@@ -7,7 +7,7 @@
 #include <cilk/cilk_api.h>
 
 
-void showMatrix(float *matrix,int n) {
+void showMatrix(double *matrix,int n) {
 
 	int i,j;
 
@@ -21,7 +21,7 @@ void showMatrix(float *matrix,int n) {
 	return;
 }
 
-void showVector(float *vector, int n) {
+void showVector(double *vector, int n) {
 
 	int i,j;
 
@@ -33,10 +33,10 @@ void showVector(float *vector, int n) {
 
 }
 
-float* matrixVect (float *a, float *b, int n) {
+double* matrixVect (double *a, double *b, int n) {
 	
-	float value = 0;
-	float *res = (float*) malloc(n * sizeof(float));
+	double value = 0;
+	double *res = (double*) malloc(n * sizeof(double));
 
 	for (int i = 0; i < n; ++i)	{ 
 		for(int j = 0; j < n; ++j) {
@@ -51,11 +51,11 @@ float* matrixVect (float *a, float *b, int n) {
 
 }
 
-float* matrixDot (float *a, float *b, int n) {
+double* matrixDot (double *a, double *b, int n) {
 
 	int i,k;
-	float value = 0;
-	float *res = (float*) malloc(n * n * sizeof(float));
+	double value = 0;
+	double *res = (double*) malloc(n * n * sizeof(double));
 
 	for (i = 0; i < n; ++i) {
 		for(int j = 0; j < n; ++j) {
@@ -72,14 +72,14 @@ float* matrixDot (float *a, float *b, int n) {
 
 }
 
-float* diagonalInverse (float *coeff, int n) {
+double* diagonalInverse (double *coeff, int n) {
 
-	float *inv = (float*) malloc (n * n * sizeof(float));
+	double *inv = (double*) malloc (n * n * sizeof(double));
 
-	for (int i = 0; i < n; i++) {
+	cilk_for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			if (i == j) 
-				inv[i * n + j] = (float)(1/coeff[i * n + j]);			
+				inv[i * n + j] = (double)(1/coeff[i * n + j]);			
 			else
 				inv[i * n + j] = 0;
 		}
@@ -88,11 +88,11 @@ float* diagonalInverse (float *coeff, int n) {
 	return inv;
 }
 
-float *LUMatrix (float *coeff, int n) {
+double *LUMatrix (double *coeff, int n) {
 
-	float *r = (float*) malloc (n * n * sizeof(float));
+	double *r = (double*) malloc (n * n * sizeof(double));
 
-	for (int i = 0; i < n; i++) {
+	cilk_for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			if (i == j) 
 				r[i * n + j] = 0;			
@@ -107,37 +107,42 @@ float *LUMatrix (float *coeff, int n) {
 
 int main() {
 
-	int size = 10;
-	int iter = 10;
 
-	float *coeff = (float*) malloc (size * size * sizeof(float));
-	float *approx = (float*) malloc (size * sizeof(float));
-	float *b = (float*) malloc (size * sizeof(float));
+	struct timeval stop;
+	struct timeval start;
+
+	int size = 2048;
+	int iter = 100;
+
+	double *coeff = (double*) malloc (size * size * sizeof(double));
+	double *approx = (double*) malloc (size * sizeof(double));
+	double *b = (double*) malloc (size * sizeof(double));
 
 	srand(time(NULL));
 	for(int i = 0; i < size; i++) {
 		for(int j = 0; j < size; j++) {
-			coeff[i * size + j] = (float) ((rand() % 10) + 1);		
+			coeff[i * size + j] = (double) ((rand() % size) + 1) - size/2;		
 		}
-		approx[i] = 0;
-		b[i] = (float) ((rand() % 10) + 1);
+		approx[i] = (double) ((rand() % 10) + 1) ;
+		b[i] = (double) ((rand() % 10) + 1);
 	}
+	gettimeofday(&start, NULL); 
+	double *inv = diagonalInverse(coeff, size);
+	double *r = LUMatrix(coeff, size);
 
-	float *inv = diagonalInverse(coeff, size);
-	float *r = LUMatrix(coeff, size);
 
-	float *res,*temp;
+	double *res,*temp;
 	for (int ct = 0; ct < iter; ct++) {
 
 		res = matrixVect(r, approx, size);
-		temp = (float*) malloc (size * sizeof(float));
+		temp = (double*) malloc (size * sizeof(double));
 
-		for(int i = 0; i < size; i++)
+		cilk_for(int i = 0; i < size; i++)
 			temp[i] = b[i] - res[i];
 
 		res = matrixVect(inv, temp, size);
 
-		for(int i = 0; i < size; i++) 
+		cilk_for(int i = 0; i < size; i++) 
 			approx[i] = res[i];
 
 		printf("The Value after iteration %d is\n",ct);
@@ -148,7 +153,8 @@ int main() {
         free(temp);
 
 	}
-
+	gettimeofday(&stop, NULL); 
+	printf("\n\nComputing time: %lu s - %d us\n",stop.tv_sec - start.tv_sec,stop.tv_usec - start.tv_usec);
 
 
 	free(coeff);

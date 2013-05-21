@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include  <omp.h>
 
-#define size 512  // testar também 1024 ou 2048 (não deve escalar)
-#define iter 2000
+#define size 2048  // testar também 1024 ou 2048 (não deve escalar)
+#define iter 100
 
 double domain[size][size];
 double aux[size][size];
@@ -15,7 +15,7 @@ inline void stencil(double in[size][size], double out[size][size], int i, int j)
 
 void jacobi(double a[size][size]){
     
-    #pragma omp parallel num_threads(4)
+    #pragma omp parallel num_threads(8)
     for(int k=0; k<iter; k++) {
     
 //#pragma omp parallel for num_threads(4)  /* less efficient */

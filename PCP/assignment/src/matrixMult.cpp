@@ -25,13 +25,13 @@ void showMatrix(float *matrix,int n) {
 
 float* matrixDot (float *a, float *b, int n) {
 
-	int i,k;
+	
 	float value = 0;
 	float *res = (float*) malloc(n * n * sizeof(float));
 
-	for (i = 0; i < n; ++i) {
-		cilk_for(int j = 0; j < n; ++j) {
-			for(k = 0; k < n; ++k) {
+	cilk_for (int i = 0; i < n; ++i) {
+		cilk_for(int j = 0; j < n; ++j) {			
+			for(int k = 0; k < n; ++k) {
 					value += a[i * n + k] * b[k * n + j];
 			}
 			res[i * n + j] = value;
@@ -46,7 +46,7 @@ float* matrixDot (float *a, float *b, int n) {
 
 int main (int argc, char **argv) {
 
-	int size = 2000;
+	int size = 4096;
 	int i,j;
 
 	struct timeval stop;
@@ -69,7 +69,7 @@ int main (int argc, char **argv) {
 	// showMatrix(mA, size);
 	// printf("\n");
 	// showMatrix(mB, size);
-
+	__cilkrts_set_param("nworkers", "4");
 	gettimeofday(&start, NULL); 
 	float *res = matrixDot(mA,mB,size);
 	gettimeofday(&stop, NULL); 

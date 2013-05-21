@@ -34,7 +34,7 @@ int main() {
     
 #pragma omp parallel num_threads(8)
 #pragma omp single
-    r = fib(47);
+    r = fib(50);
     
     printf("F=%.0f Time=%f\n",r,omp_get_wtime()-time);
    return(1);
