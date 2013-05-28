@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{What is Cilk Plus}{}% 2
+\BOOKMARK [1][-]{section.3}{Key Features}{}% 3
+\BOOKMARK [1][-]{section.4}{The Cilk Plus Extension}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Keywords}{section.4}% 5
+\BOOKMARK [3][-]{subsubsection.4.1.1}{More on cilk\137for}{subsection.4.1}% 6
+\BOOKMARK [2][-]{subsection.4.2}{Reducers}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.3}{Array Notation}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.4}{The Cilk Plus Scheduler}{section.4}% 9
+\BOOKMARK [1][-]{section.5}{Cilk vs. OpenMP}{}% 10
+\BOOKMARK [2][-]{subsection.5.1}{Test Environment}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.2}{Results}{section.5}% 12
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 13
