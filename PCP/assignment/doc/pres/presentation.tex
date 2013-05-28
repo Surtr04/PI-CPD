@@ -118,26 +118,25 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 \begin{frame}[fragile]
 	\begin{block}{cilk\_for example}	
 		\begin{lstlisting}
-			float* matrixDot (float *a, float *b, int n) {
+		float* matrixDot (float *a, float *b, int n) {
+			
+			float value = 0;
+			float *res = (float*) malloc(n * n * sizeof(float));
 
-				int i,k;
-				float value = 0;
-				float *res = (float*) malloc(n * n * sizeof(float));
-
-				cilk_for (i = 0; i < n; ++i) {
-					for(int j = 0; j < n; ++j) {			
-						for(k = 0; k < n; ++k) {
-								value += a[i * n + k] * b[k * n + j];
-						}
-						res[i * n + j] = value;
-						value = 0;
+			cilk_for (int i = 0; i < n; ++i) {
+				for(int j = 0; j < n; ++j) {			
+					for(int k = 0; k < n; ++k) {
+							value += a[i * n + k] * b[k * n + j];
 					}
+					res[i * n + j] = value;
+					value = 0;
 				}
-				
-				
-				return res;
-
 			}
+			
+			
+			return res;
+
+		}
 		\end{lstlisting}
 	\end{block}
 \end{frame}

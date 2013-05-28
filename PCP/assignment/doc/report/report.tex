@@ -64,7 +64,7 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 \end{multicols}
 
 \begin{abstract}
-    This report presents an analysis of the Cilk Plus extension for the C and C++ langagues. Cilk Plus is not just a library, it is an extension implemented by the compiler and the Cilk Plus runtime, thus allowing for lower overhead than some of it's competitors. We compare Cilk Plus with a very well known alternative, OpenMP, and, although some results were positve (namely, recursive algorithms), overall, OpenMP wins. 
+    This report presents an analysis of the Cilk Plus extension for the C and C++ languages. Cilk Plus is not just a library, it is an extension implemented by the compiler and the Cilk Plus runtime, thus allowing for lower overhead than some of it's competitors. We compare Cilk Plus with a very well known alternative, OpenMP, and, although some results were positive (namely, recursive algorithms), overall, OpenMP wins. 
 \end{abstract}
 
 \section{Introduction}   
@@ -72,7 +72,7 @@ breakatwhitespace=false,    % sets if automatic breaks should only happen at whi
 
 
 \section{What is Cilk Plus} \label{cilk}
-Intel Cilk is an extension to the C and C++ languages to support task and data parallelism. Unlike most of it's competitors, Cilk Plus is not just a library, it is a language extension that is implemented by the compiler and the Cilk Plus runtime, allowing lower overhead than library-only solutions. Cilk Plus is developed by Intel, and thus, through the Intel runtime, suports composability. Many applications are composed of independently written components. Typically, the components communicate with each other through higher-level interfaces rather than at a lower, implementation-oriented level. To allow that level of collaboration in a parallel program, the task scheduler has to allow composability (that is, when modules are combined to form the application, they continue to work and perform well). Cilk Plus achieves this with a work-stealing task scheduler.
+Intel Cilk is an extension to the C and C++ languages to support task and data parallelism. Unlike most of it's competitors, Cilk Plus is not just a library, it is a language extension that is implemented by the compiler and the Cilk Plus runtime, allowing lower overhead than library-only solutions. Cilk Plus is developed by Intel, and thus, through the Intel runtime, supports composability. Many applications are composed of independently written components. Typically, the components communicate with each other through higher-level interfaces rather than at a lower, implementation-oriented level. To allow that level of collaboration in a parallel program, the task scheduler has to allow composability (that is, when modules are combined to form the application, they continue to work and perform well). Cilk Plus achieves this with a work-stealing task scheduler.
 
 
 \section{Key Features} \label{key}
@@ -94,7 +94,7 @@ As seen in previous section, Cilk Plus as several of expressing parallelism, the
 The are only three keywords in the Cilk Plus extensions and they provide a simple yet powerful way of expressing parallelism, they are as follows:
 \begin{itemize}
     \item cilk\_spawn: tells the runtime environment that the statement following the cilk\_spawn keyword can be run in parallel with other statements;
-    \item cilk\_sync: tells the runtime environment that all children of the spawning block must finnish their execution before execution can continue;
+    \item cilk\_sync: tells the runtime environment that all children of the spawning block must finish their execution before execution can continue;
     \item cilk\_for: a replacement for the standard C/C++ for loop that lets iterations run in parallel; 
 \end{itemize}
 The following example shows the typical use of the cilk\_spawn and cilk\_sync keywords:
@@ -141,7 +141,7 @@ float* matrixDot (float *a, float *b, int n) {
 \end{minipage}
 
 \subsubsection{More on cilk\_for}
-A call to cilk\_for isn't the same as spawning each iteration of the loop. What actually happens is, the compiler onverts the loop body to a function that is called recursively using a divide-and-conquer strategy. \\
+A call to cilk\_for isn't the same as spawning each iteration of the loop. What actually happens is, the compiler converts the loop body to a function that is called recursively using a divide-and-conquer strategy. \\
     \begin{figure}[!htb]
             \centering
             \includegraphics[scale=0.9]{../pres/images/cilkfor.jpg}
@@ -283,6 +283,6 @@ In order to achieve precise and consistent results, all tests were run on a dedi
 
 \section{Conclusion} \label{conc}
 
-Ease of use if definitly an advantage over Cilk Plus competitors. Although it is not as fine grained as OpenMP, the Intel runtime allows for it to be used with other tools, such as TBB (composability). We found it is good for recursive algorithms, or algorithms that can be divided in tasks. Automatic load balancing is one of the best things about Cilk Plus, in fact, Intel goes as far as claiming, guaranteed maximum memory usage scaling. It simplifies adding parallelism to existing serial programs. Multiple attributes of the extensions support this, including the nonintrusive syntax, the ability to easily revert back to the serial program, the guarantee of serial semantics equivalence, and the low overhead of spawning a task.
+Ease of use if definitely an advantage over Cilk Plus competitors. Although it is not as fine grained as OpenMP, the Intel runtime allows for it to be used with other tools, such as TBB (composability). We found it is good for recursive algorithms, or algorithms that can be divided in tasks. Automatic load balancing is one of the best things about Cilk Plus, in fact, Intel goes as far as claiming, guaranteed maximum memory usage scaling. It simplifies adding parallelism to existing serial programs. Multiple attributes of the extensions support this, including the non intrusive syntax, the ability to easily revert back to the serial program, the guarantee of serial semantics equivalence, and the low overhead of spawning a task.
 
 \end{document}

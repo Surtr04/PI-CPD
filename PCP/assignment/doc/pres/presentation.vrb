@@ -1,8 +1,9 @@
-\begin{block}{Scheduler}
+\begin{block}{Conclusions}
 \begin{itemize}
 \item Ease of use makes it a powerful competitor;
-\item Not as powerfull as OpenMP (although it can work together with TBB);
+\item Not as powerful as OpenMP (although it can work together with TBB);
 \item Good for recursive algorithms;
+\item Spawning threads has very low overhead;
 \item Automatic load balancing is a plus;
 \item Supports incremental parallelization;
 \end{itemize}
