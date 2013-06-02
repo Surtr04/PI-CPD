@@ -27,7 +27,7 @@ double fib(double n) {
 
 int main(int argc, char *argv[]) {
     
-    double n = 45;
+    double n = 50;
     struct timeval stop;
     struct timeval start;
 

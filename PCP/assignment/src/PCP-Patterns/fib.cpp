@@ -26,8 +26,9 @@ double fib(double n) {
         return(i+j);
 }
 
-int main() {
+int main(int argc, char **argv) {
 
+    omp_set_num_threads(atoi(argv[1]));
     double r;
     
     double time = omp_get_wtime();

@@ -105,7 +105,7 @@ double *LUMatrix (double *coeff, int n) {
 
 }
 
-int main() {
+int main(int argc, char **argv) {
 
 
 	struct timeval stop;
@@ -113,7 +113,7 @@ int main() {
 
 	int size = 2048;
 	int iter = 100;
-
+	__cilkrts_set_param("nworkers", argv[1]);
 	double *coeff = (double*) malloc (size * size * sizeof(double));
 	double *approx = (double*) malloc (size * sizeof(double));
 	double *b = (double*) malloc (size * sizeof(double));

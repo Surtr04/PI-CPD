@@ -46,7 +46,7 @@ float* matrixDot (float *a, float *b, int n) {
 
 int main (int argc, char **argv) {
 
-	int size = 4096;
+	int size = 2048;
 	int i,j;
 
 	struct timeval stop;
@@ -69,7 +69,7 @@ int main (int argc, char **argv) {
 	// showMatrix(mA, size);
 	// printf("\n");
 	// showMatrix(mB, size);
-	__cilkrts_set_param("nworkers", "4");
+	__cilkrts_set_param("nworkers", "8");
 	gettimeofday(&start, NULL); 
 	float *res = matrixDot(mA,mB,size);
 	gettimeofday(&stop, NULL); 

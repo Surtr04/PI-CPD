@@ -77,7 +77,7 @@ int main (int argc, char **argv) {
 	 // showMatrix(mA, size);
 	 // printf("\n");
 	 // showVector(mB, size);
-
+	__cilkrts_set_param("nworkers", argv[1]);
 	gettimeofday(&start, NULL); 
 	float *res = matrixVect(mA,mB,size);
 	gettimeofday(&stop, NULL); 

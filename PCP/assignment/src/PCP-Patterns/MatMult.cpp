@@ -22,6 +22,7 @@ double MFlops(double time) {
 
 int main() {
 
+    omp_set_num_threads(8);
     double starttime = omp_get_wtime();
    
     doMultiply(a1,b1,c1);

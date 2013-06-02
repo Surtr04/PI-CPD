@@ -46,7 +46,7 @@ double MFlops(double time) {
 int main(int argc, char * argv[]) {
     
     
-    
+    omp_set_num_threads(atoi(argv[1]));
     double starttime = omp_get_wtime();
     
     jacobi(domain);

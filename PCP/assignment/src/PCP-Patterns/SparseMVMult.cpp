@@ -116,16 +116,16 @@ const int LG_SPARSE_SIZE_nz =1000000;
 const int RANDOM_SEED = 101010;
 const int REPS =10000;
 
-int main() {
+int main(int argc, char **argv) {
     
     
     Random R = new_Random_seed(RANDOM_SEED);
     
-    int N = 2048;
-    int nz = 2048;
+    int N = 4096;
+    int nz = 4096;
     
     initialize(N, nz, R);
-    
+    omp_set_num_threads(atoi(argv[1]));
     double starttime = omp_get_wtime();
     
     SparseCompRow_matmult(N, y, val, row, col, x, REPS);

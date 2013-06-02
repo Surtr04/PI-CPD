@@ -20,6 +20,7 @@
 \usepackage{multicol}
 \usepackage{appendix}
 \usepackage{listings}
+\usepackage{float}
 
 
 
@@ -245,38 +246,65 @@ In order to achieve precise and consistent results, all tests were run on a dedi
     \end{table}
         \end{center}
 
+\footnotesize
+Note: no tests were run on search because of problems with the icc licence.
+\normalsize
 
 
 \subsection{Results}
 
-        \begin{figure}[htb]
+        \begin{figure}[H]
             \centering
-            \includegraphics[scale=0.35]{../pres/images/matrix.png}
-            \caption{Results for matrix multiplication}
+            \includegraphics[scale=0.45]{images/matmultcilk.png}
+            \caption{Results for matrix multiplication using Cilk Plus}
+            \label{roofline}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.45]{images/matmultopenmp.png}
+            \caption{Results for matrix multiplication using OpenMP}
             \label{roofline}
         \end{figure}
         As can be seen in the results above, Matrix Multiplication performs better in the OpenMP implementation, this is probably due to the way the cache is used.\\
 
-        \begin{figure}[htb]
+        \begin{figure}[H]
             \centering
-            \includegraphics[scale=0.35]{../pres/images/fib.png}
-            \caption{Results for fibonacci computation}
+            \includegraphics[scale=0.45]{images/fibcilk.png}
+            \caption{Results for fibonacci computation using Cilk Plus}
             \label{roofline}
         \end{figure}
-        Fibonacci is a recursive algorithm and so it was expected for it to perform better in the Cilk Plus implementation, and it did. This the kind of problem Cilk is good at. \\
-
-        \begin{figure}[htb]
+        \begin{figure}[H]
             \centering
-            \includegraphics[scale=0.35]{../pres/images/sparse.png}
-            \caption{Results for sparse matrix/vector multiplication}
+            \includegraphics[scale=0.45]{images/fibopenmp.png}
+            \caption{Results for fibonacci computation using OpenMP}
+            \label{roofline}
+        \end{figure}
+        Fibonacci is a recursive algorithm and so it was expected for it to perform better in the Cilk Plus implementation, and it did. OpenMP's performance is very linear, while the Cilk Plus version scales much better. This is because of the work-stealing mechanism. \\
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.45]{images/matvectcilk.png}
+            \caption{Results for sparse matrix/vector multiplication using Cilk Plus}
+            \label{roofline}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.45]{images/matvectopenmp.png}
+            \caption{Results for sparse matrix/vector multiplication using OpenMP}
             \label{roofline}
         \end{figure}
         Sparse Matrix/Vector multiplication was overall better in the Cilk implementation but not when the size of the matrix was 4096x4096. This is probably to cache alignment issues or because the problem doesn't fit in cache altogether, since each thread needs a stack and that stack, most probably, is in cache. \\
 
-        \begin{figure}[htb]
+        \begin{figure}[H]
             \centering
-            \includegraphics[scale=0.35]{../pres/images/jacobi.png}
-            \caption{Results for jacobi iteration}
+            \includegraphics[scale=0.45]{images/jacobicilk.png}
+            \caption{Results for jacobi iteration using Cilk Plus}
+            \label{roofline}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.45]{images/jacobiopenmp.png}
+            \caption{Results for jacobi iteration using OpenMP}
             \label{roofline}
         \end{figure}
         Jacobi also performed better with openMP, this is mostly, we believe, due to high synchronization between worker threads. \\
