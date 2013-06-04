@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- documentation class FVXML -->
+<!-- december 2010 -->
+<Section title="FVXML class description" short="this is a description of the FVXML class">
+    <Subsection title="Introduction">
+    </Subsection>  
+    <Subsection title="Class list">
+        <Subsubsection title="constructor">
+            <Description name="FVXML::FVXML()">
+            Default constructor
+            </Description>
+            <Description name="FVXML::FVXML(FILE *)">
+            Open a XML file and spare the root level data
+            </Description>
+             <Description name="FVXML::FVXML(char *)">
+            Sparse one level of the string
+            </Description>           
+        </Subsubsection>        
+    </Subsection>
+</Section>  

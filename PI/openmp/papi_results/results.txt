@@ -1,0 +1,22 @@
+number of cells=6348 and vertices=3273
+PAPI_TOT_CYC		610753		680
+number of cells=6348 and vertices=3273
+PAPI_TOT_INS		2866808		4840
+number of cells=6348 and vertices=3273
+PAPI_LD_INS		87444		711
+number of cells=6348 and vertices=3273
+PAPI_SR_INS		39208		664
+number of cells=6348 and vertices=3273
+PAPI_FP_OPS		42451		675
+number of cells=6348 and vertices=3273
+PAPI_FP_INS		36381		647
+number of cells=6348 and vertices=3273
+PAPI_L1_DCA		147838		787
+number of cells=6348 and vertices=3273
+PAPI_L1_DCM		16658		679
+number of cells=6348 and vertices=3273
+PAPI_L2_DCA		16396		649
+number of cells=6348 and vertices=3273
+PAPI_L2_DCM		8985		498
+number of cells=6348 and vertices=3273
+PAPI_L3_DCA		9400		784

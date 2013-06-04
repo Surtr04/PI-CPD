@@ -1,0 +1,49 @@
+original version
+
+number of cells=1552 and vertices=825
+PAPI_TOT_CYC		2293045	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_TOT_INS		2517584	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_LD_INS		630156	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_SR_INS		326459	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_FP_OPS		55673	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_FP_INS		52723	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_L1_DCA		1061761	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_L1_DCM		22894	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_L2_DCA		22914	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_L2_DCM		9170	Solving the linear system
+number of cells=1552 and vertices=825
+PAPI_L3_DCA		9015	Solving the linear system
+
+optimized
+
+number of cells=6348 and vertices=3273
+PAPI_TOT_CYC		9634653	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_TOT_INS		285551	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_LD_INS		86532	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_SR_INS		39208	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_FP_OPS		44019	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_FP_INS		36942	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_L1_DCA		153593	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_L1_DCM		16448	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_L2_DCA		17467	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_L2_DCM		9406	Solving the linear system
+number of cells=6348 and vertices=3273
+PAPI_L3_DCA		9319	Solving the linear system

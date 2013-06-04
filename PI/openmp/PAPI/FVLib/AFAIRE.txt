@@ -1,0 +1,28 @@
+- dans doc ajouter 
+void addStencil(FVCell1D *ptr,double w, size_t the_code);      
+void addStencil(FVCell1D *ptr, size_t the_code){ FVStencil::addStencil(ptr,1.0,the_code);}    
+void addStencil(FVCell2D *ptr,double w, size_t the_code);     
+void addStencil(FVCell2D *ptr, size_t the_code){ FVStencil::addStencil(ptr,1.0,the_code);}        
+void addStencil(FVCell3D *ptr,double w, size_t the_code);   
+void addStencil(FVCell3D *ptr, size_t the_code){ FVStencil::addStencil(ptr,1.0,the_code);}   
+void addCellStencil(FVMesh1D &m, size_t nbcell,size_t the_code);     
+void addCellStencil(FVMesh2D &m, size_t nbcell,size_t the_code);
+void addCellStencil(FVMesh3D &m, size_t nbcell,size_t the_code); 
+
+- dans doc , ajouter Mult dans la class FVDenseM pour les point 2D.3D.4D ainsi que Mult(vect)
+- dans doc , ajouter la class Krylov
+- dans doc , ajouter Dot pour FVPoint1D jusqua FVPoint4D
+
+
+
+
+- Partout, faire le constructeur par copy et l'essigment quand il y a des new et delete dans la classe.
+C'est important pour les vecteur car C++ initialise le premier element par constructeur
+et les suivant par copie. 
+- factorization LU avec pivot a verifier
+-  copier un vecteur dans une ligne ou une colonne de matrice pour FVSparceM (ok pour FVDenseM)
+- la class Table ne fonctionne pas
+- faire dans mesh2D un reperarge des vertex du bord+ leur nombre
+- faire dans mesh3D un reperage des vertex du bord + leur nombre (important pour la visu sur les vertex ou bien la reconstruction)
+- dans FVRecons1D2D3D, introduire le parametre  poid and addGeometry (avec 1 par default)
+- tableau dynamique pour stoker les cell3D et autre donne par cellule, faire le copy constructeur!!!!
