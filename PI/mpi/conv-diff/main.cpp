@@ -1,71 +1,84 @@
 #include "functional.h"
 #include <mpi.h>
 
+    // while((ptr_c = m.nextCell())) {
+    //     size_t i = ptr_c->label-1;                        
+    //     //printf ("%d\n",ptr_c->label);            
+    //     phi[i]=1;
+    //     //printf("compute line number =%lu      \r",i+1);fflush(NULL);        
+    //     makeResidual(m,phi,u,rhs,Vd,Vn,G,para); 
+    //     G+=b;
+    //     A.setColumn(i,G);
+    //     phi[i]=0;
+
+    //     }
+    //     MPI::COMM_WORLD.Send(&b[0], b.size(), MPI::DOUBLE, 1, 0);                             
+    // }
+
+#define TAG_SIZE 0
+int rank;
+int size;
+
+int contructMatrix(FVMesh2D &m,FVVect<double> &phi, FVVect<double> &G, FVVect<FVPoint2D<double> > &u,
+                    FVVect<double> &F, FVVect<double> &Vd, FVVect<double> &Vn, FVVect<double> &b, FVVect<double> &Vphi,
+                    FVVect<double> &rhs, FVVect<double> &sol, FVVect<double> &error, FVDenseM<double> &A, Parameter &para) {
+    FVCell2D *ptr_c;
+    if(rank == 0) {
+        while((ptr_c = m.nextCell())) {
+        size_t i = ptr_c->label-1;                                
+        phi[i]=1;        
+        makeResidual(m,phi,u,rhs,Vd,Vn,G,para); 
+        G+=b;
+        A.setColumn(i,G);
+        phi[i]=0;
+
+        }        
+    }    
+
+    return 0;
+}
+
+
 int main(int argc, char **argv) {
 
-    int rank, msg;
-    int size;
 
     MPI::Status status;    
     MPI::Init(argc,argv);    
     rank = MPI::COMM_WORLD.Get_rank();    
     size = MPI::COMM_WORLD.Get_size();    
 
-// declaration
-    Parameter para("param.xml");    
+
+    Parameter para("param.xml");
     FVMesh2D m(para.getString("meshfile").c_str());
     cout<<"number of cells="<<m.getNbCell()<<" and vertices="<<m.getNbVertex()<<endl;
     
+
+
     FVVect<double> phi(m.getNbCell()),G(m.getNbCell());
     FVVect<FVPoint2D<double> > u(m.getNbEdge());
     FVVect<double> F(m.getNbEdge()), Vd(m.getNbEdge()), Vn(m.getNbEdge());
     FVVect<double> Vphi(m.getNbVertex());
     FVVect<double> b(m.getNbCell()),rhs(m.getNbCell()),sol(m.getNbCell()),error(m.getNbCell());
     FVDenseM<double> A(m.getNbCell());
-
-    // declaration done
-    //
-    // initialisation
+    
     setDirichlet(m,Vd,para);
     setNeumann(m,Vn,para);
     setRHS(m,rhs,para);
     setVelocity(m,u,para);
     setExactSolution(m,sol,para);
     phi=0.;
-    // initialisation done
-    //
-    // solving the system
-      // compute b
-    makeResidual(m,phi,u,rhs,Vd,Vn,b,para);b*=-1;
-         // compute the matrix
-    FVCell2D *ptr_c;
-    
-    if(rank == 0) {
-    
+
+
+    makeResidual(m,phi,u,rhs,Vd,Vn,b,para);b*=-1;            
     m.beginCell();
     
-    while((ptr_c = m.nextCell())) {
-        size_t i = ptr_c->label-1;                        
-        printf ("%d\n",ptr_c->label);            
-        phi[i]=1;
-        printf("compute line number =%lu      \r",i+1);fflush(NULL);        
-        makeResidual(m,phi,u,rhs,Vd,Vn,G,para); 
-        G+=b;
-        A.setColumn(i,G);
-        phi[i]=0;
-
-        }
-        //MPI::COMM_WORLD.Send(&b[0], b.size(), MPI::DOUBLE, 1, 0);                             
-    }
+    contructMatrix(m,phi,G,u,F,Vd,Vn,Vphi,b,rhs,sol,error,A,para);
 
 
-    
+    FVCell2D *ptr_c;
      //Resolution of the linear systemcout<<endl;
     if(rank == 0) {
-        // b.resize(1548);
-        // MPI::COMM_WORLD.Recv(&b[0], 1548 , MPI::DOUBLE, 0, 0);
-        // printf("\n\n%d\n",b.size() );
-
+    
         cout<<"Solving the linear system"<<endl;
         A.LUFactorize();
         A.ForwardSubstitution(b) ;
@@ -92,7 +105,8 @@ int main(int argc, char **argv) {
     }
     
 
-    printf("error 1:%e      error infty:%e      \n",err1,errinf);}
+    printf("error 1:%e      error infty:%e      \n",err1,errinf);
+}
     MPI_Finalize();
 
     return 0;
