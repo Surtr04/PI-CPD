@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- My Parameter file for lesson 1 -->
+<FVLIB>
+    <PARAMETER>
+        <parameter meshfile="input/small.xml"/>
+        <parameter outCfile="results/resultC.xml" outVfile="results/resultV.xml" />
+        <parameter Xvelocity="1." Yvelocity="0."  Diffusion="1.0"/>
+        <parameter DirichletCode="1" NeumannCode="2" />
+    </PARAMETER>
+</FVLIB>    

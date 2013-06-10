@@ -1,0 +1,216 @@
+% article mod�e 2D avec porosit�variable et discontinu sans darcy et forchheimer
+
+\documentclass[12pt,a4 paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsfonts,amssymb,amsmath}
+\usepackage{amstext}
+\usepackage{natbib}
+\newcommand{\n}{\boldsymbol n}
+\newcommand{\btau}{\boldsymbol \tau}
+%\usepackage{doublespace}
+
+\title{GMRES in FVLib}
+\author{ S. Clain $^a$}
+
+\begin{document}
+\maketitle
+\section{The theory}
+\subsection{Projection method and Krylov Spaces}
+Let consider a linear problem $Ax=b$ in $\mathbb R^n$ with $A$ an invertible matrix.
+For $k\leq n$, we consider two sub vectorial spaces $\mathcal K_k$, $\mathcal L_k$ of $\mathbb R^n$ of dimension $k$.
+Let $x_0\in\mathbb R^n$, the projection method consists in providing $x_k\in \mathbb R^n$ such that we both have
+$$
+x_k\in x_0+\mathcal K_k, \qquad Ax_k-b \perp \mathcal L_k.
+$$
+In other words, we seek $u_k\in\mathcal K_k$ such that
+\begin{equation}
+<A(x_0+u_k)-b,v>=<Au_k-r_0,v>=0,\qquad \forall v\in \mathcal L_k \label{Petrov_Galerkin}
+\end{equation}
+with $r_0=Ax_0-b$.\\
+If $A$ is invertible, we have existence and uniqueness of the solution.
+
+We introduce the Krylov space $K_k(A,r_0,)$ given by
+$$
+K_k(A,r_0,)=\textrm{Span}(r_0,Ar_0,...,A^{k-1}r_0)
+$$ 
+and set  $\mathcal K_k=K_k(A,r_0)$, $\mathcal L_k=AK_k(A,r_0,)=\textrm{Span}(Ar_0,...,A^{k-1}r_0,A^kr_0)$.\\
+
+{\sc proposition}
+$x_k$ is the solution of (\ref{Petrov_Galerkin}) if and only if $x_k$ minimizes the functional
+\begin{equation}
+u\in\mathcal K_k \to  E(x_0+u)=<Au-r_0,Au-r_0> \label{minimize_functional}
+\end{equation}
+with corresponds to the minimization of the residu on $\mathcal K_k$.\\
+Moreover we have  $E(x_0+u_{k+1})\leq E(x_0+u_{k})$, thus the residual always decreases.
+$\blacksquare$\\
+
+\noindent If $u_k\in \mathcal K_k$ is the minimizer, then we have using definition of space $\mathcal L_k$
+\begin{equation}
+<Au_k-r_0,Av>=0 \quad \forall v\in \mathcal K_k. \label{minimizer}
+\end{equation} 
+We have the following result.\\
+
+{\sc proposition}
+If the Krylov space is invariant by the composition with $A$
+\begin{equation}
+AK_k(A,r_0) = K_k(A,r_0) \label{Krylov_invariant}
+\end{equation}
+ then $x_k=x_0+u_k$ is the solution, namely $Ax_k-b=0$.
+$\blacksquare$\\
+
+One can prove that there exists at least a $k\leq n$ such that  (\ref{Krylov_invariant}) is achieved but $k$ coul be very large. 
+In the iterative method, we only require that the residual part $E(x_0+u_{k})$ is small enough.
+
+\subsection{Orthogonal basis and the Arnoldi Algorithm}
+When property (\ref{Krylov_invariant}) is not achieved, vectors $r_0,Ar_0,...,A^{k-1}r_0$ define a basis but the major inconvenient
+is that the vector are merely parallel (remember that $A^k r_0$ converges to the first eigenvector). In order to provide a more
+suitable basis we build an orthogonal basis using the Arnoldi argorithm.\\
+
+We start setting $q_1=r_0/\vert r_0\vert$. Assume now that $q_1,q_2,..,q_k$ is a base of $K_k(A,r_0)$. 
+If  property (\ref{Krylov_invariant}) is not achieved then we can prove that $Aq_k\notin K_k(A,r_0)$ and we write
+$$
+A q_k=\sum_{i=1}^{k+1} h_{jk} q_j
+$$
+where $q_{k+1}$ is a normalized vector, we have to determine. Using the orthogonal condition, we compute $h_{jk}=<Aq_k,q_j>$, $j=1,...,k$.
+Then we set 
+$$
+p_{k+1}=Aq_k-\sum_{i=1}^k h_{jk} q_j, \qquad h_{k+1,k}=\vert p_{k+1}\vert, \qquad q_{k+1}=\frac{p_{k+1}}{h_{k+1,k}}.
+$$
+
+From a matricial point of view, we have $AQ_k=Q_{k+1}H(k+1,k)$ where $Q_k$ is a $n\times k$ Stiefel matrix and $H(k+1,k)$ is a $k+1\times k$
+Hessenberg matrix 
+$$
+Q=[q_1,...,q_k], \quad H(k+1,k)=\left [ \begin{array}{ccccc}
+h_{11} & \hdots & \hdots &\hdots   &h_{1k}\\
+h_{21} & h_{22} & \hdots &\hdots   & \vdots \\
+0      & h_{32} & \ddots &\hdots   & \vdots \\
+\vdots & \hdots & \ddots &\ddots   & \vdots \\
+0      & \hdots &  0     &h_{k,k.1}&h_{k,k} \\
+0      & \hdots & \hdots &   0     &h_{k+1,k} 
+\end{array} \right ].
+$$
+Note that  $h_{k+1,k}=0$ is equivalent to property (\ref{Krylov_invariant}). Hence we can proceed as long as  $h_{k+1,k}>0$. 
+
+\subsection{An equivalent minimizing condition}
+Vector $u_k$ is the unique element of $\mathcal K_k$ wich minimizes  
+$$
+E(x_0+u)=<Au-r_0,Au-r_0>=\Vert Au-r_0\Vert^2.
+$$ 
+Using the orthogonal basis $Q$ 
+of $\mathcal K_k$, we can write any $u \in\mathcal K_k$ as
+$$
+u=\sum_{i=1}^k y^k_i q_i, \qquad y^k\in\mathbb R^k
+$$
+Hence $Au=AQ_ky^k$. Note that $u$ has a fix dimension while dimension of vector $y^k$ changes with $k$.
+Moreover let us remark that $r_0=\vert r_0\vert Q_{k+1}e^{k+1}=(1,0,...,0)$ 
+the first canonical vector of $\mathbb R^{k+1}$.
+We then have
+\begin{eqnarray*}
+E(x_0+u)&=&\Vert Au-r_0\Vert^2\\
+        &=&\Vert AQ_ky^k-\vert r_0\vert Q_{k+1}e^{k+1} \Vert^2\\
+        &=&\Vert Q_{k+1}H(k+1,k)y^k-\vert r_0\vert Q_{k+1}e^{k+1}\Vert^2\\
+        &=&\Vert Q_{k+1}\{H(k+1,k)y^k-\vert r_0\vert e^{k+1}\}\Vert^2
+\end{eqnarray*}
+Since $Q_{k+1}$ is unitary, we deduce
+$$
+E(x_0+u)=\widetilde E_k(y^k)=\Vert H(k+1,k)y^k-\vert r_0\vert e^{k+1}\Vert^2.
+$$
+So we reduce the problem of minimization in $\mathbb R^k$ of the overdetermined system $H(k+1,k)y^k=\vert r_0\vert e^{k+1}$.
+
+\subsection{Orthogonalization of the Hessenberg matrix}
+To solve the minimizination problem, we use a $QR$ transformation of the  $H(k+1,k)$ matrix using Givens rotations.\\
+
+\noindent {\sc Step 1} One have $H(2,1)=[h_{11},h_{21}]^T$. We apply a Givens matrix (unitary matrix) of the form
+$$
+G_1=\left [ \begin{array}{cc}
+\cos(\theta) & \sin(\theta) \\
+-\sin(\theta) & \cos(\theta)
+\end{array} \right ].
+$$
+If we choose 
+$$
+\cos(\theta)=\frac{h_{11}}{\sqrt{h_{11}^2+h_{21}^2}}, \quad \sin(\theta)=\frac{h_{21}}{\sqrt{h_{11}^2+h_{21}^2}}
+$$
+We find 
+$$
+U(2,1)=G_1H(2,1)=\left [ \begin{array}{c}
+\sqrt{h_{11}^2+h_{21}^2}\\
+0
+\end{array} \right ], \qquad
+c^1=\vert r_0\vert G_1 e^1_{2}=\vert r_0\vert \left [ \begin{array}{c} 
+\displaystyle\frac{h_{11}}{\sqrt{h_{11}^2+h_{21}^2}}\\
+\displaystyle\frac{-h_{21}}{\sqrt{h_{11}^2+h_{21}^2}}
+\end{array} \right ]=
+\left [ \begin{array}{c}
+c^1_1 \\c^1_2
+\end{array} \right ].
+$$
+
+\noindent {\sc Step k} We first note that
+$$
+H(k+1,k)=\left [ \begin{array}{cc}
+H(k,k-1) & h_{1k} \\
+         &  \vdots \\
+0        & h_{k+1,k}
+\end{array} \right ].
+$$
+Now assume that we have determined the Givens matrizes $G_1$,...,$G_{k-1}$ such that we have
+a $k\times k-1$ upper triangular matrix $U(k,k-1)$ and a vector $c^{k-1} \in\mathbb R^k$ and 
+$$
+\Vert H(k,k-1)y^{k-1}-\vert r_0\vert e^{k-1}\Vert=\Vert U(k-1,k)y^{k-1}-\vert r_0\vert c^{k-1}\Vert
+$$
+Problem of minimizing $\Vert H(k+1,k)y^k-\vert r_0\vert e^{k}\Vert$ is equivalent to minimize
+$\Vert \widetilde U(k+1,k) y^k -\vert r_0\vert \widetilde c^{k}\Vert$
+with
+$$
+\widetilde U(k+1,k)=\left [ \begin{array}{cc}
+U(k,k-1) & h_{1k} \\
+         &  \vdots \\
+0        & h_{k+1,k}
+\end{array} \right ], \quad 
+\widetilde c^{k}=\left [ \begin{array}{c} c^{k-1}_1 \\ \vdots \\c^{k-1}_k\\0 \end{array} \right ].
+$$
+We consider the $k+1\times k+1$ Givens matrix
+$$
+G_k=\left [ \begin{array}{ccc}
+Id & 0 & 0 \\
+0  & cs_k & sn_k \\
+0  &-sn_k & cs_k
+\end{array} \right ],
+$$
+if one chooses 
+$$
+cs_k=\frac{h_{kk}}{\sqrt{h_{kk}^2+h_{k+1,k}^2}}, \quad sn_k=\frac{h_{k+1,k}}{\sqrt{h_{kk}^2+h_{k+1,k}^2}}
+$$
+then we have
+$$
+U(k+1,k)=G_k\left [ \begin{array}{cc}
+         & \widetilde h_{1k} \\
+U(k,k-1) & \vdots \\
+         & \widetilde h_{k-1,k} \\
+0        & \widetilde h_{k,k} \\
+0        & h_{k+1,k}
+\end{array} \right ], \quad 
+ c_{k}=G_k\left [ \begin{array}{c} c^{k-1}_1 \\ \vdots \\c^{k-1}_{k-1} \\ 
+c^{k-1}_{k}\\
+0
+ \end{array} \right ],
+$$
+where we have compute the successive products $\widetilde {h}^k=G_{k-1}G_{k-2}...G_2G_1 h^k$.
+Note that we 
+
+
+We get the solution $y^k$ using a backward substitution of system 
+$$
+U(k+1,k) y^k= c^k
+$$ 
+starting at line $k$ since the last line (k+1) is degenerated.
+We evaluate the minimum with
+$$
+x_k=x_0+\sum_{i=1}^y y^k_i q_i.
+$$
+
+\end{document}
+
