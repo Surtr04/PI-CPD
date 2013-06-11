@@ -46,7 +46,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Convection-Diffusion (Recap)}
+	\frametitle{Convexion-Diffusion (Recap)}
 	\begin{description}
 		\item [What?] Computes the heat diffusion of a fluid spreading over an area;
 		\item [How?] Uses a Finite-Volume method;
