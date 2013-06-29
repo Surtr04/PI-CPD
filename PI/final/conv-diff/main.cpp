@@ -7,12 +7,11 @@
 void computeFlux (FVMesh2D &m,
                   double *phi, 
                   double *normal_velocities,
-                  double *normals,
-                  double *lengths,
+                  FVPoint2D<double>* normals,                  
                   double *F,
-                  double *left,
-                  double *right,
-                  double *centroid,
+                  unsigned *left,
+                  unsigned *right,
+                  FVPoint2D<double> *centroid,
                   double *code,  
                   double *length,                
                   unsigned num_edges,
@@ -30,8 +29,8 @@ void computeFlux (FVMesh2D &m,
 
         if(right[i] < numeric_limits<double>::max()) {
 
-            // normal_vel < 0 ? F[i] = normal_vel * phi[ right[i] ] : 
-            //                  F[i] = normal_vel * phi[ left[i] ];
+            normal_vel < 0 ? F[i] = normal_vel * phi[ right[i] ] : 
+                             F[i] = normal_vel * phi[ left[i] ];
 
             BB = centroid[right[i]] - centroid[left[i]];
             F[i] -= diffusion * (phi[right[i]] - phi[left[i]])/Norm(BB);
@@ -60,19 +59,30 @@ void computeFlux (FVMesh2D &m,
 }
 
 void computeResidual(FVMesh2D &m, 
-                     FVVect<double> &phi, 
+                     double *phi, 
                      double *rhs, 
                      double *Vd, 
                      double *Vn, 
                      double *G, 
-                     double *left, 
-                     double *right, 
+                     unsigned *left, 
+                     unsigned *right, 
                      double *areas,
                      unsigned num_cells, 
-                     unsigned num_edges) {
+                     unsigned num_edges,
+                     double *normal_velocities,
+                     FVPoint2D<double>* normals,
+                     double *length,
+                     FVPoint2D<double> *centroid,
+                     double *code,                       
+                     unsigned int dirCode,
+                     unsigned int neuCode,
+                     double diffusion,
+                     Parameter &para) {
 
     double *F = new double[num_edges];
-
+    computeFlux(m,phi,normal_velocities,normals,F,left,right,centroid,code,
+                length,num_edges,dirCode,neuCode,diffusion,para);            
+    memset(G, 0, num_cells);
 
     for (unsigned i = 0; i < num_edges; ++i) {
 
@@ -101,13 +111,13 @@ int main() {
     // FVVect<double> F(m.getNbEdge()), Vd(m.getNbEdge()), Vn(m.getNbEdge());
     // FVVect<double> Vphi(m.getNbVertex());
     // FVVect<double> b(m.getNbCell()),rhs(m.getNbCell()),sol(m.getNbCell()),error(m.getNbCell());
-    // FVDenseM<double> A(m.getNbCell());
+     FVDenseM<double> A(m.getNbCell());
 
     const unsigned num_cells = m.getNbCell();
     const unsigned num_edges = m.getNbEdge();
     const unsigned int dirCode = para.getUnsigned("DirichletCode");
     const unsigned int neuCode = para.getUnsigned("NeumannCode");
-    const double difusion = getDiffusion(NULL,para);
+    const double diffusion = getDiffusion(NULL,para);
 
     double* phi = new double[num_cells];
     double* G = new double[num_cells];
@@ -120,11 +130,11 @@ int main() {
     double* F = new double[num_edges];
     double* Vd = new double[num_edges];
     double* Vn = new double[num_edges];
-    double* left = new double[num_cells];
-    double* right = new double[num_cells];
-    double* normals = new double[num_edges];
+    unsigned* left = new unsigned[num_edges];
+    unsigned* right = new unsigned[num_edges];
+    FVPoint2D<double>* normals = new FVPoint2D<double>[num_edges];
     double* normal_velocities = new double[num_edges];
-    double* centroid = new double[num_edges];
+    FVPoint2D<double>* centroid = new FVPoint2D<double>[num_edges];
     double* code = new double[num_edges];
     double* length = new double[num_edges];
 
@@ -171,15 +181,32 @@ int main() {
     // setVelocity(m,u,para);
     // setExactSolution(m,sol,para);
     // phi=0.;
+    memset(phi, 0, num_cells);
     // // initialisation done
     // //
     // // solving the system
-    //   // compute b
+    //   // compute b    
+
+    computeResidual(m,phi,rhs,Vd,Vn,G,left,right,areas,num_cells,num_edges,normal_velocities,normals,length,centroid,code,dirCode,neuCode,diffusion,para);
      //makeResidual(m,phi,u,rhs,Vd,Vn,b,para);b*=-1;
     //      // compute the matrix
     // FVCell2D *ptr_c;
     // m.beginCell();
 
+
+    for (unsigned i = 0; i < num_cells; ++i) {
+
+        phi[i] = 1;
+        printf("compute line number =%lu      \r",i+1);fflush(NULL);
+        computeResidual(m,phi,rhs,Vd,Vn,G,left,right,areas,num_cells,num_edges,normal_velocities,normals,length,centroid,code,dirCode,neuCode,diffusion,para);
+        
+        for (unsigned j = 0; j < num_cells; ++i) {
+            G[i] += b[i];
+        }
+        //A.setColumn(i,G);
+        phi[i] = 0;
+
+    }
 
     // while((ptr_c = m.nextCell()))    {
     //     size_t i=ptr_c->label-1;
@@ -220,6 +247,15 @@ int main() {
     
 
     // printf("error 1:%e      error infty:%e      \n",err1,errinf);
+
+    delete[] G;
+    delete[] phi;
+    delete[] areas;
+    delete[] code;
+    delete[] centroid;
+    delete[] Vn;
+    delete[] Vd;
+
     
     return 0;
 }
