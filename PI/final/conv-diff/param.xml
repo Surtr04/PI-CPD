@@ -2,7 +2,7 @@
 <!-- My Parameter file for lesson 1 -->
 <FVLIB>
     <PARAMETER>
-        <parameter meshfile="input/small.xml"/>
+        <parameter meshfile="input/big.xml"/>
         <parameter outCfile="results/resultC.xml" outVfile="results/resultV.xml" />
         <parameter Xvelocity="1." Yvelocity="0."  Diffusion="1.0"/>
         <parameter DirichletCode="1" NeumannCode="2" />

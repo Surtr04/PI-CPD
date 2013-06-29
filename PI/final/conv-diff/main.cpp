@@ -83,8 +83,9 @@ void computeResidual(FVMesh2D &m,
     computeFlux(m,phi,normal_velocities,normals,F,left,right,centroid,code,
                 length,num_edges,dirCode,neuCode,diffusion,para);            
     memset(G, 0, num_cells);
-
-    for (unsigned i = 0; i < num_edges; ++i) {
+    unsigned i;
+    #pragma omp parallel for num_threads(1)
+    for (i = 0; i < num_edges; ++i) {
 
         G[i] += F[i];
 
@@ -93,6 +94,7 @@ void computeResidual(FVMesh2D &m,
         }
 
     }
+
 
     for(unsigned i = 0; i < num_cells; ++i) {
         G[i] /= areas[i];
@@ -130,8 +132,8 @@ int main() {
     double* F = new double[num_edges];
     double* Vd = new double[num_edges];
     double* Vn = new double[num_edges];
-    unsigned* left = new unsigned[num_edges];
-    unsigned* right = new unsigned[num_edges];
+    unsigned* left = new unsigned[num_cells];
+    unsigned* right = new unsigned[num_cells];
     FVPoint2D<double>* normals = new FVPoint2D<double>[num_edges];
     double* normal_velocities = new double[num_edges];
     FVPoint2D<double>* centroid = new FVPoint2D<double>[num_edges];
@@ -200,9 +202,9 @@ int main() {
         printf("compute line number =%lu      \r",i+1);fflush(NULL);
         computeResidual(m,phi,rhs,Vd,Vn,G,left,right,areas,num_cells,num_edges,normal_velocities,normals,length,centroid,code,dirCode,neuCode,diffusion,para);
         
-        for (unsigned j = 0; j < num_cells; ++i) {
-            G[i] += b[i];
-        }
+        // for (unsigned j = 0; j < num_cells; ++i) {
+        //     G[i] += b[i];
+        // }
         //A.setColumn(i,G);
         phi[i] = 0;
 
