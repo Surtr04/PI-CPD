@@ -1,0 +1,8 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Case Study}{}% 2
+\BOOKMARK [1][-]{section.3}{Profiling}{}% 3
+\BOOKMARK [1][-]{section.4}{Sequential Optimization}{}% 4
+\BOOKMARK [1][-]{section.5}{Shared Memory Parallel Optimization\(OpenMP\)}{}% 5
+\BOOKMARK [1][-]{section.6}{GPU version\(CUDA\)}{}% 6
+\BOOKMARK [1][-]{section.7}{Distributed Memory Optimization\(MPI\)}{}% 7
+\BOOKMARK [1][-]{section.8}{Conclusion}{}% 8
