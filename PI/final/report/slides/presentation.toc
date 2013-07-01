@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.20pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Original Implementation}{7}{0}{2}
+\beamer@sectionintoc {3}{Optimizations}{8}{0}{3}

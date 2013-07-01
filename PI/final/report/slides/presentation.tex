@@ -43,8 +43,9 @@
 	\tableofcontents
 \end{frame}
 
+\section{Introduction}
 \begin{frame}
-	\frametitle{Convection-Diffusion (Recap)}
+	\frametitle{conv-diff (Recap)}
 	\begin{description}
 		\item [What?] Computes the heat diffusion of a fluid spreading over an area;
 		\item [How?] Uses a Finite-Volume method;
@@ -52,90 +53,87 @@
 	\end{description}
 \end{frame}
 
-\section{Implementation}
+\begin{frame}
+	\begin{figure}[!htp]
+    	\centering   
+        \includegraphics[width=.6\textwidth]{../images/mesh.png}        
+	\end{figure}
+\end{frame}
 
 \begin{frame}
-	\frametitle{Approach}
+	The main objective is to compute a vector $\overline{\phi}$ such that $\overline{\phi} \longrightarrow G(\overline{\phi}) = \left(\begin{array}{c}
+	0\\ 
+	0\\
+	\vdots\end{array}\right)$
+	This is accomplished in three different stages:
+	\begin{enumerate}
+	    \item {We begin with a candidate vector $\phi$} 
+	    \item {For each edge, we compute the flux $F_{ij}$, with $i$ and $j$ being the indexes of the adjacent cells}
+	    \item {For each cell, we compute $\sum |e_{ij}| F_{ij} - |c_i| f_i$}
+	\end{enumerate}
+	Thus: $\phi = \left(\begin{array}{c}
+	\phi_1\\
+	\vdots\\
+	\phi_I
+	\end{array}\right) \longrightarrow G = \left(\begin{array}{c}
+	G_1\\
+	\vdots\\
+	G_I
+	\end{array}\right)$
+\end{frame}
+
+\begin{frame}
+	\begin{description}
+		\item [makeFlux] Compute the contribution from each edge;
+		\item [makeResidual] Compute the $\phi$ vector, adding the flux for each cell from each contribution;	
+	\end{description}
+\end{frame}
+
+\section{Original Implementation}
+
+\begin{frame}
+	\frametitle{Original implementation}
 	\begin{itemize}
-		\item Mesh is shared by all processes;
-		\item Work is divided among all processes;
-		\item Master process gathers all data;		
+		\item \textbf{\itshape Arrays-of-Pointers};				
 	\end{itemize}
+
+	\begin{columns}
+		\column{.45\textwidth}		
+		\begin{block}{makeFlux}
+			
+			For all \textbf{edges}:
+			\begin{enumerate}
+				\item Read adjacent cell data;	
+				\item Compute edge velocity;
+				\item Compute flux through edge;				
+			\end{enumerate}
+		\end{block}
+
+		\column{.45\textwidth}		
+		\begin{block}{makeResidual}
+			
+			For all \textbf{edges}:
+			\begin{enumerate}
+				\item Subtract flux from right cell;
+				\item Add flux to left cell;
+			\end{enumerate}
+		\end{block}
+	\end{columns}
 \end{frame}
 
+\section{Optimizations}
 
 \begin{frame}
-	\frametitle{Problems}
-	\begin{itemize}		
-		\item High level of communication between processes;
-		\item High level of barrier synchronization;
-		\item Some balancing problems;
-		\item Computed error spikes;
-		\item Some of FVLib's templates are hard to serialize (locality);
-		\item Sequential portion is slow;
-	\end{itemize}
-\end{frame}
-
-
-
-\section{Results}
-
-\begin{frame}
-	\frametitle{Environment}
-	\begin{block}{Environmental Setup}
+	\frametitle{Naive Optimizations}	
 		\begin{itemize}
-			\item{SeARCH Group 101
-			\begin{itemize}
-				\item[-]{64-bit Intel\textregistered Xeon\texttrademark @ 3.2 GHz;}
-				\item[-]{4 hardware threads per node;}
-				\item[-]{16 KB L1 data cache, 2 MB L2 cache, 2 GB RAM;}
-			\end{itemize}
-			}			
-		\end{itemize}
-	\end{block}	
+		\item Removed redundant loads and calculations;
+		\item Changed some variable definitions to \emph{const};
+		\item Usage of a recent compiler auto-optimizations(SLP);				
+	\end{itemize} 	
 \end{frame}
 
 \begin{frame}
-	\frametitle{Results}
-	\begin{figure}[!htp]
-    \centering   
-        \includegraphics[width=.9\textwidth]{images/speedup.png}
-        \caption{Achieved Speedups}    
-\end{figure}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Results}
-	\begin{figure}[!htp]
-    \centering   
-        \includegraphics[width=.9\textwidth]{images/com.png}
-        \caption{Communication/Computation Ratio}    
-\end{figure}
-\end{frame}
-
-
-\section{Conclusions}
-
-\begin{frame}
-	\frametitle{Conclusions}
-	\begin{itemize}
-		\item Excessive communication hinders performance in MPI;
-		\item FVLib's templates were a problem;
-		\item Further optimization would be difficult;
-	\end{itemize}	
-\end{frame}
-
-\section{Roadmap}
-
-\begin{frame}
-\frametitle{Roadmap}
-	\begin{center}	
-	\begin{itemize}		
-		\item Converting structures to SOA;
-		\item Optimize for OpenMP;
-		\item Finally try a CUDA implementation;
-	\end{itemize}
-	\end{center}
+	\frametitle{OpenMP}
 \end{frame}
 
 \begin{frame}
