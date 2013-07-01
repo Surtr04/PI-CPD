@@ -35,7 +35,7 @@ int main() {
     while((ptr_c = m.nextCell()))    {
         size_t i=ptr_c->label-1;
         phi[i]=1;
-        printf("compute line number =%lu      \r",i+1);fflush(NULL);
+        printf("compute line number =%lu      \r",i+1);fflush(NULL);    
         makeResidual(m,phi,u,rhs,Vd,Vn,G,para); 
         G+=b;
         A.setColumn(i,G);

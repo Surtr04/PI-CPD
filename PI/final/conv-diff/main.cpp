@@ -22,12 +22,14 @@ void computeFlux (FVMesh2D &m,
 
     double normal_vel;
     FVPoint2D<double> BB;
+    unsigned i;
 
-    for(unsigned i = 0; i < num_edges; ++i) {
+    #pragma omp parallel for num_threads()
+    for(i = 0; i < num_edges; ++i) {
 
         normal_vel = normal_velocities[i];
 
-        if(right[i] < numeric_limits<double>::max()) {
+        if(right[i] < numeric_limits<unsigned>::max()) {
 
             normal_vel < 0 ? F[i] = normal_vel * phi[ right[i] ] : 
                              F[i] = normal_vel * phi[ left[i] ];
@@ -84,12 +86,15 @@ void computeResidual(FVMesh2D &m,
                 length,num_edges,dirCode,neuCode,diffusion,para);            
     memset(G, 0, num_cells);
     unsigned i;
-    #pragma omp parallel for num_threads(1)
-    for (i = 0; i < num_edges; ++i) {
 
+    #pragma omp parallel for num_threads(4)
+    for (i = 0; i < num_edges; ++i) {
+        
+        #pragma omp atomic
         G[i] += F[i];
 
-        if(right[i] < numeric_limits<double>::max()) {
+        if(right[i] < numeric_limits<unsigned>::max()) {
+            #pragma omp atomic
             G[i] -= F[i];            
         }
 
@@ -151,7 +156,7 @@ int main() {
 
         normal_velocities[e] = Dot(p,edge->normal);        
         left[e] = edge->leftCell->label - 1;
-        right[e] = ( edge->rightCell ) ? edge->rightCell->label - 1 : numeric_limits<double>::max();
+        right[e] = ( edge->rightCell ) ? edge->rightCell->label - 1 : numeric_limits<unsigned>::max();
         Vd[e] = edge->getMeanValue(Dirichlet,para);
         Vn[e] = edge->getMeanValue(Neumann,para);       
         normals[e] = edge->normal;  
@@ -195,14 +200,15 @@ int main() {
     // FVCell2D *ptr_c;
     // m.beginCell();
 
-
-    for (unsigned i = 0; i < num_cells; ++i) {
+    unsigned i;
+    
+    for (i = 0; i < num_cells; ++i) {
 
         phi[i] = 1;
-        printf("compute line number =%lu      \r",i+1);fflush(NULL);
+        printf("compute line number =%u      \r",i+1);fflush(NULL);
         computeResidual(m,phi,rhs,Vd,Vn,G,left,right,areas,num_cells,num_edges,normal_velocities,normals,length,centroid,code,dirCode,neuCode,diffusion,para);
         
-        // for (unsigned j = 0; j < num_cells; ++i) {
+        // for (unsigned j = 0; j < num_cells; ++i) {            
         //     G[i] += b[i];
         // }
         //A.setColumn(i,G);
@@ -257,6 +263,7 @@ int main() {
     delete[] centroid;
     delete[] Vn;
     delete[] Vd;
+    delete[] b;
 
     
     return 0;
