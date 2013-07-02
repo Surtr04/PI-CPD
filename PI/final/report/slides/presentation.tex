@@ -37,7 +37,7 @@
 	Universidade do Minho
 }
 
-\date{Braga, June 2013}
+\date{Braga, \today}
 
 
 %	beamer options
@@ -222,12 +222,6 @@
 
 
 
-\begin{frame}
-	\begin{figure}[!htp]
-    	\centering   
-        \includegraphics[width=.6\textwidth]{../images/meshhorizontal.png}        
-	\end{figure}
-\end{frame}
 
 \begin{frame}
 	\begin{figure}[!htp]
@@ -338,6 +332,92 @@
 				\item Loads only what is needed;
 			\end{itemize}
 	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{OpenMP}
+	\begin{block}{Implementation}
+		\begin{itemize}
+			\item SOA;
+			\item Similar to sequential version:
+			\begin{itemize}
+				\item \texttt{parallel for} added to both core functions;
+			\end{itemize}
+		\end{itemize}
+	\end{block}	
+	\begin{block}{Load Balance}
+		\begin{itemize}
+			\item Core functions are homogeneous;			
+			\item Static scheduling:
+			\begin{itemize}
+				\item Round-robin;
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Limitations}
+	\begin{itemize}
+		\vfill
+		\item Locality issues:
+		\vfill
+		\begin{itemize}
+			\item Softened with SOA;
+			\vfill
+			\item Depends on the mesh structure;
+			\begin{itemize}
+				\item \texttt{gmsh} does not optimize the mesh;
+			\end{itemize}
+			\vfill						
+			\item Specialized libraries:
+			\begin{itemize}
+				\item \texttt{parmetis};
+				\item Unknown complexity;
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Results}
+
+\begin{frame}
+	\begin{figure}[!htp]
+    	\centering   
+        \includegraphics[width=.8\textwidth]{../images/time_final.png}        
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\begin{figure}[!htp]
+    	\centering   
+        \includegraphics[width=.8\textwidth]{../images/time_compare2.png}        
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[!htp]
+    	\centering   
+        \includegraphics[width=.8\textwidth]{../images/time_compared.png}        
+	\end{figure}
+\end{frame}
+
+\section{Conclusions}
+
+\begin{frame}
+	\frametitle{Conclusions}
+	\begin{itemize}
+		\item \bfseries{SOA} proved to be the best approach;		
+		\item Parallelization did not achieve any speedups;
+		\item Bad locality of the mesh is a limitation;
+		\begin{itemize}
+			\item Execution times spike with HyperThreading;
+			\item Does not scale well;
+		\end{itemize}
+	\end{itemize}
+
+
 \end{frame}
 
 \begin{frame}

@@ -7,4 +7,6 @@
 \beamer@subsectionintoc {4}{1}{Naive Optimizations}{9}{0}{4}
 \beamer@subsectionintoc {4}{2}{OpenMP}{10}{0}{4}
 \beamer@subsectionintoc {4}{3}{MPI}{13}{0}{4}
-\beamer@subsectionintoc {4}{4}{Final Implementation}{16}{0}{4}
+\beamer@subsectionintoc {4}{4}{Final Implementation}{15}{0}{4}
+\beamer@sectionintoc {5}{Results}{18}{0}{5}
+\beamer@sectionintoc {6}{Conclusions}{21}{0}{6}
