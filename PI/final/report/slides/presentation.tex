@@ -121,7 +121,38 @@
 	\end{columns}
 \end{frame}
 
+\section{Tests}
+
+\begin{frame}[plain]
+	\frametitle{Test Machines (for most of the project)}
+		\begin{center}
+
+			\begin{table}[!htp]
+			\resizebox{\textwidth}{!}{
+			\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			 & compute-511@search & compute-601@search & compute-101@search & MacBookPro\\
+			 & AMD Opt 6174 & Xeon X5650 & Xeon E7520 & Intel Ivy-Bridge i7\\
+			\hline
+			\# processors & 2 & 2 & 2 & 1\\
+			\# cores per processor & 12 & 6 & 1 & 4\\
+			hyper-threading & - & yes & yes & yes\\
+			clock frequency(GHz) & 2.2 & 2.66 & 3.2 & 2.3\\
+			L1 capacity & 128KB & 32KB & 16KB & 64KB\\
+			L2 capacity & 512KB & 256KB & 2MB & 256KB\\
+			L3 capacity & 12MB & 12MB & - &6MB\\
+			RAM capacity & 64GB & 48GB & 2GB & 16GB\\
+			\hline
+			\end{tabular}}
+			\caption{Test machines}			
+			\end{table}
+		\end{center}
+\end{frame}
+
+
 \section{Optimizations}
+
+\subsection{Naive Optimizations}
 
 \begin{frame}
 	\frametitle{Naive Optimizations}	
@@ -132,8 +163,37 @@
 	\end{itemize} 	
 \end{frame}
 
+\subsection{OpenMP}
+
 \begin{frame}
-	\frametitle{OpenMP}
+	\frametitle{Identified Problems}
+	\begin{itemize}
+	\item High number of memory accesses;
+	\item Low operational intensity;
+	\item Deep memory indirection chain;
+	\item Bad data locality;
+	\end{itemize}
+\end{frame}
+
+\begin{frame}	
+	\begin{center}
+
+	\begin{figure}[!htp]
+		\includegraphics[width=9cm]{../images/total.pdf}
+		\caption{Total application runtime}
+		\label{fig:roofline}
+	\end{figure}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+	\begin{figure}[!htp]
+		\includegraphics[width=9cm]{../images/parallel.pdf}
+		\caption{Parallel section runtime}
+		\label{fig:roofline}
+	\end{figure}
+	\end{center}
 \end{frame}
 
 \begin{frame}
