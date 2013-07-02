@@ -11,6 +11,16 @@
 
 \usepackage{epstopdf}
 
+\usepackage{subfig}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{algorithm}
+\usepackage{relsize}%	relative font sizes
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{todonotes}
+\usepackage{xspace}
+
 \lstset{
 	language=C++,
 	basicstyle=\footnotesize,
@@ -194,6 +204,140 @@
 		\label{fig:roofline}
 	\end{figure}
 	\end{center}
+\end{frame}
+
+\subsection{MPI} 
+
+\begin{frame}
+	\frametitle{Problems}
+	\begin{itemize}		
+		\item High level of communication between processes;
+		\item High level of barrier synchronization;
+		\item Some balancing problems;
+		\item Computed error spikes;
+		\item Some of FVLib's templates are hard to serialize (locality);
+		\item Sequential portion is slow;
+	\end{itemize}		
+\end{frame}
+
+
+
+\begin{frame}
+	\begin{figure}[!htp]
+    	\centering   
+        \includegraphics[width=.6\textwidth]{../images/meshhorizontal.png}        
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[!htp]
+    	\centering   
+        \includegraphics[width=.6\textwidth]{../images/mesh_vertical.png}        
+	\end{figure}
+\end{frame}
+
+
+
+
+\subsection{Final Implementation}
+
+\begin{frame}
+	\frametitle{Optimizations}
+	\begin{columns}
+		\smaller
+		\column{0.4\textwidth}
+			\centering
+			\textbf{\itshape Array-Of-Structs}
+
+			\smaller
+			\begin{tabular}{|c|c|}
+				\hline
+				\multirow{4}{*}{$S_{1}$} & $e_{1}$\\
+				\cline{2-2}
+				& $e_{2}$\\
+				\cline{2-2}
+				& $e_{3}$\\
+				\cline{2-2}
+				& \ldots\\
+				\hline
+				\multirow{4}{*}{$S_{2}$} & $e_{1}$\\
+				\cline{2-2}
+				& $e_{2}$\\
+				\cline{2-2}
+				& $e_{3}$\\
+				\cline{2-2}
+				& \ldots\\
+
+				\hline
+				\multirow{5}{*}{$S_{3}$} & $e_{1}$\\
+				\cline{2-2}
+				& $e_{2}$\\
+				\cline{2-2}
+				& $e_{3}$\\
+				\cline{2-2}
+				& \dots\\
+				\hline
+				\multicolumn{2}{|c|}{\ldots}
+			\end{tabular}
+			\larger
+
+			\begin{itemize}
+				\item Pointers $\Rightarrow$ Indexes;
+			\end{itemize}
+
+		\column{0.4\textwidth}
+			
+			\centering
+			\textbf{\itshape Structs-Of-Arrays}
+
+			\smaller
+			\begin{table}
+				\captionsetup[subfloat]{position=top,labelformat=empty}
+				\subfloat[$e_{1}$]{%
+				\begin{tabular}{|c|}
+					\hline
+					$S_{1}$\\
+					\hline
+					$S_{2}$\\
+					\hline
+					$S_{3}$\\
+					\hline
+					\ldots
+				\end{tabular}%
+				}\;
+				\subfloat[$e_{2}$]{%
+				\begin{tabular}{|c|}
+					\hline
+					$S_{1}$\\
+					\hline
+					$S_{2}$\\
+					\hline
+					$S_{3}$\\
+					\hline
+					\ldots
+				\end{tabular}%
+				}\;
+				\subfloat[$e_{3}$]{%
+				\begin{tabular}{|c|}
+					\hline
+					$S_{1}$\\
+					\hline
+					$S_{2}$\\
+					\hline
+					$S_{3}$\\
+					\hline
+					\ldots
+				\end{tabular}%
+				}\;
+				\subfloat[\ldots]{}
+			\end{table}
+			\larger
+
+			\begin{itemize}
+				\item Pointers $\Rightarrow$ Indexes;
+				\item Loads only what is needed;
+			\end{itemize}
+	\end{columns}
 \end{frame}
 
 \begin{frame}

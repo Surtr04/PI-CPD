@@ -6,3 +6,5 @@
 \beamer@sectionintoc {4}{Optimizations}{9}{0}{4}
 \beamer@subsectionintoc {4}{1}{Naive Optimizations}{9}{0}{4}
 \beamer@subsectionintoc {4}{2}{OpenMP}{10}{0}{4}
+\beamer@subsectionintoc {4}{3}{MPI}{13}{0}{4}
+\beamer@subsectionintoc {4}{4}{Final Implementation}{16}{0}{4}

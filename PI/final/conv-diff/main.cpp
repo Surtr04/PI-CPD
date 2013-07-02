@@ -24,7 +24,7 @@ void computeFlux (FVMesh2D &m,
     FVPoint2D<double> BB;
     unsigned i;
 
-    #pragma omp parallel for num_threads()
+    #pragma omp parallel for
     for(i = 0; i < num_edges; ++i) {
 
         normal_vel = normal_velocities[i];
@@ -87,7 +87,7 @@ void computeResidual(FVMesh2D &m,
     memset(G, 0, num_cells);
     unsigned i;
 
-    #pragma omp parallel for num_threads(4)
+    
     for (i = 0; i < num_edges; ++i) {
         
         #pragma omp atomic
@@ -99,8 +99,7 @@ void computeResidual(FVMesh2D &m,
         }
 
     }
-
-
+    
     for(unsigned i = 0; i < num_cells; ++i) {
         G[i] /= areas[i];
         G[i] -= rhs[i];
