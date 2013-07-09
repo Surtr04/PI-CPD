@@ -1,9 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.2.6)  8 JUL 2013 01:22
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.2.6)  7 JUL 2013 18:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**\nonstopmode \input{report.tex}
-(./report.tex (/usr/local/texlive/2012/texmf-dist/tex/latex/base/article.cls
+**\nonstopmode \input{final/report/final/report.tex}
+(./final/report/final/report.tex
+(/usr/local/texlive/2012/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/local/texlive/2012/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -595,6 +596,12 @@ LaTeX Warning: Label `fig:parallel' multiply defined.
 
 LaTeX Warning: Label `fig:parallel@cref' multiply defined.
 
+
+LaTeX Warning: Label `fig:total' multiply defined.
+
+
+LaTeX Warning: Label `fig:total@cref' multiply defined.
+
 )
 \openout1 = `report.aux'.
 
@@ -705,7 +712,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 46.
 
-Underfull \hbox (badness 1168) in paragraph at lines 67--68
+Underfull \hbox (badness 1168) in paragraph at lines 71--72
 \T1/aer/m/it/10 diff(Convection-Diffusion)\T1/aer/m/n/10 .This ap-pli-ca-tion s
 im-u-
  []
@@ -714,129 +721,166 @@ im-u-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 69.
+(Font)              <7> on input line 73.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 69.
-
-<../images/mesh_output.png, id=44, 496.85625pt x 493.845pt>
-File: ../images/mesh_output.png Graphic file (type png)
-
-<use ../images/mesh_output.png>
-Package pdftex.def Info: ../images/mesh_output.png used on input line 95.
-(pdftex.def)             Requested size: 222.62206pt x 221.27118pt.
-
-Underfull \hbox (badness 1275) in paragraph at lines 103--104
-\T1/aer/m/n/10 with an-other script travers-ing those tests and
- []
+(Font)              <5> on input line 73.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 103--104
+LaTeX Warning: File `../images/mesh_output.png' not found on input line 99.
 
- []
 
-[1{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+! Package pdftex.def Error: File `../images/mesh_output.png' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.99 ...dth=\textwidth]{../images/mesh_output.png}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX Font Info:    Try loading font information for T1+aett on input line 99.
+(/usr/local/texlive/2012/texmf-dist/tex/latex/ae/t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 161--161
+Underfull \hbox (badness 10000) in paragraph at lines 135--135
 []\T1/aer/bx/n/14.4 Shared Mem-ory Par-al-lel
  []
+
+[2]
+
+LaTeX Warning: File `../../../openmp/results/parallel.pdf' not found on input l
+ine 145.
+
+
+! Package pdftex.def Error: File `../../../openmp/results/parallel.pdf' not fou
+nd.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 ...th]{../../../openmp/results/parallel.pdf}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `../../../openmp/results/total.pdf' not found on input line
+ 155.
+
+
+! Package pdftex.def Error: File `../../../openmp/results/total.pdf' not found.
+
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.155 ...width]{../../../openmp/results/total.pdf}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2 <../images/mesh_output.png>]
-<../../../openmp/results/parallel.pdf, id=73, 361.35pt x 252.945pt>
-File: ../../../openmp/results/parallel.pdf Graphic file (type pdf)
 
-<use ../../../openmp/results/parallel.pdf>
-Package pdftex.def Info: ../../../openmp/results/parallel.pdf used on input lin
-e 172.
-(pdftex.def)             Requested size: 222.62206pt x 155.83621pt.
 
-<../../../openmp/results/total.pdf, id=75, 361.35pt x 252.945pt>
-File: ../../../openmp/results/total.pdf Graphic file (type pdf)
+LaTeX Warning: File `../images/mesh_vertical.png' not found on input line 167.
 
-<use ../../../openmp/results/total.pdf>
-Package pdftex.def Info: ../../../openmp/results/total.pdf used on input line 1
-82.
-(pdftex.def)             Requested size: 222.62206pt x 155.83621pt.
 
-<../images/mesh_vertical.png, id=76, 513.92pt x 511.9125pt>
-File: ../images/mesh_vertical.png Graphic file (type png)
+! Package pdftex.def Error: File `../images/mesh_vertical.png' not found.
 
-<use ../images/mesh_vertical.png>
-Package pdftex.def Info: ../images/mesh_vertical.png used on input line 195.
-(pdftex.def)             Requested size: 222.62206pt x 221.75061pt.
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.167 ...=\textwidth]{../images/mesh_vertical.png}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-<../../../mpi/slides/images/speedup.png, id=79, 367.92pt x 256.23pt>
-File: ../../../mpi/slides/images/speedup.png Graphic file (type png)
 
-<use ../../../mpi/slides/images/speedup.png>
-Package pdftex.def Info: ../../../mpi/slides/images/speedup.png used on input l
-ine 208.
-(pdftex.def)             Requested size: 222.62206pt x 155.04503pt.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<../../../mpi/slides/images/com.png, id=80, 361.35pt x 217.5628pt>
-File: ../../../mpi/slides/images/com.png Graphic file (type png)
+ [3]
 
-<use ../../../mpi/slides/images/com.png>
-Package pdftex.def Info: ../../../mpi/slides/images/com.png used on input line 
-216.
-(pdftex.def)             Requested size: 222.62206pt x 134.03769pt.
- [3 <../../../openmp/results/parallel.pdf> <../../../openmp/results/total.pdf>]
+LaTeX Warning: File `../../../mpi/slides/images/speedup.png' not found on input
+ line 180.
 
-<../images/time_final.png, id=99, 669.50125pt x 391.4625pt>
-File: ../images/time_final.png Graphic file (type png)
 
-<use ../images/time_final.png>
-Package pdftex.def Info: ../images/time_final.png used on input line 233.
-(pdftex.def)             Requested size: 222.62206pt x 130.1686pt.
+! Package pdftex.def Error: File `../../../mpi/slides/images/speedup.png' not f
+ound.
 
-<../images/time_compare2.png, id=100, 455.301pt x 256.23pt>
-File: ../images/time_compare2.png Graphic file (type png)
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.180 ...]{../../../mpi/slides/images/speedup.png}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-<use ../images/time_compare2.png>
-Package pdftex.def Info: ../images/time_compare2.png used on input line 240.
-(pdftex.def)             Requested size: 222.62206pt x 125.28401pt.
 
-<../images/time_compared.png, id=101, 669.50125pt x 391.4625pt>
-File: ../images/time_compared.png Graphic file (type png)
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<use ../images/time_compared.png>
-Package pdftex.def Info: ../images/time_compared.png used on input line 247.
-(pdftex.def)             Requested size: 222.62206pt x 130.1686pt.
- [4 <../images/mesh_vertical.png> <../../../mpi/slides/images/speedup.png> <../
-../../mpi/slides/images/com.png> <../images/time_final.png (PNG copy)> <../imag
-es/time_compare2.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 256--258
 
- []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 259.
-[5
+LaTeX Warning: File `../../../mpi/slides/images/com.png' not found on input lin
+e 188.
 
- <../images/time_compared.png (PNG copy)>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 259.
+
+! Package pdftex.def Error: File `../../../mpi/slides/images/com.png' not found
+.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.188 ...idth]{../../../mpi/slides/images/com.png}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[4]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 208.
+ [5
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 208.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 259.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 259.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 208.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 208.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: BC5C33E4A96EC901A2F876DBCF77D260;460.
+(rerunfilecheck)             Checksum: 4DEF7395CFDF48A78FA63F2A3315DF3E;401.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 259.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 208.
  ) 
 Here is how much of TeX's memory you used:
- 10194 strings out of 493488
- 162522 string characters out of 3141327
- 319720 words of memory out of 3000000
- 13331 multiletter control sequences out of 15000+200000
- 28141 words of font info for 59 fonts, out of 3000000 for 9000
+ 10155 strings out of 493488
+ 161357 string characters out of 3141327
+ 313758 words of memory out of 3000000
+ 13293 multiletter control sequences out of 15000+200000
+ 28988 words of font info for 62 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 37i,10n,38p,925b,421s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,10n,38p,944b,417s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><
 /usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
@@ -848,11 +892,12 @@ al/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local
 /texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/te
 xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texli
 ve/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
-e/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on report.pdf (5 pages, 355692 bytes).
+e/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive
+/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on report.pdf (5 pages, 167293 bytes).
 PDF statistics:
- 164 PDF objects out of 1000 (max. 8388607)
- 130 compressed objects within 2 object streams
- 28 named destinations out of 1000 (max. 500000)
- 110 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 126 PDF objects out of 1000 (max. 8388607)
+ 104 compressed objects within 2 object streams
+ 23 named destinations out of 1000 (max. 500000)
+ 57 words of extra memory for PDF output out of 10000 (max. 10000000)
 
