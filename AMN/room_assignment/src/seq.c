@@ -12,13 +12,22 @@ int main (int argc, char **argv) {
 	unsigned long laststudent;
 	unsigned long i,j;
 	unsigned long c1;
+	unsigned long c2;
+	double t0;
 
 
 
 	if ( argc > 1 )
 		students = strtoul(argv[1], NULL, 10);
+	else 
+		students = 0;		
+
+	if ( argc > 2 ) 
+		t0 = atof(argv[2]);
 	else
-		students = 0;
+		t0 = 1.0;
+		
+	
 
 	laststudent = students - 1;
 
@@ -35,8 +44,9 @@ int main (int argc, char **argv) {
 	}
 
 	c1 = distribute_wo_sa(dislikes, rooms, students);
+	c2 = distribute_w_sa(dislikes, rooms, students,t0);
 
-	printf("%lu;\n", c1);
+	printf("%lu %lu;\n", c1, c2);
 
 
 }

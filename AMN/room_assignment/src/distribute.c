@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+#include <math.h>
 
+void randomseed (unsigned int seed) {
+	srand(seed);
+}
 
 void rand_dislikes (unsigned long* dislike_matrix, unsigned long students, unsigned long min, unsigned long max) {
 
@@ -73,7 +77,6 @@ unsigned long distribute_wo_sa (unsigned long * dislikes, unsigned long * rooms,
 	unsigned long   s4;
 	long   dcost;
 
-	//0. Create the assigned vector
 	assigned = (unsigned long *) malloc(nstudents * sizeof(unsigned long));
 	if (!assigned)
 	{
@@ -82,15 +85,13 @@ unsigned long distribute_wo_sa (unsigned long * dislikes, unsigned long * rooms,
 		exit(errno);
 	}
 
-	//1. Assign rooms randomly & compute initial cost
 	cost = distribute_random(dislikes, rooms, assigned, nstudents);
-
-	//3. While no max iterations have passed since the last accepted swap
+	
 	i = max;
 	j = nstudents;
 
 	while (cost && i && j) {
-	//3.1. Find two students which are not roommates
+	// Find two students which are not roommates
 		do
 		{
 			s1 = randomul_limited(0, laststudent);
@@ -98,56 +99,149 @@ unsigned long distribute_wo_sa (unsigned long * dislikes, unsigned long * rooms,
 		}
 		while (assigned[s1] == assigned[s2]);
 
-	//3.2. Find their roommates
-		//3.2.1 Room of the first student
+	
+		// Room of the first student
 		r1 = assigned[s1];
 		sa = rooms[r1 * 2    ];
 		sb = rooms[r1 * 2 + 1];
 		p1 = (s1 == sa);
 		s3 = p1 ? sb : sa;
 
-		//3.2.2 Room of the second student
+		// Room of the second student
+		r2 = assigned[s2];
+		sa = rooms[r2 * 2    ];
+		sb = rooms[r2 * 2 + 1];
+		p2 = (s2 == sa);
+		s4 = p2 ? sb : sa;
+	
+		dcost = dislikes[s1 * nstudents + s4]
+		      + dislikes[s2 * nstudents + s3]
+			  - dislikes[s1 * nstudents + s3]
+			  - dislikes[s2 * nstudents + s4];
+	
+		if ( dcost < 0 ) {	
+			assigned[s3] = r2;
+			assigned[s4] = r1;
+			rooms[r1 * 2 + p1] = s4;
+			rooms[r2 * 2 + p2] = s3;	
+			if (dcost) {
+				cost += dcost;
+				j = nstudents;
+			} else
+				--j;
+			
+			i = max;
+		}
+		else
+		{
+			--i;
+		}
+	}
+	
+	free(assigned);
+
+	return cost;
+}
+
+
+
+unsigned long distribute_w_sa (unsigned long * dislikes, unsigned long * rooms, unsigned long nstudents, double t0) {
+	
+	unsigned long * assigned;
+	unsigned long   cost;
+	unsigned long   i, j;
+	unsigned long   laststudent = nstudents - 1;
+	unsigned long   max = nstudents * nstudents;
+	unsigned long   p1;
+	unsigned long   p2;
+	unsigned long   r1;
+	unsigned long   r2;
+	unsigned long   sa;
+	unsigned long   sb;
+	unsigned long   s1;
+	unsigned long   s2;
+	unsigned long   s3;
+	unsigned long   s4;
+	long   dcost;
+
+	double t = t0;
+
+
+	assigned = (unsigned long *) malloc(nstudents * sizeof(unsigned long));
+	if (!assigned)
+	{
+		fprintf(stderr, "Failed to allocate memory for the assigned vector!\n");
+		fprintf(stderr, "\tERROR %d : %s\n", errno, strerror(errno));
+		exit(errno);
+	}
+	
+	cost = distribute_random(dislikes, rooms, assigned, nstudents);
+	
+	i = max;
+	j = nstudents;
+
+	while (cost && i && j) {
+	// Find two students which are not roommates
+		do
+		{
+			s1 = randomul_limited(0, laststudent);
+			s2 = randomul_limited(0, laststudent);
+		}
+		while (assigned[s1] == assigned[s2]);
+
+	// Find their roommates
+		// Room of the first student
+		r1 = assigned[s1];
+		sa = rooms[r1 * 2    ];
+		sb = rooms[r1 * 2 + 1];
+		p1 = (s1 == sa);
+		s3 = p1 ? sb : sa;
+
+		// Room of the second student
 		r2 = assigned[s2];
 		sa = rooms[r2 * 2    ];
 		sb = rooms[r2 * 2 + 1];
 		p2 = (s2 == sa);
 		s4 = p2 ? sb : sa;
 
-	//3.3. Get the cost in swapping them
+	// Get the cost in swapping them
 		dcost = dislikes[s1 * nstudents + s4]
 		      + dislikes[s2 * nstudents + s3]
 			  - dislikes[s1 * nstudents + s3]
-			  - dislikes[s2 * nstudents + s4]
-			  ;
+			  - dislikes[s2 * nstudents + s4];	
 
-	//3.4. Accept or discard
-		if ( dcost < 0 ) {
-	//3.4.1. IF accepted
-	//3.4.1.1. Swap the roommates
+		double r = randDouble();
+		double f = (double) (- dcost) / (double) t;
+		double e = exp(f);
+		if (dcost < 0 || (e >= r)) {	
+	// Swap the roommates
 			assigned[s3] = r2;
 			assigned[s4] = r1;
 			rooms[r1 * 2 + p1] = s4;
 			rooms[r2 * 2 + p2] = s3;
-	//3.4.1.2. Update the total cost
+	// Update the total cost
 			if (dcost) {
 				cost += dcost;
 				j = nstudents;
 			} else
 				--j;
-		
-	//3.4.1.3. Reset iterations
+
+			// since sometimes dcost is negative and |dcost| > cost, if such happens, assume the value should be zero and wrap up			
+				if (cost && dcost < 0 && ((unsigned long)(- dcost)) > cost)
+					cost = 0;			
+			//Reset iterations
 			i = max;
 		}
-		else
-		{
-	//3.4.2. OTHERWISE
-	//3.4.2.1. Count one more boring iteration
+		else {
 			--i;
 		}
-	}
 
-	//99. Cleanup
+		//cool the system
+			t *= 0.999;
+	}
+	
 	free(assigned);
 
 	return cost;
 }
+
