@@ -50,10 +50,10 @@ int main ( int argc , char * argv[] ) {
 
 	if (!mpi_rank)
 	{
-		//0. Generate dislike matrices
+		//Generate dislike matrices
 		rand_dislikes(dislikes , nstudents , 1 , 10);
 
-		//0. Add perfect solution
+		//Add perfect solution
 		for (i = 0 ; i < laststudent ; i += 2)
 		{
 			j = i + 1;
@@ -62,14 +62,11 @@ int main ( int argc , char * argv[] ) {
 		}
 	}
 	MPI_Bcast (dislikes, nstudents * nstudents, MPI_UNSIGNED_LONG, 0, MPI_COMM_WORLD);
-
-	//0. Create arrays
+	
 	rooms = (unsigned long*) malloc (nstudents * sizeof (unsigned long));
 	
-	//1. No simulated annealing
-	lc1 = distribute_wo_sa(dislikes, rooms, nstudents);
-
-	//2. Now with simulated annealing
+	
+	lc1 = distribute_wo_sa(dislikes, rooms, nstudents);	
 	lc2 = distribute_w_sa(dislikes, rooms, nstudents, t0);
 
 	MPI_Reduce (&lc1, &c1, 1, MPI_UNSIGNED_LONG, MPI_MIN, 0, MPI_COMM_WORLD);
