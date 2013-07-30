@@ -5,7 +5,7 @@
 
 
 int main (int argc, char **argv) {
-
+	
 	unsigned long *rooms;
 	unsigned long *dislikes;
 	unsigned long students;
@@ -34,7 +34,6 @@ int main (int argc, char **argv) {
 
 	dislikes = (unsigned long*) malloc ( students * students * sizeof (unsigned long));
 	rooms    = (unsigned long*) malloc ( students * sizeof (unsigned long));
-
 	rand_dislikes(dislikes, students, 1, 10);
 
 	for (i = 0; i < laststudent; i += 2) {
@@ -42,6 +41,7 @@ int main (int argc, char **argv) {
 		dislikes[i * students + j] = 0;
 		dislikes[j * students + i] = 0;
 	}
+
 
 	c1 = distribute_wo_sa(dislikes, rooms, students);
 	c2 = distribute_w_sa(dislikes, rooms, students,t0);

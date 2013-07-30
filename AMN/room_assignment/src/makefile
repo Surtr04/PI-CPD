@@ -1,6 +1,6 @@
 CC=gcc
 MPICC=mpicc
-CFLAGS=	-Wall -Wextra -std=c99 -pedantic
+CFLAGS=	-Wall -Wextra -std=c99 -pedantic -g
 LDFLAGS= -lm
 OBJS=seq.o generators.o distribute.o helpers.o
 MPIOBJS=mpi.o generators.o distribute.o helpers.o
